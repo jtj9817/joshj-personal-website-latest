@@ -5,10 +5,8 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 // Component Imports
-import CallToAction from '../components/CallToAction.astro';
 import Grid from '../components/Grid.astro';
 import Hero from '../components/Hero.astro';
-import Icon from '../components/Icon.astro';
 import Pill from '../components/Pill.astro';
 import PortfolioPreview from '../components/PortfolioPreview.astro';
 
@@ -30,79 +28,24 @@ const projects = (await getCollection('work'))
 		<div class="wrapper stack gap-8 lg:gap-20">
 			<header class="hero">
 				<Hero
-					title="Hello, my name is Jeanine White"
-					tagline="I am a Creative Developer who is currently based in Portland, Oregon."
+					title="Hello, my name is Joshua Jadulco"
+					tagline="I'm a Full Stack Web Developer with a passion for developing effective website solutions with user-friendly experience and designs."
 					align="start"
 				>
-					<div class="roles">
-						<Pill><Icon icon="code" size="1.33em" /> Developer</Pill>
-						<Pill><Icon icon="microphone-stage" size="1.33em" /> Speaker</Pill>
-						<Pill><Icon icon="pencil-line" size="1.33em" /> Writer</Pill>
-					</div>
 				</Hero>
-
-				<img
-					alt="Jeanine White smiling in a red plaid shirt and tortoise shell glasses"
-					width="480"
-					height="620"
-					src="/assets/portrait.jpg"
-				/>
 			</header>
+			<!--
+			<div id="socials" class="flex flex-col">
+				<i class="fa-brands fa-linkedin"></i>
+				<i class="fa-brands fa-twitter"></i>
+				<i class="fa-brands fa-github"></i>
+				<i class="fa-brands fa-wordpress"></i>
+			</div>
+			 -->
+
 
 			<Skills />
 		</div>
-
-		<main class="wrapper stack gap-20 lg:gap-48">
-			<section class="section with-background with-cta">
-				<header class="section-header stack gap-2 lg:gap-4">
-					<h3>Selected Work</h3>
-					<p>Take a look below at some of my featured work for clients from the past few years.</p>
-				</header>
-
-				<div class="gallery">
-					<Grid variant="offset">
-						{
-							projects.map((project) => (
-								<li>
-									<PortfolioPreview project={project} />
-								</li>
-							))
-						}
-					</Grid>
-				</div>
-
-				<div class="cta">
-					<CallToAction href="/work/">
-						View All
-						<Icon icon="arrow-right" size="1.2em" />
-					</CallToAction>
-				</div>
-			</section>
-
-			<section class="section with-background bg-variant">
-				<header class="section-header stack gap-2 lg:gap-4">
-					<h3>Mentions</h3>
-					<p>
-						I have been fortunate enough to recieve praise for my work in several publications. Take
-						a look below to learn more.
-					</p>
-				</header>
-
-				<div class="gallery">
-					<Grid variant="small">
-						{
-							['Medium', 'BuzzFeed', 'The Next Web', 'awwwards.', 'TechCrunch'].map((brand) => (
-								<li class="mention-card">
-									<p>{brand}</p>
-								</li>
-							))
-						}
-					</Grid>
-				</div>
-			</section>
-		</main>
-
-		<ContactCTA />
 	</div>
 </BaseLayout>
 
@@ -227,24 +170,4 @@ const projects = (await getCollection('work'))
 	}
 
 	/* ====================================================== */
-
-	.mention-card {
-		display: flex;
-		height: 7rem;
-		justify-content: center;
-		align-items: center;
-		text-align: center;
-		border: 1px solid var(--gray-800);
-		border-radius: 1.5rem;
-		color: var(--gray-300);
-		background: var(--gradient-subtle);
-		box-shadow: var(--shadow-sm);
-	}
-
-	@media (min-width: 50em) {
-		.mention-card {
-			border-radius: 1.5rem;
-			height: 9.5rem;
-		}
-	}
 </style>

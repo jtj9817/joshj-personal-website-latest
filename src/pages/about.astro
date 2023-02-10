@@ -1,120 +1,187 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro"
 
-import ContactCTA from '../components/ContactCTA.astro';
-import Hero from '../components/Hero.astro';
+import ContactCTA from "../components/ContactCTA.astro"
+import Hero from "../components/Hero.astro"
+import Skills from "../components/Skills.astro"
 ---
 
-<BaseLayout title="About | Jeanine White" description="About Jeanine White Lorem Ipsum">
-	<div class="stack gap-20">
-		<main class="wrapper about">
-			<Hero
-				title="About"
-				tagline="Thanks for stopping by. Read below to learn more about myself and my background."
-			>
-				<img
-					width="1553"
-					height="873"
-					src="/assets/at-work.jpg"
-					alt="Jeanine White at work with a colleague"
-				/>
-			</Hero>
+<BaseLayout
+  title="About | Joshua Jadulco"
+  description="About Joshua Jadulco Lorem Ipsum"
+>
+  <main class="wrapper stack gap-8">
+    <div
+      class="flex items-center container grid grid-flow-row auto-rows-max w-full content-center block"
+    >
+      <div>
+        <Hero
+          title="About"
+          tagline="Thanks for stopping by. Read below to learn more about myself and my background."
+        />
+      </div>
+      <div class="mx-auto mt-6">
+        <div
+          id="aboutMe"
+          class="content rounded-lg p-4 shadow-lg cardBackground"
+        >
+          <h2 class="section-title">Background</h2>
+          <p class="mt-2 mb-3">
+            I'm a professional web developer with an Honours Bachelor of
+            Technology - Software Development (Co-op). I'm experienced with full
+            stack web development using technologies such as Laravel, Vue,
+            TailwindCSS, Bootstrap5, jQuery, JavaScript, TypeScript, and MySQL.
+            I have developed web applications on the Unix family of operating
+            systems (particularly Debian and Ubuntu) in addition to macOS and
+            Windows operating systems.
+          </p>
+          <p>
+            With my most recent role, I was a Full Stack Web Developer on the
+            Special Integrations Team of WhoPlusYou. During my time at
+            WhoPlusYou, I used the Laravel web framework to develop and maintain
+            features on the Magnet Job Board website. jQuery, Bootstrap4, Vue,
+            and TailwindCSS were used for front-end. MySQL and Redis were used
+            as the storage solution and caching service, respectively. While at
+            WhoPlusYou, I transformed the existing features of Magnet Job Portal
+            into a Single Page Application (SPA) using Inertia.js and Vue for
+            improved user experience and streamlined development. I implemented
+            responsive design and accessibility tags in the front-end to ensure
+            compatibility across devices and platforms, resulting in a seamless
+            user experience. I refactored the back-end code for efficiency and
+            resolved bugs. I also developed PHPUnit tests for API endpoints to
+            increase code coverage and reduce errors in beta and production,
+            increasing developer productivity.
+          </p>
+        </div>
+        <div
+          id="mySkills"
+          class="mt-3 content rounded-lg p-4 shadow-lg cardBackground text-center"
+        >
+          <h2 class="section-title">Technologies</h2>
+          <div class="row mt-2">
+            <h3 class="section-title">Front-End</h3>
+            <div class="row mt-3">
+              <i class="fa-brands fa-square-js fa-2xl mx-2"></i>
+              <i class="fa-brands fa-php fa-2xl mx-2"></i>
+              <i class="fa-brands fa-html5 fa-2xl mx-2"></i>
+              <i class="fa-brands fa-css3-alt fa-2xl mx-2"></i>
+              <i class="fa-brands fa-vuejs fa-2xl mx-2"></i>
+              <i
+                class="devicon-tailwindcss-original-wordmark devIconCustomSizing mx-2"
+              ></i>
+              <i class="fa-brands fa-bootstrap fa-2xl mx-2"></i>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <h3 class="section-title">Back-End</h3>
+            <div class="row mt-3">
+              <i class="fa-brands fa-laravel fa-2xl mx-2"></i>
+              <i class="fa-brands fa-node fa-2xl mx-2"></i>
+              <i class="fa-brands fa-python fa-2xl mx-2"></i>
+              <i class="devicon-express-original devIconCustomSizing mx-2"></i>
+              <i class="devicon-django-original devIconCustomSizing mx-2"></i>
+              <i class="devicon-typescript-original devIconCustomSizing mx-2"
+              ></i>
+              <i class="fa-brands fa-wordpress fa-2xl mx-2"></i>
+              <i class="fa-brands fa-drupal fa-2xl mx-2"></i>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <h3 class="section-title">Databases</h3>
+            <div class="row mt-3">
+              <i class="devicon-postgresql-plain devIconCustomSizing mx-2"></i>
+              <i class="devicon-mysql-plain devIconCustomSizing mx-2"></i>
+              <i class="devicon-sqlite-plain devIconCustomSizing mx-2"></i>
+              <i class="devicon-mongodb-plain devIconCustomSizing mx-2"></i>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <h3 class="section-title">Development Tools</h3>
+            <div class="row mt-3">
+              <i class="fa-brands fa-docker fa-2xl mx-2"></i>
+              <i class="fa-brands fa-git fa-2xl mx-2"></i>
+              <i class="fa-brands fa-github fa-2xl mx-2"></i>
+              <i class="devicon-vscode-original devIconCustomSizing mx-2"></i>
+              <i class="fa-brands fa-npm fa-2xl mx-2"></i>
+              <i class="fa-brands fa-aws fa-2xl mx-2"></i>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <h3 class="section-title">Operating Systems</h3>
+            <div class="row mt-3">
+              <i class="fa-brands fa-windows fa-2xl mx-2"></i>
+              <i class="fa-brands fa-apple fa-2xl mx-2"></i>
+              <i class="fa-brands fa-ubuntu fa-2xl mx-2"></i>
+              <i class="fa-brands fa-linux fa-2xl mx-2"></i>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <h3 class="section-title">Other</h3>
+            <div class="row mt-3">
+              <i class="fa-brands fa-slack fa-2xl mx-2"></i>
+              <i class="fa-brands fa-jira fa-2xl mx-2"></i>
+              <i class="devicon-bash-plain devIconCustomSizing mx-2"></i>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<section>
-				<h2 class="section-title">Background</h2>
-				<div class="content">
-					<p>
-						Lorem ipsum dolor sit amet, <a href="https://astro.build/">Astro</a> makes people happy.
-						Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin nibh nisl condimentum
-						id venenatis a condimentum vitae. Dapibus ultrices in iaculis nunc. Arcu odio ut sem nulla
-						pharetra diam sit amet. Diam quis enim lobortis scelerisque fermentum dui faucibus in ornare.
-					</p>
-					<p>
-						Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Eget gravida cum sociis
-						natoque penatibus. Cras fermentum odio eu feugiat pretium nibh. Proin nibh nisl
-						condimentum id venenatis. Porta nibh venenatis cras sed felis eget velit. Id diam vel
-						quam elementum pulvinar etiam non.
-					</p>
-					<p>
-						Ultrices tincidunt arcu non sodales neque sodales ut. Sed enim ut sem viverra aliquet
-						eget sit amet. Lacus luctus accumsan tortor posuere ac ut consequat semper viverra.
-						Viverra accumsan in nisl nisi scelerisque eu ultrices. In massa tempor nec feugiat nisl
-						pretium fusce.
-					</p>
-				</div>
-			</section>
-			<section>
-				<h2 class="section-title">Education</h2>
-				<div class="content">
-					<p>Corporis voluptates tenetur laudantium.</p>
-				</div>
-			</section>
-			<section>
-				<h2 class="section-title">Skills</h2>
-				<div class="content">
-					<p>officia unde omnis</p>
-				</div>
-			</section>
-		</main>
-
-		<ContactCTA />
-	</div>
+    </div>
+  </main>
 </BaseLayout>
 
 <style>
-	.about {
-		display: flex;
-		flex-direction: column;
-		gap: 3.5rem;
-	}
+  .devIconCustomSizing {
+    font-size: 2em;
+    line-height: 0.03125em;
+    vertical-align: -0.1875em;
+  }
+  .about {
+    display: flex;
+    flex-direction: row;
+    gap: 3.5rem;
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--gray-200);
+  }
 
-	img {
-		margin-top: 1.5rem;
-		border-radius: 1.5rem;
-		box-shadow: var(--shadow-md);
-	}
+  .section-title {
+    grid-column-start: 1;
+    font-size: var(--text-xl);
+    color: var(--gray-0);
+  }
 
-	section {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-		color: var(--gray-200);
-	}
+  .content {
+    grid-column: 2 / 4;
+  }
 
-	.section-title {
-		grid-column-start: 1;
-		font-size: var(--text-xl);
-		color: var(--gray-0);
-	}
+  .content :global(a) {
+    text-decoration: 1px solid underline transparent;
+    text-underline-offset: 0.25em;
+    transition: text-decoration-color var(--theme-transition);
+  }
 
-	.content {
-		grid-column: 2 / 4;
-	}
+  .content :global(a:hover),
+  .content :global(a:focus) {
+    text-decoration-color: currentColor;
+  }
 
-	.content :global(a) {
-		text-decoration: 1px solid underline transparent;
-		text-underline-offset: 0.25em;
-		transition: text-decoration-color var(--theme-transition);
-	}
+  @media (min-width: 50em) {
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 60% 1fr;
+    }
 
-	.content :global(a:hover),
-	.content :global(a:focus) {
-		text-decoration-color: currentColor;
-	}
+    .about > :global(:first-child) {
+      grid-column-start: 2;
+    }
 
-	@media (min-width: 50em) {
-		.about {
-			display: grid;
-			grid-template-columns: 1fr 60% 1fr;
-		}
-
-		.about > :global(:first-child) {
-			grid-column-start: 2;
-		}
-
-		section {
-			display: contents;
-			font-size: var(--text-lg);
-		}
-	}
+    section {
+      display: contents;
+      font-size: var(--text-lg);
+    }
+  }
 </style>

@@ -227,6 +227,11 @@ h5 {
 	gap: 12rem;
 }
 
+.cardBackground{
+	background-color: var(--gray-999_40);
+	background: var(--gray-999);
+	border: 1px solid var(--gray-800);
+}
 @media (min-width: 50em) {
 	.lg\:gap-2 {
 		gap: 0.5rem;
