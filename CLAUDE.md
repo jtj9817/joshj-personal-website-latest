@@ -9,9 +9,11 @@ This is a personal portfolio website built with Astro v2, showcasing work projec
 ## Development Commands
 
 ### Core Commands
-- `npm run dev` or `npm start` - Start development server
-- `npm run build` - Build for production (outputs to `dist/`)
-- `npm run preview` - Preview production build locally
+- `pnpm run dev` or `pnpm start` - Start development server
+- `pnpm run build` - Build for production (outputs to `dist/`)
+- `pnpm run preview` - Preview production build locally
+
+**Important**: Before running `pnpm run build` or `pnpm run dev`, always check if a dev server is already running to avoid port conflicts. Use `lsof -i :4321` or `lsof -i :3000` to check for running processes on common development ports.
 
 ## Architecture
 
