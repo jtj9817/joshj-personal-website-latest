@@ -3,127 +3,122 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 
 import ContactCTA from "../components/ContactCTA.astro"
 import Hero from "../components/Hero.astro"
-import Skills from "../components/Skills.astro"
+import TechnicalDivider from "../components/TechnicalDivider.astro"
 ---
 
 <BaseLayout
   title="About | Joshua Jadulco"
-  description="About Joshua Jadulco Lorem Ipsum"
+  description="Technical profile - Full Stack Web Developer with expertise in Laravel, Vue, and modern web technologies"
 >
-  <main class="wrapper stack gap-8">
-    <div
-      class="flex items-center container grid grid-flow-row auto-rows-max w-full content-center block"
-    >
-      <div>
-        <Hero
-          title="About"
-          tagline="Thanks for stopping by. Read below to learn more about myself and my background."
-        />
+  <main class="wrapper stack gap-12">
+    <section class="stack gap-8">
+      <Hero
+        title="ABOUT_PROFILE"
+        tagline="Technical profile - Background, experience, and technology stack analysis"
+        align="start"
+      />
+
+      <div class="about-content stack gap-12">
+        <div class="content-card">
+          <TechnicalDivider title="BACKGROUND_PROFILE" />
+          <div class="card-body stack gap-4">
+            <p>
+              Professional web developer with Honours Bachelor of Technology - Software Development (Co-op). 
+              Experienced in full stack web development with expertise in Laravel, Vue, TailwindCSS, 
+              Bootstrap5, jQuery, JavaScript, TypeScript, and MySQL. Developed web applications across 
+              Unix family (Debian, Ubuntu), macOS, and Windows operating systems.
+            </p>
+            <p>
+              Most recent role: Full Stack Web Developer on Special Integrations Team at WhoPlusYou. 
+              Utilized Laravel framework for Magnet Job Board development and maintenance. Frontend 
+              stack included jQuery, Bootstrap4, Vue, and TailwindCSS. Database solutions: MySQL and 
+              Redis for caching. Transformed Magnet Job Portal into Single Page Application using 
+              Inertia.js and Vue for enhanced UX. Implemented responsive design and accessibility 
+              compliance (AODA/W3C WAI). Conducted backend refactoring for optimization and developed 
+              PHPUnit tests for API endpoints to increase code coverage.
+            </p>
+          </div>
+        </div>
+        <div class="content-card">
+          <TechnicalDivider title="TECHNOLOGY_STACK" />
+          <div class="tech-grid">
+            <div class="tech-category">
+              <h3 class="category-title">Front-End</h3>
+              <div class="tech-tags">
+                <span class="tag">JavaScript</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">Vue.js</span>
+                <span class="tag">HTML5</span>
+                <span class="tag">CSS3</span>
+                <span class="tag">TailwindCSS</span>
+                <span class="tag">Bootstrap</span>
+                <span class="tag">jQuery</span>
+              </div>
+            </div>
+            <div class="tech-category">
+              <h3 class="category-title">Back-End</h3>
+              <div class="tech-tags">
+                <span class="tag">PHP</span>
+                <span class="tag">Laravel</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">Express</span>
+                <span class="tag">Python</span>
+                <span class="tag">Django</span>
+                <span class="tag">WordPress</span>
+                <span class="tag">Drupal</span>
+              </div>
+            </div>
+            <div class="tech-category">
+              <h3 class="category-title">Databases</h3>
+              <div class="tech-tags">
+                <span class="tag">MySQL</span>
+                <span class="tag">PostgreSQL</span>
+                <span class="tag">SQLite</span>
+                <span class="tag">MongoDB</span>
+                <span class="tag">Redis</span>
+              </div>
+            </div>
+            <div class="tech-category">
+              <h3 class="category-title">Development Tools</h3>
+              <div class="tech-tags">
+                <span class="tag">Git</span>
+                <span class="tag">GitHub</span>
+                <span class="tag">Docker</span>
+                <span class="tag">VS Code</span>
+                <span class="tag">AWS</span>
+                <span class="tag">npm</span>
+                <span class="tag">PHPUnit</span>
+              </div>
+            </div>
+            <div class="tech-category">
+              <h3 class="category-title">Operating Systems</h3>
+              <div class="tech-tags">
+                <span class="tag">Linux</span>
+                <span class="tag">Ubuntu</span>
+                <span class="tag">Debian</span>
+                <span class="tag">macOS</span>
+                <span class="tag">Windows</span>
+              </div>
+            </div>
+            <div class="tech-category">
+              <h3 class="category-title">Tools & Platforms</h3>
+              <div class="tech-tags">
+                <span class="tag">Slack</span>
+                <span class="tag">Jira</span>
+                <span class="tag">Bash</span>
+                <span class="tag">Postman</span>
+                <span class="tag">Puppeteer</span>
+                <span class="tag">Inertia.js</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ContactCTA />
       </div>
-      <div class="mx-auto mt-6">
-        <div
-          id="aboutMe"
-          class="content rounded-lg p-4 shadow-lg cardBackground"
-        >
-          <h2 class="section-title">Background</h2>
-          <p class="mt-2 mb-3">
-            I'm a professional web developer with an Honours Bachelor of
-            Technology - Software Development (Co-op). I'm experienced with full
-            stack web development using technologies such as Laravel, Vue,
-            TailwindCSS, Bootstrap5, jQuery, JavaScript, TypeScript, and MySQL.
-            I have developed web applications on the Unix family of operating
-            systems (particularly Debian and Ubuntu) in addition to macOS and
-            Windows operating systems.
-          </p>
-          <p>
-            With my most recent role, I was a Full Stack Web Developer on the
-            Special Integrations Team of WhoPlusYou. During my time at
-            WhoPlusYou, I used the Laravel web framework to develop and maintain
-            features on the Magnet Job Board website. jQuery, Bootstrap4, Vue,
-            and TailwindCSS were used for front-end. MySQL and Redis were used
-            as the storage solution and caching service, respectively. While at
-            WhoPlusYou, I transformed the existing features of Magnet Job Portal
-            into a Single Page Application (SPA) using Inertia.js and Vue for
-            improved user experience and streamlined development. I implemented
-            responsive design and accessibility tags in the front-end to ensure
-            compatibility across devices and platforms, resulting in a seamless
-            user experience. I refactored the back-end code for efficiency and
-            resolved bugs. I also developed PHPUnit tests for API endpoints to
-            increase code coverage and reduce errors in beta and production,
-            increasing developer productivity.
-          </p>
-        </div>
-        <div
-          id="mySkills"
-          class="mt-3 content rounded-lg p-4 shadow-lg cardBackground text-center"
-        >
-          <h2 class="section-title">Technologies</h2>
-          <div class="row mt-2">
-            <h3 class="section-title">Front-End</h3>
-            <div class="row mt-3">
-              <i class="fa-brands fa-square-js fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-php fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-html5 fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-css3-alt fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-vuejs fa-2xl mx-2 hover:scale-125"></i>
-              <i
-                class="fa-brands devicon-tailwindcss-plain devIconCustomSizing mx-2 hover:scale-125"
-              ></i>
-              <i class="fa-brands fa-bootstrap fa-2xl mx-2 hover:scale-125"></i>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <h3 class="section-title">Back-End</h3>
-            <div class="row mt-3">
-              <i class="fa-brands fa-laravel fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-node fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-python fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands devicon-express-original devIconCustomSizing mx-2 hover:scale-125"></i>
-              <i class="fa-brands devicon-django-plain devIconCustomSizing mx-2 hover:scale-125"></i>
-              <i class="fa-brands devicon-typescript-original devIconCustomSizing mx-2 hover:scale-125"
-              ></i>
-              <i class="fa-brands fa-wordpress fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-drupal fa-2xl mx-2 hover:scale-125"></i>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <h3 class="section-title">Databases</h3>
-            <div class="row mt-3">
-              <i class="fa-brands devicon-postgresql-plain devIconCustomSizing mx-2 hover:scale-125"></i>
-              <i class="fa-brands devicon-mysql-plain devIconCustomSizing mx-2 hover:scale-125"></i>
-              <i class="fa-brands devicon-sqlite-plain devIconCustomSizing mx-2 hover:scale-125"></i>
-              <i class="fa-brands devicon-mongodb-plain devIconCustomSizing mx-2 hover:scale-125"></i>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <h3 class="section-title">Development Tools</h3>
-            <div class="row mt-3">
-              <i class="fa-brands fa-docker fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-git fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-github fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands devicon-vscode-plain devIconCustomSizing mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-npm fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-aws fa-2xl mx-2 hover:scale-125"></i>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <h3 class="section-title">Operating Systems</h3>
-            <div class="row mt-3">
-              <i class="fa-brands fa-windows fa-2xl mx-2 hover:scale-125" ></i>
-              <i class="fa-brands fa-apple fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-ubuntu fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-linux fa-2xl mx-2 hover:scale-125"></i>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <h3 class="section-title">Other</h3>
-            <div class="row mt-3">
-              <i class="fa-brands fa-slack fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands fa-jira fa-2xl mx-2 hover:scale-125"></i>
-              <i class="fa-brands devicon-bash-plain devIconCustomSizing mx-2 hover:scale-125" aria-label="Bash"></i>
-            </div>
-          </div>
-        </div>
+    </section>
+  </main>
+</BaseLayout>
       </div>
 
     </div>
@@ -131,57 +126,89 @@ import Skills from "../components/Skills.astro"
 </BaseLayout>
 
 <style>
-  .devIconCustomSizing {
-    font-size: 2em;
-    line-height: 0.03125em;
-    vertical-align: -0.1875em;  
+  .about-content {
+    max-width: 70rem;
+    margin-inline: auto;
   }
-  .about {
-    display: flex;
-    flex-direction: row;
-    gap: 3.5rem;
+
+  .content-card {
+    background-color: var(--gray-999_40);
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
   }
-  section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+
+  .card-body {
     color: var(--gray-200);
   }
 
-  .section-title {
-    grid-column-start: 1;
-    font-size: var(--text-xl);
-    color: var(--gray-0);
+  .card-body :global(p) {
+    line-height: 1.6;
   }
 
-  .content {
-    grid-column: 2 / 4;
+  .tech-grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 1rem;
   }
 
-  .content :global(a) {
-    text-decoration: 1px solid underline transparent;
-    text-underline-offset: 0.25em;
-    transition: text-decoration-color var(--theme-transition);
+  .tech-category {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  .content :global(a:hover),
-  .content :global(a:focus) {
-    text-decoration-color: currentColor;
+  .category-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(118, 17, 166, 0.15);
+    border: 1px solid var(--accent-regular);
+    border-radius: 0.25rem;
+    color: var(--gray-300);
+    transition: all 0.2s ease;
+  }
+
+  .tag:hover {
+    background: rgba(118, 17, 166, 0.3);
+    border-color: var(--accent-light);
+    color: var(--gray-200);
   }
 
   @media (min-width: 50em) {
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 60% 1fr;
+    .content-card {
+      border-radius: 1.5rem;
+      padding: 2.5rem;
     }
 
-    .about > :global(:first-child) {
-      grid-column-start: 2;
+    .tech-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
     }
 
-    section {
-      display: contents;
+    .card-body {
       font-size: var(--text-lg);
+    }
+  }
+
+  @media (min-width: 70em) {
+    .tech-grid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 </style>
