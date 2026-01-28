@@ -11,7 +11,7 @@ tags:
   - MySQL
   - Full-Stack
 category: Work
-status: archived
+status: live
 project_url: https://sdds.senecacollege.ca
 ---
 
