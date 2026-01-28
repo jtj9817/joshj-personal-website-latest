@@ -10,6 +10,7 @@ tags:
   - Java
   - Material UI
   - Mobile Development
+category: Personal
 ---
 
 ## Overview

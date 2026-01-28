@@ -10,6 +10,7 @@ tags:
   - TypeScript
   - Tailwind CSS
   - Three.js
+category: Personal
 ---
 
 ## Overview

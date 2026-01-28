@@ -10,6 +10,7 @@ tags:
   - React
   - Inertia.js
   - TypeScript
+category: Personal
 ---
 
 ## Overview

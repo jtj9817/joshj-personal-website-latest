@@ -10,6 +10,7 @@ tags:
   - Vue.js
   - Full-Stack
   - TypeScript
+category: Work
 ---
 
 ## Overview

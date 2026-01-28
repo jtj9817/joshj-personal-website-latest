@@ -10,6 +10,7 @@ tags:
   - Bootstrap 5
   - MySQL
   - Full-Stack
+category: Work
 ---
 
 ## Overview

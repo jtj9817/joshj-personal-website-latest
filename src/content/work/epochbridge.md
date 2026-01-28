@@ -10,6 +10,7 @@ tags:
   - Full-Stack
   - TALL Stack
   - AI Integration
+category: Personal
 ---
 
 ## Overview

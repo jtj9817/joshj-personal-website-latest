@@ -10,6 +10,7 @@ tags:
   - Angular
   - Microsoft SQL
   - Full-Stack
+category: Work
 ---
 
 ## Overview

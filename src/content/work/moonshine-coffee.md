@@ -10,6 +10,7 @@ tags:
   - React
   - Game Dev
   - Simulation
+category: Personal
 ---
 
 ## Overview
