@@ -1,0 +1,169 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import StatusIndicator from './StatusIndicator.astro';
+
+interface Props {
+  project: CollectionEntry<'work'>;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const { data, slug } = project;
+
+const formattedDate = data.publishDate.toISOString().split('T')[0];
+const paddedIndex = String(index).padStart(2, '0');
+---
+
+<a href={`/work/${slug}`} class="project-row" data-category={data.category.toLowerCase()}>
+  <div class="row-index">{paddedIndex}</div>
+  <div class="row-thumbnail">
+    <img src={data.img} alt={data.img_alt || ''} loading="lazy" decoding="async" />
+  </div>
+  <div class="row-title">{data.title}</div>
+  <div class="row-category">
+    <span class="category-badge">[{data.category.toUpperCase()}]</span>
+  </div>
+  <div class="row-date">{formattedDate}</div>
+  <div class="row-tags">
+    {data.tags.slice(0, 3).map(tag => (
+      <span class="tag-chip">{tag}</span>
+    ))}
+    {data.tags.length > 3 && <span class="tag-count">+{data.tags.length - 3}</span>}
+  </div>
+  <div class="row-status">
+    <StatusIndicator status={data.status} />
+  </div>
+  <div class="row-action">
+    <span class="arrow">→</span>
+  </div>
+</a>
+
+<style>
+  .project-row {
+    display: grid;
+    grid-template-columns:
+      3rem      /* index */
+      5rem      /* thumbnail */
+      minmax(200px, 1fr)  /* title */
+      10rem     /* category */
+      10rem     /* date */
+      minmax(150px, 2fr)  /* tags */
+      10rem     /* status */
+      3rem;     /* action */
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-subtle);
+    border-left: 2px solid transparent;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .project-row:hover {
+    border-left-color: var(--neon-cyan);
+    background: rgba(0, 255, 245, 0.05);
+    box-shadow: -2px 0 20px rgba(0, 255, 245, 0.3);
+  }
+
+  .row-index {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    color: var(--gray-500);
+    font-weight: 700;
+  }
+
+  .row-thumbnail {
+    width: 100%;
+    height: 3rem;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    border: 1px solid var(--gray-700);
+  }
+
+  .row-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .row-title {
+    font-family: var(--font-brand);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--gray-200);
+  }
+
+  .category-badge {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    border: 1px solid var(--gray-700);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  .row-date {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--gray-400);
+  }
+
+  .row-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag-chip {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(118, 17, 166, 0.2);
+    border: 1px solid var(--accent-regular);
+    border-radius: 0.25rem;
+    color: var(--gray-300);
+  }
+
+  .tag-count {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gray-500);
+  }
+
+  .arrow {
+    font-size: 1.5rem;
+    color: var(--neon-cyan);
+    transition: transform 0.2s ease;
+  }
+
+  .project-row:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 50em) {
+    .project-row {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      padding: 1rem;
+    }
+
+    .row-index {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+
+    .row-thumbnail {
+      width: 100%;
+      height: 8rem;
+    }
+
+    .row-date,
+    .row-category,
+    .row-status {
+      font-size: 0.75rem;
+    }
+  }
+</style>

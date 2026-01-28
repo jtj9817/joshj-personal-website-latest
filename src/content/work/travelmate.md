@@ -11,6 +11,8 @@ tags:
   - Material UI
   - Mobile Development
 category: Personal
+status: archived
+github_url: https://github.com/jtj9817/Travel-Mate
 ---
 
 ## Overview

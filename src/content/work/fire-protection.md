@@ -11,6 +11,8 @@ tags:
   - Microsoft SQL
   - Full-Stack
 category: Work
+status: live
+project_url: https://fireprotection.senecacollege.ca/student/fire-protection
 ---
 
 ## Overview

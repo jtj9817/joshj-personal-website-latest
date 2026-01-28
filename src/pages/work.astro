@@ -1,70 +1,169 @@
 ---
-import { getCollection } from "astro:content"
-
-import BaseLayout from "../layouts/BaseLayout.astro"
-
-import ContactCTA from "../components/ContactCTA.astro"
-import PortfolioPreview from "../components/PortfolioPreview.astro"
-import Hero from "../components/Hero.astro"
-import Grid from "../components/Grid.astro"
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import WorkControls from "../components/WorkControls.astro";
+import ProjectRow from "../components/ProjectRow.astro";
+import TechnicalDivider from "../components/TechnicalDivider.astro";
+import CircuitBackground from "../components/CircuitBackground.astro";
+import PortfolioPreview from "../components/PortfolioPreview.astro";
 
 const allProjects = (await getCollection("work")).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
-)
+);
 
-const personalProjects = allProjects.filter(
-  (project) => project.data.category === "Personal"
-)
-
-const workProjects = allProjects.filter(
-  (project) => project.data.category === "Work"
-)
+const personalProjects = allProjects.filter(p => p.data.category === "Personal");
+const workProjects = allProjects.filter(p => p.data.category === "Work");
 ---
 
 <BaseLayout
   title="My Work | Joshua Jadulco"
-  description="Learn about Joshua Jadulco's most recent projects"
+  description="Technical portfolio database - Browse projects by category, status, and technology stack"
 >
-  <div class="stack gap-20">
-    <main class="wrapper stack gap-20">
-      <Hero
-        title="My Work"
-        tagline="Here are my most recent works."
-        align="start"
-      />
+  <div class="work-page">
+    <!-- Circuit background overlay -->
+    <CircuitBackground />
 
-      <section class="stack gap-8">
-        <div class="stack gap-2">
-          <h2 class="text-4xl">Personal</h2>
-          <p class="text-lg text-gray-300">Personal projects and side work</p>
-        </div>
-        <Grid variant="offset">
-          {
-            personalProjects.map((project) => (
-              <li>
-                <PortfolioPreview project={project} />
-              </li>
-            ))
-          }
-        </Grid>
-      </section>
+    <div class="wrapper stack gap-12">
+      <main class="stack gap-8">
+        <!-- Hero Section -->
+        <Hero
+          title="PROJECT_DATABASE"
+          tagline="Technical portfolio interface - Filter, sort, and browse project records"
+          align="start"
+        />
 
-      <section class="stack gap-8">
-        <div class="stack gap-2">
-          <h2 class="text-4xl">Work</h2>
-          <p class="text-lg text-gray-300">Professional and client projects</p>
+        <!-- Filter/Sort/Search Controls -->
+        <WorkControls />
+
+        <!-- Project List Container -->
+        <div class="work-section table-view">
+
+          <!-- Personal Projects Section -->
+          <section class="project-section">
+            <TechnicalDivider
+              title="PERSONAL_PROJECTS"
+              count={personalProjects.length}
+            />
+
+            <!-- Table View -->
+            <div class="project-list table-layout">
+              {personalProjects.map((project, index) => (
+                <ProjectRow project={project} index={index + 1} />
+              ))}
+            </div>
+
+            <!-- Grid View (hidden by default, shown when grid view active) -->
+            <div class="project-grid grid-layout" style="display: none;">
+              {personalProjects.map((project) => (
+                <div class="grid-item">
+                  <PortfolioPreview project={project} />
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Work Projects Section -->
+          <section class="project-section">
+            <TechnicalDivider
+              title="WORK_PROJECTS"
+              count={workProjects.length}
+            />
+
+            <!-- Table View -->
+            <div class="project-list table-layout">
+              {workProjects.map((project, index) => (
+                <ProjectRow project={project} index={personalProjects.length + index + 1} />
+              ))}
+            </div>
+
+            <!-- Grid View -->
+            <div class="project-grid grid-layout" style="display: none;">
+              {workProjects.map((project) => (
+                <div class="grid-item">
+                  <PortfolioPreview project={project} />
+                </div>
+              ))}
+            </div>
+          </section>
+
         </div>
-        <Grid variant="offset">
-          {
-            workProjects.map((project) => (
-              <li>
-                <PortfolioPreview project={project} />
-              </li>
-            ))
-          }
-        </Grid>
-      </section>
-    </main>
-    
+      </main>
+    </div>
   </div>
 </BaseLayout>
+
+<style>
+  .work-page {
+    position: relative;
+    min-height: 100vh;
+  }
+
+  .project-section {
+    margin-bottom: 3rem;
+  }
+
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .grid-item {
+    list-style: none;
+  }
+
+  /* View mode toggles */
+  .work-section.table-view .table-layout {
+    display: flex;
+  }
+
+  .work-section.table-view .grid-layout {
+    display: none;
+  }
+
+  .work-section.grid-view .table-layout {
+    display: none;
+  }
+
+  .work-section.grid-view .grid-layout {
+    display: grid;
+  }
+
+  @media (max-width: 50em) {
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .project-section {
+      margin-bottom: 2rem;
+    }
+  }
+</style>
+
+<script>
+  // View mode persistence
+  const viewBtns = document.querySelectorAll('.view-btn');
+  const tableLayout = document.querySelectorAll('.table-layout');
+  const gridLayout = document.querySelectorAll('.grid-layout');
+
+  viewBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const view = btn.dataset.view;
+
+      if (view === 'table') {
+        tableLayout.forEach(el => (el as HTMLElement).style.display = 'flex');
+        gridLayout.forEach(el => (el as HTMLElement).style.display = 'none');
+      } else {
+        tableLayout.forEach(el => (el as HTMLElement).style.display = 'none');
+        gridLayout.forEach(el => (el as HTMLElement).style.display = 'grid');
+      }
+    });
+  });
+</script>

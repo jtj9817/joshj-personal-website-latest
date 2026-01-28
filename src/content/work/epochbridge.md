@@ -11,6 +11,9 @@ tags:
   - TALL Stack
   - AI Integration
 category: Personal
+status: live
+github_url: https://github.com/jtj9817/epochbridge
+demo_url: https://demo.epochbridge.com
 ---
 
 ## Overview

@@ -11,6 +11,8 @@ tags:
   - Full-Stack
   - TypeScript
 category: Work
+status: live
+project_url: https://magnet.whoplusyou.com
 ---
 
 ## Overview

@@ -10,6 +10,10 @@ export const collections = {
 			img: z.string(),
 			img_alt: z.string().optional(),
 			category: z.enum(['Personal', 'Work']),
+			status: z.enum(['live', 'archived', 'in_development']).default('live'),
+			project_url: z.string().url().optional(),
+			github_url: z.string().url().optional(),
+			demo_url: z.string().url().optional(),
 		}),
 	}),
 };

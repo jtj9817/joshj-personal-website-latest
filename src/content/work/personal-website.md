@@ -11,6 +11,9 @@ tags:
   - Tailwind CSS
   - Three.js
 category: Personal
+status: live
+project_url: https://joshuajadulco.com
+github_url: https://github.com/jtj9817/joshj-personal-website
 ---
 
 ## Overview

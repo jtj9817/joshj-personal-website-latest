@@ -11,6 +11,9 @@ tags:
   - Game Dev
   - Simulation
 category: Personal
+status: live
+github_url: https://github.com/jtj9817/moonshine-coffee
+demo_url: https://demo.moonshine-coffee.com
 ---
 
 ## Overview

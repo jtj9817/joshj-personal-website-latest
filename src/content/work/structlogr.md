@@ -11,6 +11,9 @@ tags:
   - Inertia.js
   - TypeScript
 category: Personal
+status: live
+github_url: https://github.com/jtj9817/structlogr
+demo_url: https://demo.structlogr.com
 ---
 
 ## Overview

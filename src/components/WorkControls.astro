@@ -1,0 +1,282 @@
+---
+// Client-side interactive controls
+---
+
+<div class="work-controls">
+  <div class="control-section">
+    <label class="control-label">FILTER:</label>
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">ALL</button>
+      <button class="filter-btn" data-filter="personal">PERSONAL</button>
+      <button class="filter-btn" data-filter="work">WORK</button>
+    </div>
+  </div>
+
+  <div class="control-section">
+    <label class="control-label">SORT:</label>
+    <div class="sort-buttons">
+      <button class="sort-btn active" data-sort="date-desc">DATE ▼</button>
+      <button class="sort-btn" data-sort="date-asc">DATE ▲</button>
+      <button class="sort-btn" data-sort="title">TITLE</button>
+    </div>
+  </div>
+
+  <div class="control-section">
+    <label class="control-label">VIEW:</label>
+    <div class="view-buttons">
+      <button class="view-btn active" data-view="table">TABLE</button>
+      <button class="view-btn" data-view="grid">GRID</button>
+    </div>
+  </div>
+
+  <div class="control-section search-section">
+    <input
+      type="text"
+      id="project-search"
+      placeholder="SEARCH_PROJECTS..."
+      class="search-input"
+    />
+  </div>
+</div>
+
+<style>
+  .work-controls {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-subtle);
+    border-radius: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .control-section {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .control-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .filter-buttons,
+  .sort-buttons,
+  .view-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .filter-btn,
+  .sort-btn,
+  .view-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid var(--gray-700);
+    color: var(--gray-400);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .filter-btn:hover,
+  .sort-btn:hover,
+  .view-btn:hover {
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    box-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
+  }
+
+  .filter-btn.active,
+  .sort-btn.active,
+  .view-btn.active {
+    background: rgba(0, 255, 245, 0.1);
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+  }
+
+  .search-section {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--gray-700);
+    color: var(--gray-200);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
+  }
+
+  @media (max-width: 50em) {
+    .work-controls {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .control-section {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .filter-buttons,
+    .sort-buttons,
+    .view-buttons {
+      width: 100%;
+    }
+
+    .filter-btn,
+    .sort-btn,
+    .view-btn {
+      flex: 1;
+    }
+  }
+</style>
+
+<script>
+  // Filter functionality
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectRows = document.querySelectorAll('.project-row');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      // Update active state
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Filter projects
+      projectRows.forEach(row => {
+        if (filter === 'all') {
+          row.style.display = '';
+        } else {
+          const category = row.dataset.category;
+          row.style.display = category === filter ? '' : 'none';
+        }
+      });
+
+      // Update URL
+      const url = new URL(window.location.href);
+      url.searchParams.set('filter', filter);
+      window.history.pushState({}, '', url);
+    });
+  });
+
+  // Sort functionality
+  const sortBtns = document.querySelectorAll('.sort-btn');
+  const projectList = document.querySelector('.project-list');
+
+  sortBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sort = btn.dataset.sort;
+
+      // Update active state
+      sortBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Sort logic here - reordering DOM elements
+      const rows = Array.from(projectRows);
+
+      if (sort === 'title') {
+        rows.sort((a, b) => {
+          const titleA = a.querySelector('.row-title')?.textContent || '';
+          const titleB = b.querySelector('.row-title')?.textContent || '';
+          return titleA.localeCompare(titleB);
+        });
+      } else if (sort === 'date-asc') {
+        rows.sort((a, b) => {
+          const dateA = a.querySelector('.row-date')?.textContent || '';
+          const dateB = b.querySelector('.row-date')?.textContent || '';
+          return dateA.localeCompare(dateB);
+        });
+      } else {
+        rows.sort((a, b) => {
+          const indexA = parseInt(a.querySelector('.row-index')?.textContent || '0');
+          const indexB = parseInt(b.querySelector('.row-index')?.textContent || '0');
+          return indexB - indexA;
+        });
+      }
+
+      // Reorder DOM
+      rows.forEach(row => {
+        projectList?.appendChild(row);
+      });
+
+      // Update URL
+      const url = new URL(window.location.href);
+      url.searchParams.set('sort', sort);
+      window.history.pushState({}, '', url);
+    });
+  });
+
+  // View mode toggle
+  const viewBtns = document.querySelectorAll('.view-btn');
+  const workSection = document.querySelector('.work-section');
+
+  viewBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const view = btn.dataset.view;
+
+      // Update active state
+      viewBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Toggle view class
+      workSection?.classList.toggle('grid-view', view === 'grid');
+      workSection?.classList.toggle('table-view', view === 'table');
+    });
+  });
+
+  // Search functionality
+  const searchInput = document.getElementById('project-search');
+
+  searchInput?.addEventListener('input', (e) => {
+    const query = (e.target as HTMLInputElement).value.toLowerCase();
+
+    projectRows.forEach(row => {
+      const text = row.textContent?.toLowerCase() || '';
+      row.style.display = text.includes(query) ? '' : 'none';
+    });
+  });
+
+  // Restore state from URL on page load
+  const urlParams = new URLSearchParams(window.location.search);
+  const filterParam = urlParams.get('filter');
+  const sortParam = urlParams.get('sort');
+  const viewParam = urlParams.get('view');
+
+  if (filterParam) {
+    const btn = document.querySelector(`[data-filter="${filterParam}"]`);
+    btn?.dispatchEvent(new Event('click'));
+  }
+
+  if (sortParam) {
+    const btn = document.querySelector(`[data-sort="${sortParam}"]`);
+    btn?.dispatchEvent(new Event('click'));
+  }
+
+  if (viewParam === 'grid') {
+    const btn = document.querySelector(`[data-view="grid"]`);
+    btn?.dispatchEvent(new Event('click'));
+  }
+</script>

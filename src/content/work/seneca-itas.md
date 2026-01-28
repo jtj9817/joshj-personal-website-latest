@@ -11,6 +11,8 @@ tags:
   - MySQL
   - Full-Stack
 category: Work
+status: archived
+project_url: https://itas.senecacollege.ca
 ---
 
 ## Overview

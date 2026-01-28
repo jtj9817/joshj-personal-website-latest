@@ -1,0 +1,36 @@
+---
+interface Props {
+  status: 'live' | 'archived' | 'in_development';
+}
+
+const { status } = Astro.props;
+
+const statusMap = {
+  live: { label: 'LIVE', class: 'status-live' },
+  archived: { label: 'ARCHIVED', class: 'status-archived' },
+  in_development: { label: 'IN_DEV', class: 'status-in-dev' },
+};
+
+const { label, class: statusClass } = statusMap[status];
+---
+
+<span class="status-indicator">
+  <span class={`status-led ${statusClass}`}></span>
+  <span class="status-label">{label}</span>
+</span>
+
+<style>
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .status-label {
+    color: var(--gray-400);
+  }
+</style>

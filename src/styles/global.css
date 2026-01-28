@@ -16,6 +16,33 @@
 	--gray-999_40: hsla(var(--gray-999-basis), 0.4);
 	--gray-999: #ffffff;
 
+	/* Cyberpunk neon accent colors */
+	--neon-cyan: #00fff5;
+	--neon-magenta: #ff00de;
+	--neon-yellow: #fff200;
+	--neon-green: #00ff85;
+	--neon-purple: #b400ff;
+	--neon-amber: #ff9500;
+
+	/* Status colors */
+	--status-live: var(--neon-green);
+	--status-archived: var(--neon-amber);
+	--status-in-dev: var(--neon-cyan);
+
+	/* Technical UI colors */
+	--grid-line: rgba(58, 58, 100, 0.3);
+	--circuit-trace: rgba(180, 0, 255, 0.08);
+	--border-subtle: rgba(255, 255, 255, 0.1);
+	--selection-highlight: rgba(0, 255, 245, 0.2);
+
+	/* Monospace font for technical data */
+	--font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+	/* Glow effect utilities */
+	--glow-sm: 0 0 10px currentColor;
+	--glow-md: 0 0 20px currentColor, 0 0 40px currentColor;
+	--glow-lg: 0 0 30px currentColor, 0 0 60px currentColor, 0 0 90px currentColor;
+
 	--accent-light: #c561f6;
 	--accent-regular: #7611a6;
 	--accent-dark: #1c0056;
@@ -256,5 +283,74 @@ h5 {
 	}
 	.lg\:gap-48 {
 		gap: 12rem;
+	}
+}
+
+/* Technical grid background pattern */
+.work-page-background {
+	background-image:
+		repeating-linear-gradient(0deg, transparent, transparent 50px, var(--grid-line) 50px, var(--grid-line) 51px),
+		repeating-linear-gradient(90deg, transparent, transparent 50px, var(--grid-line) 50px, var(--grid-line) 51px);
+}
+
+/* Neon glow utility classes */
+.neon-glow-cyan {
+	box-shadow: var(--glow-sm);
+	color: var(--neon-cyan);
+}
+
+.neon-glow-magenta {
+	box-shadow: var(--glow-sm);
+	color: var(--neon-magenta);
+}
+
+.neon-glow-purple {
+	box-shadow: var(--glow-sm);
+	color: var(--neon-purple);
+}
+
+/* Status LED animation */
+@keyframes pulse-glow {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.4; }
+}
+
+@keyframes blink-fast {
+	0%, 49% { opacity: 1; }
+	50%, 100% { opacity: 0.2; }
+}
+
+.status-led {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.status-live {
+	background: var(--status-live);
+	box-shadow: 0 0 8px var(--status-live);
+}
+
+.status-archived {
+	background: var(--status-archived);
+	box-shadow: 0 0 8px var(--status-archived);
+	animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.status-in-dev {
+	background: var(--status-in-dev);
+	box-shadow: 0 0 8px var(--status-in-dev);
+	animation: blink-fast 0.8s step-end infinite;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
 	}
 }
