@@ -20,6 +20,7 @@ const { title, description } = Astro.props;
 		<MainHead title={title} description={description} />
 	</head>
 	<body>
+		<canvas id="bg-canvas"></canvas>
 		<div class="stack backgrounds">
 			<Nav />
 			<slot />
@@ -27,85 +28,231 @@ const { title, description } = Astro.props;
 		</div>
 
 		<script>
-			// Add “loaded” class once the document has completely loaded.
-			addEventListener('load', () => document.documentElement.classList.add('loaded'));
+			import * as THREE from 'three';
+
+			const canvas = document.getElementById('bg-canvas') as HTMLCanvasElement;
+			const mql = window.matchMedia('(min-width: 50em)');
+			const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+			let renderer: THREE.WebGLRenderer | null = null;
+			let scene: THREE.Scene;
+			let camera: THREE.OrthographicCamera;
+			let logoGroup: THREE.Group;
+			let animationId: number | null = null;
+
+			// Bouncing state
+			let vx = 2.2;
+			let vy = 1.6;
+			let posX = 0;
+			let posY = 0;
+
+			// Color palette for DVD-style color changes on bounce
+			const colors = [
+				0xff2d20, // Laravel red
+				0x00e5ff, // Cyan
+				0xff00ff, // Magenta
+				0xffea00, // Yellow
+				0x76ff03, // Lime
+				0xff6d00, // Orange
+				0xd500f9, // Purple
+			];
+			let colorIndex = 0;
+
+			function createLaravelLogo(): THREE.Group {
+				const group = new THREE.Group();
+
+				// Laravel logo: the diamond shape with the "L" cutout
+				// Outer diamond
+				const diamondShape = new THREE.Shape();
+				const s = 40; // size
+				diamondShape.moveTo(0, s);     // top
+				diamondShape.lineTo(s, 0);     // right
+				diamondShape.lineTo(0, -s);    // bottom
+				diamondShape.lineTo(-s, 0);    // left
+				diamondShape.closePath();
+
+				const diamondGeo = new THREE.ShapeGeometry(diamondShape);
+				const diamondMat = new THREE.MeshBasicMaterial({ color: colors[0] });
+				const diamond = new THREE.Mesh(diamondGeo, diamondMat);
+				group.add(diamond);
+
+				// Inner "L" shape (cut out in lighter shade to suggest the Laravel mark)
+				const lShape = new THREE.Shape();
+				// Vertical bar of L
+				lShape.moveTo(-12, 22);
+				lShape.lineTo(-4, 22);
+				lShape.lineTo(-4, -10);
+				lShape.lineTo(14, -10);
+				lShape.lineTo(18, -18);
+				lShape.lineTo(-12, -18);
+				lShape.closePath();
+
+				const lGeo = new THREE.ShapeGeometry(lShape);
+				const lMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+				const lMesh = new THREE.Mesh(lGeo, lMat);
+				lMesh.position.z = 0.1; // slightly in front
+				group.add(lMesh);
+
+				return group;
+			}
+
+			function init() {
+				if (!canvas || renderer) return;
+
+				const w = window.innerWidth;
+				const h = window.innerHeight;
+
+				renderer = new THREE.WebGLRenderer({ canvas, alpha: false, antialias: true });
+				renderer.setSize(w, h);
+				renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+				renderer.setClearColor(0x0a0a1a);
+
+				scene = new THREE.Scene();
+				camera = new THREE.OrthographicCamera(-w / 2, w / 2, h / 2, -h / 2, 0.1, 100);
+				camera.position.z = 10;
+
+				logoGroup = createLaravelLogo();
+				scene.add(logoGroup);
+
+				// Start at a random-ish position
+				posX = (Math.random() - 0.5) * (w - 120);
+				posY = (Math.random() - 0.5) * (h - 120);
+				logoGroup.position.set(posX, posY, 0);
+
+				if (!prefersReducedMotion.matches) {
+					animate();
+				} else {
+					renderer.render(scene, camera);
+				}
+			}
+
+			function animate() {
+				if (!renderer) return;
+				animationId = requestAnimationFrame(animate);
+
+				const w = window.innerWidth;
+				const h = window.innerHeight;
+				const halfLogoW = 44;
+				const halfLogoH = 44;
+
+				posX += vx;
+				posY += vy;
+
+				// Bounce off edges
+				let bounced = false;
+				if (posX + halfLogoW > w / 2 || posX - halfLogoW < -w / 2) {
+					vx = -vx;
+					posX = Math.max(-w / 2 + halfLogoW, Math.min(w / 2 - halfLogoW, posX));
+					bounced = true;
+				}
+				if (posY + halfLogoH > h / 2 || posY - halfLogoH < -h / 2) {
+					vy = -vy;
+					posY = Math.max(-h / 2 + halfLogoH, Math.min(h / 2 - halfLogoH, posY));
+					bounced = true;
+				}
+
+				if (bounced) {
+					colorIndex = (colorIndex + 1) % colors.length;
+					const diamond = logoGroup.children[0] as THREE.Mesh;
+					(diamond.material as THREE.MeshBasicMaterial).color.setHex(colors[colorIndex]);
+				}
+
+				logoGroup.position.set(posX, posY, 0);
+				renderer.render(scene, camera);
+			}
+
+			function destroy() {
+				if (animationId !== null) {
+					cancelAnimationFrame(animationId);
+					animationId = null;
+				}
+				if (renderer) {
+					renderer.dispose();
+					renderer = null;
+				}
+				canvas.style.display = 'none';
+			}
+
+			function handleViewport() {
+				if (mql.matches) {
+					canvas.style.display = 'block';
+					if (!renderer) {
+						init();
+					}
+				} else {
+					destroy();
+				}
+			}
+
+			function handleResize() {
+				if (!renderer || !mql.matches) return;
+				const w = window.innerWidth;
+				const h = window.innerHeight;
+				renderer.setSize(w, h);
+				camera.left = -w / 2;
+				camera.right = w / 2;
+				camera.top = h / 2;
+				camera.bottom = -h / 2;
+				camera.updateProjectionMatrix();
+			}
+
+			// Init
+			handleViewport();
+			mql.addEventListener('change', handleViewport);
+			window.addEventListener('resize', handleResize);
 		</script>
 
 		<style>
-			:root {
-				--_placeholder-bg: linear-gradient(transparent, transparent);
-				--bg-image-main: url('/assets/backgrounds/bg-main-light-800w.jpg');
-				--bg-image-main-curves: url('/assets/backgrounds/bg-main-light.svg');
-				--bg-image-subtle-1: var(--_placeholder-bg);
-				--bg-image-subtle-2: var(--_placeholder-bg);
-				--bg-image-footer: var(--_placeholder-bg);
-				--bg-svg-blend-mode: overlay;
-				--bg-blend-mode: darken;
-				--bg-image-aspect-ratio: 2.25;
-				--bg-scale: 1.68;
-				--bg-aspect-ratio: calc(var(--bg-image-aspect-ratio) / var(--bg-scale));
-				--bg-gradient-size: calc(var(--bg-scale) * 100%);
-			}
-
-			:root.theme-dark {
-				--bg-image-main: url('/assets/backgrounds/bg-main-dark-800w.jpg');
-				--bg-image-main-curves: url('/assets/backgrounds/bg-main-dark.svg');
-				--bg-svg-blend-mode: darken;
-				--bg-blend-mode: lighten;
-			}
-
-			/* These backgrounds are displayed below the fold, so we lazy load them
-			   once the `.loaded` class has been set.  */
-			:root.loaded {
-				--bg-image-subtle-1: url('/assets/backgrounds/bg-subtle-1-light-800w.jpg');
-				--bg-image-subtle-2: url('/assets/backgrounds/bg-subtle-2-light-800w.jpg');
-				--bg-image-footer: url('/assets/backgrounds/bg-footer-light-800w.jpg');
-			}
-			:root.loaded.theme-dark {
-				--bg-image-subtle-1: url('/assets/backgrounds/bg-subtle-1-dark-800w.jpg');
-				--bg-image-subtle-2: url('/assets/backgrounds/bg-subtle-2-dark-800w.jpg');
-				--bg-image-footer: url('/assets/backgrounds/bg-footer-dark-800w.jpg');
+			#bg-canvas {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				z-index: -1;
+				display: none;
 			}
 
 			@media (min-width: 50em) {
-				:root {
-					--bg-scale: 1;
-					--bg-image-main: url('/assets/backgrounds/bg-main-light-1440w.jpg');
-				}
-				:root.theme-dark {
-					--bg-image-main: url('/assets/backgrounds/bg-main-dark-1440w.jpg');
-				}
-
-				:root.loaded {
-					--bg-image-subtle-1: url('/assets/backgrounds/bg-subtle-1-light-1440w.jpg');
-					--bg-image-subtle-2: url('/assets/backgrounds/bg-subtle-2-light-1440w.jpg');
-					--bg-image-footer: url('/assets/backgrounds/bg-footer-light-1440w.jpg');
-				}
-				:root.loaded.theme-dark {
-					--bg-image-subtle-1: url('/assets/backgrounds/bg-subtle-1-dark-1440w.jpg');
-					--bg-image-subtle-2: url('/assets/backgrounds/bg-subtle-2-dark-1440w.jpg');
-					--bg-image-footer: url('/assets/backgrounds/bg-footer-dark-1440w.jpg');
+				#bg-canvas {
+					display: block;
 				}
 			}
 
 			.backgrounds {
 				min-height: 100%;
 				isolation: isolate;
+				/* Mobile: cyberpunk + USGD static gradient */
 				background:
-					/*noise*/ url('/assets/backgrounds/noise.png') top center/220px repeat,
-					/*footer*/ var(--bg-image-footer) bottom center/var(--bg-gradient-size) no-repeat,
-					/*header1*/ var(--bg-image-main-curves) top center/var(--bg-gradient-size) no-repeat,
-					/*header2*/ var(--bg-image-main) top center/var(--bg-gradient-size) no-repeat,
-					/*base*/ var(--gray-999);
-				background-blend-mode: /*noise*/ overlay, /*footer*/ var(--bg-blend-mode),
-					/*header1*/ var(--bg-svg-blend-mode), /*header2*/ normal, /*base*/ normal;
+					url('/assets/backgrounds/noise.png') top center/220px repeat,
+					radial-gradient(ellipse at 20% 50%, rgba(255, 45, 32, 0.15) 0%, transparent 50%),
+					radial-gradient(ellipse at 80% 20%, rgba(0, 229, 255, 0.12) 0%, transparent 50%),
+					radial-gradient(ellipse at 50% 90%, rgba(213, 0, 249, 0.1) 0%, transparent 50%),
+					linear-gradient(
+						180deg,
+						#0a0a1a 0%,
+						#12082a 20%,
+						#0d1b2a 45%,
+						#1a0a2e 70%,
+						#0a0a1a 100%
+					);
+				background-blend-mode: overlay, normal, normal, normal, normal;
 			}
+
+			/* On desktop/tablet, make content transparent so Three.js canvas shows through */
+			@media (min-width: 50em) {
+				.backgrounds {
+					background:
+						url('/assets/backgrounds/noise.png') top center/220px repeat,
+						transparent;
+					background-blend-mode: overlay, normal;
+				}
+			}
+
 			@media (forced-colors: active) {
-				/* Deactivate custom backgrounds for high contrast users. */
 				.backgrounds {
 					background: none;
 					background-blend-mode: none;
-					--bg-gradient-size: none;
 				}
 			}
 		</style>
