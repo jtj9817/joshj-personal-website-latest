@@ -14,7 +14,7 @@ const formattedDate = data.publishDate.toISOString().split('T')[0];
 const paddedIndex = String(index).padStart(2, '0');
 ---
 
-<a href={`/work/${slug}`} class="project-row" data-category={data.category.toLowerCase()}>
+<a href={`/work/${slug}`} class="project-row" data-category={data.category.toLowerCase()} data-project-slug={slug}>
   <div class="row-index">{paddedIndex}</div>
   <div class="row-thumbnail">
     <img src={data.img} alt={data.img_alt || ''} loading="lazy" decoding="async" />

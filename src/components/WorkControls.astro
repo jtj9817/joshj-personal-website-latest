@@ -156,6 +156,7 @@
   // Filter functionality
   const filterBtns = document.querySelectorAll('.filter-btn');
   const projectRows = document.querySelectorAll('.project-row');
+  const gridItems = document.querySelectorAll('.grid-item');
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -165,13 +166,23 @@
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // Filter projects
+      // Filter table rows
       projectRows.forEach(row => {
         if (filter === 'all') {
           row.style.display = '';
         } else {
           const category = row.dataset.category;
           row.style.display = category === filter ? '' : 'none';
+        }
+      });
+
+      // Filter grid items
+      gridItems.forEach(item => {
+        if (filter === 'all') {
+          (item as HTMLElement).style.display = '';
+        } else {
+          const category = item.dataset.category;
+          (item as HTMLElement).style.display = category === filter ? '' : 'none';
         }
       });
 
@@ -253,9 +264,16 @@
   searchInput?.addEventListener('input', (e) => {
     const query = (e.target as HTMLInputElement).value.toLowerCase();
 
+    // Search table rows
     projectRows.forEach(row => {
       const text = row.textContent?.toLowerCase() || '';
       row.style.display = text.includes(query) ? '' : 'none';
+    });
+
+    // Search grid items
+    gridItems.forEach(item => {
+      const text = (item as HTMLElement).textContent?.toLowerCase() || '';
+      (item as HTMLElement).style.display = text.includes(query) ? '' : 'none';
     });
   });
 
