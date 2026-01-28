@@ -21,6 +21,12 @@ const { title, description } = Astro.props;
 	</head>
 	<body>
 		<canvas id="bg-canvas"></canvas>
+		<!-- CRT scanline + static overlay (CSS-only, works on both mobile and desktop) -->
+		<div class="cyber-overlay" aria-hidden="true">
+			<div class="scanlines"></div>
+			<div class="static-noise"></div>
+			<div class="vignette"></div>
+		</div>
 		<div class="stack backgrounds">
 			<Nav />
 			<slot />
@@ -37,63 +43,124 @@ const { title, description } = Astro.props;
 			let renderer: THREE.WebGLRenderer | null = null;
 			let scene: THREE.Scene;
 			let camera: THREE.OrthographicCamera;
-			let logoGroup: THREE.Group;
+			let logoMesh: THREE.Mesh;
+			let glowMesh: THREE.Mesh;
+			let trailMeshes: THREE.Mesh[] = [];
+			let gridHelper: THREE.Group;
 			let animationId: number | null = null;
+			let time = 0;
 
 			// Bouncing state
-			let vx = 2.2;
-			let vy = 1.6;
+			let vx = 1.8;
+			let vy = 1.3;
 			let posX = 0;
 			let posY = 0;
 
-			// Color palette for DVD-style color changes on bounce
+			// Trail history for afterglow
+			const TRAIL_LENGTH = 12;
+			const trailPositions: { x: number; y: number }[] = [];
+
+			// Color palette — neon cyberpunk with Laravel red anchor
 			const colors = [
-				0xff2d20, // Laravel red
-				0x00e5ff, // Cyan
-				0xff00ff, // Magenta
-				0xffea00, // Yellow
-				0x76ff03, // Lime
-				0xff6d00, // Orange
-				0xd500f9, // Purple
+				new THREE.Color(0xff2d20), // Laravel red
+				new THREE.Color(0x00fff5), // Electric cyan
+				new THREE.Color(0xff00de), // Hot magenta
+				new THREE.Color(0xfff200), // Neon yellow
+				new THREE.Color(0x00ff85), // Matrix green
+				new THREE.Color(0xff6b00), // Molten orange
+				new THREE.Color(0xb400ff), // UV purple
 			];
 			let colorIndex = 0;
+			let currentColor = colors[0].clone();
+			let targetColor = colors[0].clone();
+			let colorLerp = 1;
 
-			function createLaravelLogo(): THREE.Group {
-				const group = new THREE.Group();
+			function createScene() {
+				const w = window.innerWidth;
+				const h = window.innerHeight;
 
-				// Laravel logo: the diamond shape with the "L" cutout
-				// Outer diamond
-				const diamondShape = new THREE.Shape();
-				const s = 40; // size
-				diamondShape.moveTo(0, s);     // top
-				diamondShape.lineTo(s, 0);     // right
-				diamondShape.lineTo(0, -s);    // bottom
-				diamondShape.lineTo(-s, 0);    // left
-				diamondShape.closePath();
+				// Perspective grid lines (cyberpunk floor)
+				gridHelper = new THREE.Group();
+				const gridMat = new THREE.LineBasicMaterial({
+					color: 0x1a0a3e,
+					transparent: true,
+					opacity: 0.3,
+				});
 
-				const diamondGeo = new THREE.ShapeGeometry(diamondShape);
-				const diamondMat = new THREE.MeshBasicMaterial({ color: colors[0] });
-				const diamond = new THREE.Mesh(diamondGeo, diamondMat);
-				group.add(diamond);
+				// Horizontal lines
+				const gridSpacing = 60;
+				const gridExtent = Math.max(w, h);
+				for (let i = -gridExtent; i <= gridExtent; i += gridSpacing) {
+					const geo = new THREE.BufferGeometry().setFromPoints([
+						new THREE.Vector3(-gridExtent, i, -1),
+						new THREE.Vector3(gridExtent, i, -1),
+					]);
+					gridHelper.add(new THREE.Line(geo, gridMat));
+				}
+				// Vertical lines
+				for (let i = -gridExtent; i <= gridExtent; i += gridSpacing) {
+					const geo = new THREE.BufferGeometry().setFromPoints([
+						new THREE.Vector3(i, -gridExtent, -1),
+						new THREE.Vector3(i, gridExtent, -1),
+					]);
+					gridHelper.add(new THREE.Line(geo, gridMat));
+				}
+				scene.add(gridHelper);
 
-				// Inner "L" shape (cut out in lighter shade to suggest the Laravel mark)
-				const lShape = new THREE.Shape();
-				// Vertical bar of L
-				lShape.moveTo(-12, 22);
-				lShape.lineTo(-4, 22);
-				lShape.lineTo(-4, -10);
-				lShape.lineTo(14, -10);
-				lShape.lineTo(18, -18);
-				lShape.lineTo(-12, -18);
-				lShape.closePath();
+				// Load the Laravel SVG as a texture on a sprite-like plane
+				const textureLoader = new THREE.TextureLoader();
+				textureLoader.load('/assets/laravel-logo.svg', (texture) => {
+					texture.minFilter = THREE.LinearFilter;
+					texture.magFilter = THREE.LinearFilter;
 
-				const lGeo = new THREE.ShapeGeometry(lShape);
-				const lMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-				const lMesh = new THREE.Mesh(lGeo, lMat);
-				lMesh.position.z = 0.1; // slightly in front
-				group.add(lMesh);
+					const logoSize = 80;
+					const aspect = 50 / 52; // SVG viewBox ratio
+					const geo = new THREE.PlaneGeometry(logoSize * aspect, logoSize);
 
-				return group;
+					// Main logo with emissive-like glow material
+					const mat = new THREE.MeshBasicMaterial({
+						map: texture,
+						transparent: true,
+						color: currentColor,
+					});
+					logoMesh = new THREE.Mesh(geo, mat);
+					logoMesh.position.z = 2;
+					scene.add(logoMesh);
+
+					// Glow halo behind the logo
+					const glowGeo = new THREE.PlaneGeometry(logoSize * aspect * 2.2, logoSize * 2.2);
+					const glowMat = new THREE.MeshBasicMaterial({
+						color: currentColor,
+						transparent: true,
+						opacity: 0.08,
+						blending: THREE.AdditiveBlending,
+					});
+					glowMesh = new THREE.Mesh(glowGeo, glowMat);
+					glowMesh.position.z = 1;
+					scene.add(glowMesh);
+
+					// Create trail ghost meshes
+					for (let i = 0; i < TRAIL_LENGTH; i++) {
+						const trailGeo = new THREE.PlaneGeometry(logoSize * aspect, logoSize);
+						const trailMat = new THREE.MeshBasicMaterial({
+							map: texture,
+							transparent: true,
+							opacity: 0,
+							color: currentColor,
+							blending: THREE.AdditiveBlending,
+						});
+						const trail = new THREE.Mesh(trailGeo, trailMat);
+						trail.position.z = 0.5;
+						scene.add(trail);
+						trailMeshes.push(trail);
+					}
+
+					// Start position
+					posX = (Math.random() - 0.5) * (w - 200);
+					posY = (Math.random() - 0.5) * (h - 200);
+					logoMesh.position.set(posX, posY, 2);
+					glowMesh.position.set(posX, posY, 1);
+				});
 			}
 
 			function init() {
@@ -105,59 +172,119 @@ const { title, description } = Astro.props;
 				renderer = new THREE.WebGLRenderer({ canvas, alpha: false, antialias: true });
 				renderer.setSize(w, h);
 				renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-				renderer.setClearColor(0x0a0a1a);
+				renderer.setClearColor(0x05050f);
+				// Enable tone mapping for richer colors
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 1.2;
 
 				scene = new THREE.Scene();
+				// Add a subtle fog for depth
+				scene.fog = new THREE.FogExp2(0x05050f, 0.0003);
+
 				camera = new THREE.OrthographicCamera(-w / 2, w / 2, h / 2, -h / 2, 0.1, 100);
 				camera.position.z = 10;
 
-				logoGroup = createLaravelLogo();
-				scene.add(logoGroup);
-
-				// Start at a random-ish position
-				posX = (Math.random() - 0.5) * (w - 120);
-				posY = (Math.random() - 0.5) * (h - 120);
-				logoGroup.position.set(posX, posY, 0);
+				createScene();
 
 				if (!prefersReducedMotion.matches) {
 					animate();
 				} else {
-					renderer.render(scene, camera);
+					// Single render for reduced motion
+					const checkReady = setInterval(() => {
+						if (logoMesh && renderer) {
+							renderer.render(scene, camera);
+							clearInterval(checkReady);
+						}
+					}, 100);
 				}
 			}
 
 			function animate() {
 				if (!renderer) return;
 				animationId = requestAnimationFrame(animate);
+				time += 0.016;
 
 				const w = window.innerWidth;
 				const h = window.innerHeight;
-				const halfLogoW = 44;
-				const halfLogoH = 44;
+				const halfLogoW = 50;
+				const halfLogoH = 50;
 
-				posX += vx;
-				posY += vy;
+				if (logoMesh) {
+					posX += vx;
+					posY += vy;
 
-				// Bounce off edges
-				let bounced = false;
-				if (posX + halfLogoW > w / 2 || posX - halfLogoW < -w / 2) {
-					vx = -vx;
-					posX = Math.max(-w / 2 + halfLogoW, Math.min(w / 2 - halfLogoW, posX));
-					bounced = true;
+					// Bounce off edges
+					let bounced = false;
+					if (posX + halfLogoW > w / 2 || posX - halfLogoW < -w / 2) {
+						vx = -vx;
+						posX = Math.max(-w / 2 + halfLogoW, Math.min(w / 2 - halfLogoW, posX));
+						bounced = true;
+					}
+					if (posY + halfLogoH > h / 2 || posY - halfLogoH < -h / 2) {
+						vy = -vy;
+						posY = Math.max(-h / 2 + halfLogoH, Math.min(h / 2 - halfLogoH, posY));
+						bounced = true;
+					}
+
+					if (bounced) {
+						colorIndex = (colorIndex + 1) % colors.length;
+						targetColor = colors[colorIndex].clone();
+						colorLerp = 0;
+					}
+
+					// Smooth color transition
+					if (colorLerp < 1) {
+						colorLerp = Math.min(1, colorLerp + 0.04);
+						currentColor.lerpColors(
+							currentColor,
+							targetColor,
+							colorLerp < 0.5 ? colorLerp * 2 : 1
+						);
+						(logoMesh.material as THREE.MeshBasicMaterial).color.copy(currentColor);
+						if (glowMesh) {
+							(glowMesh.material as THREE.MeshBasicMaterial).color.copy(currentColor);
+						}
+					}
+
+					logoMesh.position.set(posX, posY, 2);
+
+					// Glow follows logo with slight pulse
+					if (glowMesh) {
+						glowMesh.position.set(posX, posY, 1);
+						const pulse = 0.06 + Math.sin(time * 3) * 0.03;
+						(glowMesh.material as THREE.MeshBasicMaterial).opacity = pulse;
+					}
+
+					// Update trail
+					trailPositions.unshift({ x: posX, y: posY });
+					if (trailPositions.length > TRAIL_LENGTH) {
+						trailPositions.pop();
+					}
+
+					for (let i = 0; i < trailMeshes.length; i++) {
+						if (i < trailPositions.length) {
+							const t = trailPositions[i];
+							trailMeshes[i].position.set(t.x, t.y, 0.5);
+							const fade = (1 - i / TRAIL_LENGTH) * 0.12;
+							(trailMeshes[i].material as THREE.MeshBasicMaterial).opacity = fade;
+							(trailMeshes[i].material as THREE.MeshBasicMaterial).color.copy(currentColor);
+							// Scale trail down slightly for depth
+							const s = 1 - (i / TRAIL_LENGTH) * 0.15;
+							trailMeshes[i].scale.set(s, s, 1);
+						} else {
+							(trailMeshes[i].material as THREE.MeshBasicMaterial).opacity = 0;
+						}
+					}
 				}
-				if (posY + halfLogoH > h / 2 || posY - halfLogoH < -h / 2) {
-					vy = -vy;
-					posY = Math.max(-h / 2 + halfLogoH, Math.min(h / 2 - halfLogoH, posY));
-					bounced = true;
+
+				// Subtle grid animation — pulse the grid opacity
+				if (gridHelper) {
+					const gridPulse = 0.15 + Math.sin(time * 0.5) * 0.08;
+					gridHelper.children.forEach((child) => {
+						((child as THREE.Line).material as THREE.LineBasicMaterial).opacity = gridPulse;
+					});
 				}
 
-				if (bounced) {
-					colorIndex = (colorIndex + 1) % colors.length;
-					const diamond = logoGroup.children[0] as THREE.Mesh;
-					(diamond.material as THREE.MeshBasicMaterial).color.setHex(colors[colorIndex]);
-				}
-
-				logoGroup.position.set(posX, posY, 0);
 				renderer.render(scene, camera);
 			}
 
@@ -203,13 +330,16 @@ const { title, description } = Astro.props;
 		</script>
 
 		<style>
+			/* ═══════════════════════════════════════
+			   THREE.JS CANVAS
+			   ═══════════════════════════════════════ */
 			#bg-canvas {
 				position: fixed;
 				top: 0;
 				left: 0;
 				width: 100vw;
 				height: 100vh;
-				z-index: -1;
+				z-index: -2;
 				display: none;
 			}
 
@@ -219,27 +349,114 @@ const { title, description } = Astro.props;
 				}
 			}
 
+			/* ═══════════════════════════════════════
+			   CYBERPUNK OVERLAY SYSTEM
+			   Scanlines + CRT static + vignette
+			   ═══════════════════════════════════════ */
+			.cyber-overlay {
+				position: fixed;
+				inset: 0;
+				z-index: 9999;
+				pointer-events: none;
+				mix-blend-mode: normal;
+			}
+
+			/* CRT Scanlines */
+			.scanlines {
+				position: absolute;
+				inset: 0;
+				background: repeating-linear-gradient(
+					0deg,
+					transparent,
+					transparent 2px,
+					rgba(0, 0, 0, 0.06) 2px,
+					rgba(0, 0, 0, 0.06) 4px
+				);
+				opacity: 0.5;
+			}
+
+			/* Animated static noise via CSS */
+			.static-noise {
+				position: absolute;
+				inset: 0;
+				opacity: 0.025;
+				background-image: url('/assets/backgrounds/noise.png');
+				background-size: 200px;
+				animation: staticShift 0.15s steps(3) infinite;
+			}
+
+			@keyframes staticShift {
+				0% { background-position: 0 0; }
+				33% { background-position: -50px -25px; }
+				66% { background-position: 30px -60px; }
+				100% { background-position: -20px 40px; }
+			}
+
+			/* Cinematic vignette */
+			.vignette {
+				position: absolute;
+				inset: 0;
+				background: radial-gradient(
+					ellipse at center,
+					transparent 50%,
+					rgba(0, 0, 0, 0.5) 100%
+				);
+			}
+
+			/* Reduced motion: kill animations */
+			@media (prefers-reduced-motion: reduce) {
+				.static-noise {
+					animation: none;
+				}
+			}
+
+			/* ═══════════════════════════════════════
+			   BACKGROUNDS CONTAINER
+			   ═══════════════════════════════════════ */
 			.backgrounds {
 				min-height: 100%;
 				isolation: isolate;
-				/* Mobile: cyberpunk + USGD static gradient */
+				position: relative;
+				z-index: 1;
+				/*
+				 * MOBILE: Cyberpunk + USGD static gradient
+				 * Deep dark base with neon radial glows,
+				 * geometric hard-edge linear cuts,
+				 * and the noise overlay for texture
+				 */
 				background:
+					/* Noise grain */
 					url('/assets/backgrounds/noise.png') top center/220px repeat,
-					radial-gradient(ellipse at 20% 50%, rgba(255, 45, 32, 0.15) 0%, transparent 50%),
-					radial-gradient(ellipse at 80% 20%, rgba(0, 229, 255, 0.12) 0%, transparent 50%),
-					radial-gradient(ellipse at 50% 90%, rgba(213, 0, 249, 0.1) 0%, transparent 50%),
+					/* Neon glow: Laravel red, top-left */
+					radial-gradient(ellipse at 15% 10%, rgba(255, 45, 32, 0.18) 0%, transparent 45%),
+					/* Neon glow: electric cyan, top-right */
+					radial-gradient(ellipse at 85% 15%, rgba(0, 255, 245, 0.12) 0%, transparent 40%),
+					/* Neon glow: hot magenta, mid-left */
+					radial-gradient(ellipse at 10% 55%, rgba(255, 0, 222, 0.1) 0%, transparent 45%),
+					/* Neon glow: UV purple, bottom-right */
+					radial-gradient(ellipse at 80% 85%, rgba(180, 0, 255, 0.12) 0%, transparent 40%),
+					/* Sharp diagonal cut — USGD geometric influence */
+					linear-gradient(
+						135deg,
+						rgba(255, 45, 32, 0.06) 0%,
+						transparent 30%,
+						transparent 70%,
+						rgba(0, 255, 245, 0.04) 100%
+					),
+					/* Base gradient: deep cyberpunk dark */
 					linear-gradient(
 						180deg,
-						#0a0a1a 0%,
-						#12082a 20%,
-						#0d1b2a 45%,
-						#1a0a2e 70%,
-						#0a0a1a 100%
+						#05050f 0%,
+						#0a0820 15%,
+						#0d0a28 30%,
+						#08061a 50%,
+						#0a0820 70%,
+						#05050f 100%
 					);
-				background-blend-mode: overlay, normal, normal, normal, normal;
+				background-blend-mode: overlay, normal, normal, normal, normal, normal, normal;
 			}
 
-			/* On desktop/tablet, make content transparent so Three.js canvas shows through */
+			/* Desktop/Tablet: transparent so Three.js canvas shows through */
 			@media (min-width: 50em) {
 				.backgrounds {
 					background:
@@ -253,6 +470,9 @@ const { title, description } = Astro.props;
 				.backgrounds {
 					background: none;
 					background-blend-mode: none;
+				}
+				.cyber-overlay {
+					display: none;
 				}
 			}
 		</style>
