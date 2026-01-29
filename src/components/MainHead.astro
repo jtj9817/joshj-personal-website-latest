@@ -25,15 +25,28 @@ const {
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,700;1,400&family=Rubik:wght@500;600&display=swap"
 	rel="stylesheet"
 />
-<script src="https://kit.fontawesome.com/77b5fa8edb.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+<script
+	src="https://kit.fontawesome.com/77b5fa8edb.js"
+	integrity="sha384-yrv+f7YXnBMyLEvka/aW8XvHYRKuU7v1KanNbVga6IcBe4+2IZA7inliPeJaVdus"
+	crossorigin="anonymous">
+</script>
+<link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
+	integrity="sha384-mTX5j/NIzlehkuOql3BYfNpkDrnvRHS5S7V3ctncUhJjtlL1+85q8lCKi8A5sUb+"
+	crossorigin="anonymous">
 
 
 <script is:inline>
 	// This code is inlined in the head to make dark mode instant & blocking.
 	const getThemePreference = () => {
-		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-			return localStorage.getItem('theme');
+		try {
+			if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+				return localStorage.getItem('theme');
+			}
+		} catch (e) {
+			// Private browsing mode or localStorage disabled
+			console.warn('localStorage unavailable, using system preference');
 		}
 		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 	};
