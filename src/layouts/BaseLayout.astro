@@ -20,13 +20,19 @@ const { title, description } = Astro.props;
 		<MainHead title={title} description={description} />
 	</head>
 	<body>
-		<canvas id="bg-canvas"></canvas>
-		<!-- CRT scanline + static overlay (CSS-only, works on both mobile and desktop) -->
-		<div class="cyber-overlay" aria-hidden="true">
+		<!-- Dark mode only: Three.js canvas -->
+		<canvas id="bg-canvas" class="dark-mode-only"></canvas>
+
+		<!-- Dark mode only: Cyberpunk overlay effects -->
+		<div class="cyber-overlay dark-mode-only" aria-hidden="true">
 			<div class="scanlines"></div>
 			<div class="static-noise"></div>
 			<div class="vignette"></div>
 		</div>
+
+		<!-- Light mode only: Clean gradient background -->
+		<div class="light-background light-mode-only" aria-hidden="true"></div>
+
 		<div class="stack backgrounds">
 			<Nav />
 			<slot />
