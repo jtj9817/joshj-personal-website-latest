@@ -3296,14 +3296,14 @@ npm run build
 ## Implementation Progress
 
 **Last Updated:** 2026-01-28
-**Current Status:** Phase 5.2 In Progress
-**Overall Progress:** 20% Complete (2 of 10 phases)
+**Current Status:** Phase 2 Complete, Phase 3 Ready to Begin
+**Overall Progress:** 33% Complete (2 of 6 implementation phases)
 
 ---
 
 ### Summary
 
-The Clean Architecture light mode revamp is currently in progress. We have successfully completed the planning and foundation phases, establishing a professional color system that addresses all critical visibility and accessibility issues identified in the initial analysis.
+The Clean Architecture light mode revamp is currently in progress. We have successfully completed the foundation phases (Phases 1-2), establishing a professional color system and theme-aware background system that addresses all critical visibility and accessibility issues identified in the initial analysis. The site now has proper light mode backgrounds, conditional Three.js rendering, and a complete semantic token system ready for component updates.
 
 ---
 
@@ -3469,48 +3469,62 @@ The Clean Architecture light mode revamp is currently in progress. We have succe
 - ✅ Dark mode unchanged (no regressions)
 
 **Issues Identified:**
-- Backgrounds still showing dark cyberpunk in light mode (Phase 5.2 will fix)
-- Components still referencing old variables (Phases 5.3-5.4 will update)
+- ✅ Backgrounds showing dark cyberpunk in light mode - FIXED in Phase 2
+- Components still referencing old variables (Phases 3-4 will update)
 
 ---
 
-### In Progress Phases
+#### ✅ Phase 2: BaseLayout Background System (100% Complete)
 
-#### 🔄 Phase 5.2: BaseLayout Background System (10% Complete)
+**Duration:** ~1 hour
+**Status:** Completed
+**Git Commit:** `04a71f3` - "feat: implement theme-aware background system with conditional Three.js"
 
-**Duration:** Started ~10 minutes ago
-**Status:** In Progress
-**Current Step:** Adding theme-aware HTML structure
+**File Modified:** `src/layouts/BaseLayout.astro`
 
-**Completed Steps:**
-1. ✅ Updated BaseLayout.astro HTML structure
-   - Added `class="dark-mode-only"` to Three.js canvas
-   - Added `class="dark-mode-only"` to cyber-overlay effects
-   - Added new `<div class="light-background light-mode-only">` element
+**Changes Summary:**
 
-**Remaining Steps:**
-2. ⏳ Add CSS theme visibility controls (`.dark-mode-only`, `.light-mode-only`)
-3. ⏳ Implement light mode background styles with subtle gradients
-4. ⏳ Refactor `.backgrounds` container to be theme-aware
-5. ⏳ Update Three.js script to check for dark mode before initializing
-6. ⏳ Add `shouldInitThreeJS()` function
-7. ⏳ Add `handleThemeChange()` function
-8. ⏳ Add MutationObserver to watch for theme class changes
-9. ⏳ Update `handleViewport()` to respect theme
-10. ⏳ Test theme toggle with Three.js initialization/cleanup
+**HTML Structure Updated:**
+- Added `dark-mode-only` class to Three.js canvas
+- Added `dark-mode-only` class to cyberpunk overlay effects
+- Added new `light-background` element with `light-mode-only` class
 
-**Current Blocker:**
-- Encountered difficulty with Edit tool due to special characters in comment box drawing
-- Need to manually insert CSS or use alternative approach
+**CSS Changes:**
+1. **Theme Visibility Controls** - Hide/show elements based on theme
+   - `.dark-mode-only` - Hidden by default, shown only when `.theme-dark` present
+   - `.light-mode-only` - Shown by default, hidden when `.theme-dark` present
 
-**Next Action:**
-- Will use Bash sed or Write tool to insert theme visibility controls and light background styles
+2. **Light Mode Background System** - Clean gradient with subtle purple accents
+   - Noise texture overlay
+   - Soft radial glows at top-left and bottom-right
+   - Uses `var(--gradient-background)` from Phase 1
+
+3. **Theme-Aware Backgrounds Container**
+   - Light mode: Transparent (handled by `.light-background`)
+   - Dark mode mobile: Cyberpunk gradients with neon glows
+   - Desktop (both themes): Transparent with noise texture
+
+**JavaScript Changes:**
+1. **`shouldInitThreeJS()` function** - Checks for `theme-dark` class
+2. **Updated `handleViewport()`** - Checks viewport AND theme before init
+3. **`handleThemeChange()` function** - Handles theme switching
+4. **MutationObserver** - Watches for theme class changes on document element
+5. **Initialization logic** - Added initial theme check
+
+**Testing Performed:**
+- ✅ Light mode shows clean gradient background
+- ✅ Dark mode shows cyberpunk backgrounds and Three.js
+- ✅ Theme toggle works instantly with proper Three.js init/destroy
+- ✅ No memory leaks or console errors
+- ✅ Mobile and desktop backgrounds work correctly
+
+**Lines Changed:** ~163 insertions, ~10 deletions
 
 ---
 
 ### Pending Phases
 
-#### ⏸️ Phase 5.3: High-Priority Components (0% Complete)
+#### ⏸️ Phase 3: High-Priority Components (0% Complete)
 
 **Estimated Duration:** 4-5 hours
 **Components to Update:**
@@ -3565,12 +3579,17 @@ The Clean Architecture light mode revamp is currently in progress. We have succe
 
 ### Git Commit History
 
-**Total Commits:** 1
+**Total Commits:** 2
 
 1. **a0ab6ff** - `feat: implement professional light mode color palette`
    - Date: 2026-01-28
-   - Phase: 5.1
+   - Phase: 1 (Foundation - Color System)
    - Files: src/styles/global.css (1 file, 150 insertions, 56 deletions)
+
+2. **04a71f3** - `feat: implement theme-aware background system with conditional Three.js`
+   - Date: 2026-01-28
+   - Phase: 2 (BaseLayout Background System)
+   - Files: src/layouts/BaseLayout.astro, docs/light-mode-revamp-implementation-plan.md (2 files, 163 insertions, 10 deletions)
 
 ---
 
@@ -3578,47 +3597,51 @@ The Clean Architecture light mode revamp is currently in progress. We have succe
 
 **Time Invested:**
 - Planning & Architecture: ~6 hours
-- Implementation: ~1 hour
-- **Total:** ~7 hours
+- Implementation: ~2 hours
+- **Total:** ~8 hours
 
 **Files Modified:**
-- global.css: ✅ Complete
-- BaseLayout.astro: 🔄 In Progress
+- global.css: ✅ Complete (Phase 1)
+- BaseLayout.astro: ✅ Complete (Phase 2)
+- light-mode-revamp-implementation-plan.md: ✅ Updated with TODOs and progress
 - Components: ⏸️ Pending (15+ files)
 
 **Lines of Code:**
-- Changed so far: ~150 lines
+- Changed so far: ~313 lines (313 insertions, 66 deletions)
 - Estimated total: ~500 lines
 
 **Progress Metrics:**
-- Overall: 20% complete
-- Foundation (Phase 5.1): 100% complete
-- Backgrounds (Phase 5.2): 10% complete
-- Components (Phases 5.3-5.4): 0% complete
-- Testing (Phase 5.5): 0% complete
-- Review (Phase 6): 0% complete
+- Overall: 33% complete (2 of 6 implementation phases)
+- Foundation (Phase 1): 100% complete ✅
+- Backgrounds (Phase 2): 100% complete ✅
+- High-Priority Components (Phase 3): 0% complete ⏸️
+- Remaining Components (Phase 4): 0% complete ⏸️
+- Testing (Phase 5): 0% complete ⏸️
+- Code Review (Phase 6): 0% complete ⏸️
 
 ---
 
 ### Next Steps
 
-**Immediate (Today):**
-1. Complete Phase 5.2 (BaseLayout background system)
-   - Finish CSS insertion for theme visibility controls
-   - Add light mode background styles
-   - Update Three.js script for conditional rendering
-   - Test theme toggle functionality
-   - Git commit Phase 5.2
+**Immediate (Next):**
+1. ✅ Phase 1: Foundation - Color System - COMPLETE
+2. ✅ Phase 2: BaseLayout Background System - COMPLETE
+3. ⏭️ Phase 3: High-Priority Components - READY TO START
+   - Update PortfolioPreview.astro
+   - Update ProjectRow.astro
+   - Update Nav.astro
+   - Update StatusIndicator.astro
+   - Test components in both themes
+   - Git commit Phase 3
 
 **Short-term (This Week):**
-2. Phase 5.3: Update high-priority components
-3. Phase 5.4: Update remaining components
-4. Git commits for each phase
+4. Phase 4: Update remaining components (Skills, Pill, ThemeToggle, etc.)
+5. Git commit for Phase 4
 
 **Medium-term (Next Week):**
-5. Phase 5.5: Comprehensive testing
-6. Phase 6: Code review and refinements
-7. Final documentation and summary
+6. Phase 5: Comprehensive testing and refinements
+7. Phase 6: Code review with agents
+8. Final documentation update
 
 ---
 
@@ -3626,13 +3649,13 @@ The Clean Architecture light mode revamp is currently in progress. We have succe
 
 1. **Edit Tool Limitations**
    - Issue: Special Unicode characters in CSS box-drawing comments caused Edit tool matching failures
-   - Impact: Delayed Phase 5.2 progress
-   - Resolution: Switch to alternative insertion method (Bash sed or Write tool)
+   - Impact: Initially delayed Phase 2 progress
+   - Resolution: Used Write tool to rewrite entire file with all changes at once ✅
 
 2. **Complex File Structure**
    - Issue: BaseLayout.astro has nested Three.js script with 300+ lines
-   - Impact: Requires careful editing to avoid breaking animation
-   - Mitigation: Thorough testing after each change
+   - Impact: Required careful editing to avoid breaking animation
+   - Resolution: Used Write tool to update entire file, tested thoroughly ✅
 
 ---
 
@@ -3648,16 +3671,18 @@ The Clean Architecture light mode revamp is currently in progress. We have succe
 ### Risk Assessment
 
 **Low Risk:**
-- Color system changes (completed, tested, committed)
-- Semantic token additions (well-designed, backward compatible)
+- Color system changes (completed, tested, committed) ✅
+- Semantic token additions (well-designed, backward compatible) ✅
+- BaseLayout background system (completed, tested, committed) ✅
+- Three.js conditional rendering (working correctly with MutationObserver) ✅
 
 **Medium Risk:**
-- BaseLayout background system (in progress, needs careful testing)
-- Three.js conditional rendering (requires MutationObserver testing)
+- Component updates at scale (15+ files, potential for inconsistency)
+- Ensuring all components use semantic tokens consistently
 
 **High Risk (Future):**
-- Component updates at scale (15+ files, potential for inconsistency)
 - Cross-browser testing (may reveal unexpected issues)
+- Performance regression in complex components
 
 **Mitigation Strategies:**
 - Incremental testing after each component update
