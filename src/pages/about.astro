@@ -387,6 +387,155 @@ import TechnicalDivider from "../components/TechnicalDivider.astro"
     opacity: 0;
     z-index: 0;
   }
+
+  @keyframes textFlicker {
+    0%, 100% {
+      opacity: 1;
+      text-shadow: 0 0 10px var(--accent-light), 0 0 20px var(--accent-light), 0 0 30px var(--accent-light);
+    }
+    5% {
+      opacity: 0.8;
+      text-shadow: 0 0 5px var(--accent-regular), 0 0 10px var(--accent-regular);
+    }
+    10% {
+      opacity: 1;
+      text-shadow: 0 0 15px var(--accent-light), 0 0 25px var(--accent-light), 0 0 35px var(--accent-light), 0 0 45px #ff00ff;
+    }
+    15% {
+      opacity: 0.6;
+      text-shadow: none;
+    }
+    20% {
+      opacity: 1;
+      text-shadow: 0 0 20px var(--accent-light), 0 0 30px var(--accent-light), 0 0 40px #00ffff;
+    }
+    25% {
+      opacity: 0.9;
+      text-shadow: 0 0 10px var(--accent-regular);
+    }
+    30% {
+      opacity: 0.4;
+      text-shadow: none;
+    }
+    35% {
+      opacity: 1;
+      text-shadow: 0 0 25px var(--accent-light), 0 0 35px #ff00ff, 0 0 45px #00ffff;
+    }
+    40% {
+      opacity: 0.7;
+      text-shadow: 0 0 5px var(--accent-regular);
+    }
+    45% {
+      opacity: 0.3;
+      text-shadow: none;
+    }
+    50% {
+      opacity: 1;
+      text-shadow: 0 0 20px var(--accent-light), 0 0 30px var(--accent-light), 0 0 40px var(--accent-light), 0 0 50px #ff00ff, 0 0 60px #00ffff;
+    }
+    55% {
+      opacity: 0.8;
+      text-shadow: 0 0 10px var(--accent-regular);
+    }
+    60% {
+      opacity: 0.5;
+      text-shadow: none;
+    }
+    65% {
+      opacity: 1;
+      text-shadow: 0 0 30px var(--accent-light), 0 0 40px #ff00ff;
+    }
+    70% {
+      opacity: 0.9;
+      text-shadow: 0 0 15px var(--accent-light);
+    }
+    75% {
+      opacity: 0.4;
+      text-shadow: none;
+    }
+    80% {
+      opacity: 1;
+      text-shadow: 0 0 20px var(--accent-light), 0 0 30px var(--accent-light), 0 0 40px var(--accent-light), 0 0 50px #00ffff;
+    }
+    85% {
+      opacity: 0.8;
+      text-shadow: 0 0 10px var(--accent-regular);
+    }
+    90% {
+      opacity: 0.6;
+      text-shadow: 0 0 5px var(--accent-regular);
+    }
+    95% {
+      opacity: 1;
+      text-shadow: 0 0 25px var(--accent-light), 0 0 35px var(--accent-light), 0 0 45px #ff00ff;
+    }
+  }
+
+  @keyframes borderGlow {
+    0%, 100% {
+      border-color: var(--accent-regular);
+      box-shadow: 0 0 10px var(--accent-regular), inset 0 0 10px var(--accent-subtle-overlay);
+    }
+    25% {
+      border-color: #ff00ff;
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.6), inset 0 0 15px rgba(255, 0, 255, 0.2);
+    }
+    50% {
+      border-color: #00ffff;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.7), inset 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+    75% {
+      border-color: var(--accent-light);
+      box-shadow: 0 0 15px var(--accent-light), inset 0 0 12px var(--accent-overlay);
+    }
+  }
+
+  @keyframes scanline {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+
+  .cyberpunk-toggle.flickering .toggle-text {
+    animation: textFlicker 0.15s ease-in-out 20;
+    color: #fff;
+  }
+
+  .cyberpunk-toggle.flickering {
+    animation: borderGlow 0.3s ease-in-out 10;
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .cyberpunk-toggle.flickering::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      transparent 0%,
+      rgba(0, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+    animation: scanline 0.1s linear 10;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  :root.theme-dark .cyberpunk-toggle.flickering .toggle-text {
+    animation: textFlicker 0.12s ease-in-out 25;
+    color: #00ff85;
+  }
+
+  :root.theme-dark .cyberpunk-toggle.flickering {
+    animation: borderGlow 0.25s ease-in-out 12;
+    background: rgba(0, 0, 0, 0.9);
+    border-color: #00ff85;
+  }
 </style>
 
 <script>
@@ -480,6 +629,25 @@ import TechnicalDivider from "../components/TechnicalDivider.astro"
 
   toggleBtn?.addEventListener('click', () => {
     isExpanded = !isExpanded;
+    
+    if (toggleBtn) {
+      toggleBtn.classList.add('flickering');
+      
+      const originalText = toggleText?.textContent || '';
+      const targetText = isExpanded ? '[ COLLAPSE_PROFILE ]' : '[ EXPAND_PROFILE ]';
+      
+      if (currentAnimator) {
+        currentAnimator.stop();
+      }
+      
+      currentAnimator = new CyberpunkTextAnimator(toggleText, targetText, () => {
+        setTimeout(() => {
+          toggleBtn.classList.remove('flickering');
+        }, 500);
+      });
+      
+      currentAnimator.animate();
+    }
     
     if (isExpanded) {
       if (conciseVersion && comprehensiveVersion) {
