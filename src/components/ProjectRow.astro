@@ -10,7 +10,6 @@ interface Props {
 const { project, index } = Astro.props;
 const { data, id } = project;
 
-const formattedDate = data.publishDate.toISOString().split('T')[0];
 const paddedIndex = String(index).padStart(2, '0');
 ---
 
@@ -21,9 +20,8 @@ const paddedIndex = String(index).padStart(2, '0');
   </div>
   <div class="row-title">{data.title}</div>
   <div class="row-category">
-    <span class="category-badge">[{data.category.toUpperCase()}]</span>
+    <span class="category-badge">[{data.category === "Work" ? "PROFESSIONAL WORK" : data.category.toUpperCase()}]</span>
   </div>
-  <div class="row-date">{formattedDate}</div>
   <div class="row-tags">
     {data.tags.slice(0, 3).map(tag => (
       <span class="tag-chip">{tag}</span>
@@ -45,8 +43,7 @@ const paddedIndex = String(index).padStart(2, '0');
       3rem      /* index */
       5rem      /* thumbnail */
       minmax(200px, 1fr)  /* title */
-      10rem     /* category */
-      10rem     /* date */
+      12rem     /* category */
       minmax(150px, 2fr)  /* tags */
       10rem     /* status */
       3rem;     /* action */
@@ -106,12 +103,6 @@ const paddedIndex = String(index).padStart(2, '0');
     background: var(--bg-secondary);
   }
 
-  .row-date {
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    color: var(--gray-400);
-  }
-
   .row-tags {
     display: flex;
     gap: 0.5rem;
@@ -163,7 +154,6 @@ const paddedIndex = String(index).padStart(2, '0');
       height: 8rem;
     }
 
-    .row-date,
     .row-category,
     .row-status {
       font-size: 0.75rem;
