@@ -3,17 +3,35 @@ import Icon from './Icon.astro';
 ---
 
 <section class="box skills">
-	<div class="stack gap-2 lg:gap-4">
+	<div class="skill-item">
 		<h2>Full Stack Web Development</h2>
 		<p>Full Stack Web Development with Laravel, Vue, TailwindCSS, and MySQL. I have also used jQuery, JavaScript, Bootstrap, and Python for past projects
 			and work.
 		</p>
 	</div>
-	<div class="stack gap-2 lg:gap-4">
+	<div class="skill-divider divider-green">
+		<div class="divider-line-green"></div>
+		<div class="divider-glow glow-green"></div>
+		<div class="divider-particles">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div class="skill-item">
 		<h2>QA Testing, API Testing, and UI/UX Testing</h2>
 		<p>Manual QA Testing using different browsers and platforms, unit tests using PHP Unit tests, API Testing using Postman, and UI/UX Testing using Puppeteer.</p>
 	</div>
-	<div class="stack gap-2 lg:gap-4">
+	<div class="skill-divider divider-yellow">
+		<div class="divider-line-yellow"></div>
+		<div class="divider-glow glow-yellow"></div>
+		<div class="divider-particles">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div class="skill-item">
 		<h2>Accessibility design for UI and UX.</h2>
 		<p>Making sure that the design of websites are compliant with AODA and W3C Web Accessibility Initiative (WAI) standards.</p>
 	</div>
@@ -31,7 +49,17 @@ import Icon from './Icon.astro';
 	.skills {
 		display: flex;
 		flex-direction: column;
-		gap: 3rem;
+		gap: 2rem;
+	}
+
+	.skill-item {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.skill-divider {
+		display: none;
 	}
 
 	.skills h2 {
@@ -45,13 +73,253 @@ import Icon from './Icon.astro';
 	@media (min-width: 50em) {
 		.box {
 			border-radius: 1.5rem;
-			padding: 2.5rem;
+			padding: 3rem;
 		}
 
 		.skills {
 			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 5rem;
+			grid-template-columns: 1fr auto 1fr auto 1fr;
+			gap: 0;
+			align-items: stretch;
+		}
+
+		.skill-item {
+			padding: 0 2.5rem;
+			gap: 1.5rem;
+		}
+
+		.skill-item:first-child {
+			padding-left: 0;
+		}
+
+		.skill-item:last-child {
+			padding-right: 0;
+		}
+
+		.skill-divider {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			width: 4px;
+			position: relative;
+			overflow: visible;
+		}
+
+		/* Green divider */
+		.divider-green .divider-line-green {
+			position: absolute;
+			width: 2px;
+			height: 100%;
+			background: linear-gradient(
+				180deg,
+				transparent 0%,
+				#00ff41 10%,
+				#00cc33 30%,
+				#00ff41 50%,
+				#00cc33 70%,
+				#00ff41 90%,
+				transparent 100%
+			);
+			box-shadow: 
+				0 0 10px #00ff41,
+				0 0 20px #00ff41,
+				0 0 40px #00cc33;
+		}
+
+		.divider-green .divider-line-green::before {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 30%;
+			background: linear-gradient(
+				180deg,
+				transparent 0%,
+				rgba(255, 255, 255, 0.9) 50%,
+				transparent 100%
+			);
+			animation: scanDown 2s linear infinite;
+		}
+
+		.glow-green {
+			width: 12px;
+			height: 12px;
+			background: #00ff41;
+			border: 2px solid #ccffcc;
+			box-shadow: 
+				0 0 10px #00ff41,
+				0 0 20px #00ff41,
+				0 0 40px #00cc33,
+				inset 0 0 8px #ccffcc;
+			transform: rotate(45deg);
+			position: relative;
+			z-index: 2;
+			animation: pulseGreen 1.5s ease-in-out infinite;
+		}
+
+		@keyframes pulseGreen {
+			0%, 100% {
+				box-shadow: 
+					0 0 10px #00ff41,
+					0 0 20px #00ff41,
+					0 0 40px #00cc33,
+					inset 0 0 8px #ccffcc;
+				transform: rotate(45deg) scale(1);
+			}
+			50% {
+				box-shadow: 
+					0 0 20px #00ff41,
+					0 0 40px #00ff41,
+					0 0 60px #00cc33,
+					inset 0 0 12px #ccffcc;
+				transform: rotate(45deg) scale(1.2);
+			}
+		}
+
+		/* Yellow divider */
+		.divider-yellow .divider-line-yellow {
+			position: absolute;
+			width: 2px;
+			height: 100%;
+			background: linear-gradient(
+				180deg,
+				transparent 0%,
+				#ffff00 10%,
+				#ffcc00 30%,
+				#ffff00 50%,
+				#ffcc00 70%,
+				#ffff00 90%,
+				transparent 100%
+			);
+			box-shadow: 
+				0 0 10px #ffff00,
+				0 0 20px #ffff00,
+				0 0 40px #ffcc00;
+		}
+
+		.divider-yellow .divider-line-yellow::before {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 30%;
+			background: linear-gradient(
+				180deg,
+				transparent 0%,
+				rgba(255, 255, 255, 0.9) 50%,
+				transparent 100%
+			);
+			animation: scanUp 2.5s linear infinite;
+		}
+
+		.glow-yellow {
+			width: 12px;
+			height: 12px;
+			background: #ffff00;
+			border: 2px solid #ffffcc;
+			box-shadow: 
+				0 0 10px #ffff00,
+				0 0 20px #ffff00,
+				0 0 40px #ffcc00,
+				inset 0 0 8px #ffffcc;
+			transform: rotate(45deg);
+			position: relative;
+			z-index: 2;
+			animation: pulseYellow 1.8s ease-in-out infinite;
+		}
+
+		@keyframes pulseYellow {
+			0%, 100% {
+				box-shadow: 
+					0 0 10px #ffff00,
+					0 0 20px #ffff00,
+					0 0 40px #ffcc00,
+					inset 0 0 8px #ffffcc;
+				transform: rotate(45deg) scale(1);
+			}
+			50% {
+				box-shadow: 
+					0 0 20px #ffff00,
+					0 0 40px #ffff00,
+					0 0 60px #ffcc00,
+					inset 0 0 12px #ffffcc;
+				transform: rotate(45deg) scale(1.2);
+			}
+		}
+
+		@keyframes scanDown {
+			0% {
+				top: -30%;
+			}
+			100% {
+				top: 100%;
+			}
+		}
+
+		@keyframes scanUp {
+			0% {
+				top: 100%;
+			}
+			100% {
+				top: -30%;
+			}
+		}
+
+		/* Floating particles */
+		.divider-particles {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+		}
+
+		.divider-particles span {
+			position: absolute;
+			width: 4px;
+			height: 4px;
+			border-radius: 50%;
+			animation: float 3s ease-in-out infinite;
+		}
+
+		.divider-green .divider-particles span {
+			background: #00ff41;
+			box-shadow: 0 0 6px #00ff41;
+		}
+
+		.divider-yellow .divider-particles span {
+			background: #ffff00;
+			box-shadow: 0 0 6px #ffff00;
+		}
+
+		.divider-particles span:nth-child(1) {
+			left: 50%;
+			top: 20%;
+			animation-delay: 0s;
+			animation-duration: 2.5s;
+		}
+
+		.divider-particles span:nth-child(2) {
+			left: 30%;
+			top: 50%;
+			animation-delay: 0.5s;
+			animation-duration: 3s;
+		}
+
+		.divider-particles span:nth-child(3) {
+			left: 70%;
+			top: 80%;
+			animation-delay: 1s;
+			animation-duration: 2.8s;
+		}
+
+		@keyframes float {
+			0%, 100% {
+				opacity: 0;
+				transform: translateY(0) scale(0.5);
+			}
+			50% {
+				opacity: 1;
+				transform: translateY(-20px) scale(1);
+			}
 		}
 
 		.skills h2 {
