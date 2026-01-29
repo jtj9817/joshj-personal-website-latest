@@ -336,12 +336,10 @@ const { title, description } = Astro.props;
 					renderer.dispose();
 					renderer = null;
 				}
-				canvas.style.display = 'none';
 			}
 
 			function handleViewport() {
 				if (mql.matches && shouldInitThreeJS()) {
-					canvas.style.display = 'block';
 					if (!renderer) {
 						init();
 					}
@@ -421,13 +419,6 @@ const { title, description } = Astro.props;
 				width: 100vw;
 				height: 100vh;
 				z-index: -2;
-				display: none;
-			}
-
-			@media (min-width: 50em) {
-				#bg-canvas {
-					display: block;
-				}
 			}
 
 			/* ═══════════════════════════════════════
@@ -491,33 +482,9 @@ const { title, description } = Astro.props;
 				}
 			}
 
-			/* ═══════════════════════════════════════
-			   THEME VISIBILITY CONTROLS
-			   ═══════════════════════════════════════ */
-
-			/* Hide dark mode elements by default (light mode) */
-			.dark-mode-only {
-				display: none;
-			}
-
-			/* Show dark mode elements when theme-dark class present */
-			:global(.theme-dark) .dark-mode-only {
-				display: block;
-			}
-
-			/* Show light mode elements by default */
-			.light-mode-only {
-				display: block;
-			}
-
-			/* Hide light mode elements in dark mode */
-			:global(.theme-dark) .light-mode-only {
-				display: none;
-			}
-
-			/* ═══════════════════════════════════════
-			   LIGHT MODE BACKGROUND SYSTEM
-			   ═══════════════════════════════════════ */
+		/* ═══════════════════════════════════════
+		   LIGHT MODE BACKGROUND SYSTEM
+		   ═══════════════════════════════════════ */
 			.light-background {
 				position: fixed;
 				inset: 0;

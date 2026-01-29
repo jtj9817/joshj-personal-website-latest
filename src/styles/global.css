@@ -450,3 +450,35 @@ h5 {
 		transition-duration: 0.01ms !important;
 	}
 }
+
+/* ═══════════════════════════════════════
+   THEME VISIBILITY CONTROLS
+   Global rules to handle dark/light mode element visibility
+   ═══════════════════════════════════════ */
+
+/* Hide dark mode elements by default (light mode) */
+.dark-mode-only {
+	display: none !important;
+}
+
+/* Show dark mode elements when theme-dark class present */
+.theme-dark .dark-mode-only {
+	display: block !important;
+}
+
+/* Show light mode elements by default */
+.light-mode-only {
+	display: block !important;
+}
+
+/* Hide light mode elements in dark mode */
+.theme-dark .light-mode-only {
+	display: none !important;
+}
+
+/* Desktop: Show Three.js canvas only in dark mode */
+@media (min-width: 50em) {
+	.theme-dark #bg-canvas {
+		display: block !important;
+	}
+}
