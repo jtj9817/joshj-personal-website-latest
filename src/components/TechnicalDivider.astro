@@ -27,13 +27,8 @@ const { title, count } = Astro.props;
   .divider-line {
     flex: 1;
     height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      var(--neon-cyan),
-      transparent
-    );
-    opacity: 0.3;
+    background: var(--gradient-stroke);
+    opacity: 0.5;
   }
 
   .divider-content {

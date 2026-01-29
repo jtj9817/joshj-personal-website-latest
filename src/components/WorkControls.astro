@@ -45,10 +45,11 @@
     gap: 2rem;
     align-items: center;
     padding: 1.5rem;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    border: var(--border-card);
     border-radius: 0.5rem;
     flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
   }
 
   .control-section {
@@ -79,28 +80,29 @@
     font-size: 0.75rem;
     padding: 0.5rem 1rem;
     background: transparent;
-    border: 1px solid var(--gray-700);
+    border: var(--border-input);
     color: var(--gray-400);
     cursor: pointer;
     transition: all 0.2s ease;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    border-radius: 0.25rem;
   }
 
   .filter-btn:hover,
   .sort-btn:hover,
   .view-btn:hover {
-    border-color: var(--neon-cyan);
-    color: var(--neon-cyan);
-    box-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
+    border-color: var(--accent-regular);
+    color: var(--accent-regular);
+    box-shadow: var(--shadow-sm);
   }
 
   .filter-btn.active,
   .sort-btn.active,
   .view-btn.active {
-    background: rgba(0, 255, 245, 0.1);
-    border-color: var(--neon-cyan);
-    color: var(--neon-cyan);
+    background: var(--accent-overlay);
+    border-color: var(--accent-regular);
+    color: var(--accent-regular);
   }
 
   .search-section {
@@ -111,8 +113,8 @@
   .search-input {
     width: 100%;
     padding: 0.5rem 1rem;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--gray-700);
+    background: var(--bg-secondary);
+    border: var(--border-input);
     color: var(--gray-200);
     font-family: var(--font-mono);
     font-size: 0.875rem;
@@ -122,8 +124,13 @@
 
   .search-input:focus {
     outline: none;
-    border-color: var(--neon-cyan);
-    box-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
+    border-color: var(--accent-regular);
+    box-shadow: var(--shadow-sm);
+    background: var(--bg-card);
+  }
+
+  .search-input::placeholder {
+    color: var(--gray-500);
   }
 
   @media (max-width: 50em) {

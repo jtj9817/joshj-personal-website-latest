@@ -198,8 +198,8 @@ import TechnicalDivider from "../components/TechnicalDivider.astro"
   }
 
   .content-card {
-    background-color: var(--gray-999_40);
-    border: 1px solid var(--gray-800);
+    background-color: var(--bg-card);
+    border: var(--border-card);
     border-radius: 0.75rem;
     padding: 2rem;
     box-shadow: var(--shadow-sm);
@@ -243,15 +243,15 @@ import TechnicalDivider from "../components/TechnicalDivider.astro"
     font-family: var(--font-mono);
     font-size: 0.75rem;
     padding: 0.25rem 0.75rem;
-    background: rgba(118, 17, 166, 0.15);
-    border: 1px solid var(--accent-regular);
+    background: var(--accent-subtle-overlay);
+    border: var(--border-width-thin) solid var(--accent-regular);
     border-radius: 0.25rem;
     color: var(--gray-300);
     transition: all 0.2s ease;
   }
 
   .tag:hover {
-    background: rgba(118, 17, 166, 0.3);
+    background: var(--accent-overlay);
     border-color: var(--accent-light);
     color: var(--gray-200);
   }

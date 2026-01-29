@@ -83,12 +83,12 @@ This document outlines a comprehensive redesign of the portfolio website's light
 - [x] Git commit created
 
 ### Phase 3: High-Priority Components
-- [ ] Step 3.1: Update PortfolioPreview.astro
-- [ ] Step 3.2: Update ProjectRow.astro
-- [ ] Step 3.3: Update Nav.astro
-- [ ] Step 3.4: Update StatusIndicator.astro
-- [ ] Testing Phase 3
-- [ ] Git commit created
+- [x] Step 3.1: Update PortfolioPreview.astro
+- [x] Step 3.2: Update ProjectRow.astro
+- [x] Step 3.3: Update Nav.astro
+- [x] Step 3.4: Update StatusIndicator.astro
+- [x] Testing Phase 3
+- [x] Git commit created
 
 ### Phase 4: Remaining Components
 - [ ] Step 4.1: Update Skills.astro

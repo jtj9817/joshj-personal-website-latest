@@ -21,9 +21,16 @@ const { href } = Astro.props;
 		line-height: 1.1;
 		border-radius: 999rem;
 		overflow: hidden;
-		background: var(--gradient-accent-orange);
+		background: var(--gradient-accent);
 		box-shadow: var(--shadow-md);
 		white-space: nowrap;
+		border: var(--border-width-thin) solid transparent;
+		transition: all var(--theme-transition);
+	}
+
+	a:hover {
+		box-shadow: var(--shadow-accent);
+		transform: translateY(-2px);
 	}
 
 	@media (min-width: 20em) {
@@ -39,12 +46,12 @@ const { href } = Astro.props;
 		inset: 0;
 		pointer-events: none;
 		transition: background-color var(--theme-transition);
-		mix-blend-mode: overlay;
+		background-color: transparent;
 	}
 
 	a:focus::after,
 	a:hover::after {
-		background-color: hsla(var(--gray-999-basis), 0.3);
+		background-color: var(--hover-overlay);
 	}
 
 	@media (min-width: 50em) {
