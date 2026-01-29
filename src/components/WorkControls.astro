@@ -202,7 +202,7 @@
 
   // Sort functionality
   const sortBtns = document.querySelectorAll('.sort-btn');
-  const projectList = document.querySelector('.project-list');
+  const projectLists = document.querySelectorAll('.project-list');
 
   sortBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -212,32 +212,35 @@
       sortBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // Sort logic here - reordering DOM elements
-      const rows = Array.from(projectRows);
+      // Sort each project list independently
+      projectLists.forEach(projectList => {
+        const rows = Array.from(projectList.querySelectorAll('.project-row'));
 
-      if (sort === 'title') {
-        rows.sort((a, b) => {
-          const titleA = a.querySelector('.row-title')?.textContent || '';
-          const titleB = b.querySelector('.row-title')?.textContent || '';
-          return titleA.localeCompare(titleB);
-        });
-      } else if (sort === 'date-asc') {
-        rows.sort((a, b) => {
-          const dateA = a.querySelector('.row-date')?.textContent || '';
-          const dateB = b.querySelector('.row-date')?.textContent || '';
-          return dateA.localeCompare(dateB);
-        });
-      } else {
-        rows.sort((a, b) => {
-          const indexA = parseInt(a.querySelector('.row-index')?.textContent || '0');
-          const indexB = parseInt(b.querySelector('.row-index')?.textContent || '0');
-          return indexB - indexA;
-        });
-      }
+        if (sort === 'title') {
+          rows.sort((a, b) => {
+            const titleA = a.querySelector('.row-title')?.textContent || '';
+            const titleB = b.querySelector('.row-title')?.textContent || '';
+            return titleA.localeCompare(titleB);
+          });
+        } else if (sort === 'date-asc') {
+          rows.sort((a, b) => {
+            const dateA = a.querySelector('.row-date')?.textContent || '';
+            const dateB = b.querySelector('.row-date')?.textContent || '';
+            return dateA.localeCompare(dateB);
+          });
+        } else {
+          // Default sort by date descending (using row index)
+          rows.sort((a, b) => {
+            const indexA = parseInt(a.querySelector('.row-index')?.textContent || '0');
+            const indexB = parseInt(b.querySelector('.row-index')?.textContent || '0');
+            return indexA - indexB; // Ascending order by index (which is original order)
+          });
+        }
 
-      // Reorder DOM
-      rows.forEach(row => {
-        projectList?.appendChild(row);
+        // Reorder DOM within this specific list
+        rows.forEach(row => {
+          projectList.appendChild(row);
+        });
       });
 
       // Update URL

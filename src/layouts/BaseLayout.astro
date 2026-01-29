@@ -55,6 +55,7 @@ const { title, description } = Astro.props;
 			let gridHelper: THREE.Group;
 			let animationId: number | null = null;
 			let time = 0;
+			let isInitializing = false;
 
 			// Bouncing state
 			let vx = 1.8;
@@ -303,6 +304,34 @@ const { title, description } = Astro.props;
 					cancelAnimationFrame(animationId);
 					animationId = null;
 				}
+
+				// Dispose all Three.js resources to prevent memory leaks
+				if (logoMesh) {
+					logoMesh.geometry.dispose();
+					(logoMesh.material as THREE.Material).dispose();
+				}
+				if (glowMesh) {
+					glowMesh.geometry.dispose();
+					(glowMesh.material as THREE.Material).dispose();
+				}
+				trailMeshes.forEach(mesh => {
+					mesh.geometry.dispose();
+					(mesh.material as THREE.Material).dispose();
+				});
+				trailMeshes = [];
+
+				if (gridHelper) {
+					gridHelper.children.forEach(child => {
+						const line = child as THREE.Line;
+						line.geometry.dispose();
+						(line.material as THREE.Material).dispose();
+					});
+				}
+
+				// Clear scene and dispose renderer
+				if (scene) {
+					scene.clear();
+				}
 				if (renderer) {
 					renderer.dispose();
 					renderer = null;
@@ -334,10 +363,15 @@ const { title, description } = Astro.props;
 			}
 
 			function handleThemeChange(): void {
+				// Prevent race conditions during initialization
+				if (isInitializing) return;
+
 				const isDark = document.documentElement.classList.contains('theme-dark');
 				if (isDark && mql.matches && !renderer) {
 					// Switched to dark mode on desktop - initialize Three.js
+					isInitializing = true;
 					init();
+					isInitializing = false;
 				} else if (!isDark && renderer) {
 					// Switched to light mode - destroy Three.js
 					destroy();
@@ -368,6 +402,12 @@ const { title, description } = Astro.props;
 			if (!shouldInitThreeJS() && renderer) {
 				destroy();
 			}
+
+			// Cleanup on page unload to prevent memory leaks
+			window.addEventListener('beforeunload', () => {
+				themeObserver.disconnect();
+				destroy();
+			});
 		</script>
 
 		<style>
