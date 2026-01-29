@@ -53,24 +53,25 @@ const paddedIndex = String(index).padStart(2, '0');
     gap: 1rem;
     align-items: center;
     padding: 1rem;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--border-subtle);
-    border-left: 2px solid transparent;
+    background: var(--bg-card);
+    border: var(--border-card);
+    border-left: var(--border-width-medium) solid transparent;
     text-decoration: none;
     transition: all 0.2s ease;
     position: relative;
   }
 
   .project-row:hover {
-    border-left-color: var(--neon-cyan);
-    background: rgba(0, 255, 245, 0.05);
-    box-shadow: -2px 0 20px rgba(0, 255, 245, 0.3);
+    border-left-color: var(--accent-regular);
+    background: var(--hover-overlay);
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
   }
 
   .row-index {
     font-family: var(--font-mono);
     font-size: 1.25rem;
-    color: var(--gray-500);
+    color: var(--gray-400);
     font-weight: 700;
   }
 
@@ -79,7 +80,7 @@ const paddedIndex = String(index).padStart(2, '0');
     height: 3rem;
     border-radius: 0.25rem;
     overflow: hidden;
-    border: 1px solid var(--gray-700);
+    border: var(--border-card);
   }
 
   .row-thumbnail img {
@@ -92,16 +93,17 @@ const paddedIndex = String(index).padStart(2, '0');
     font-family: var(--font-brand);
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--gray-200);
+    color: var(--gray-100);
   }
 
   .category-badge {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: var(--gray-400);
-    border: 1px solid var(--gray-700);
+    color: var(--gray-300);
+    border: var(--border-card);
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
+    background: var(--bg-secondary);
   }
 
   .row-date {
@@ -119,10 +121,10 @@ const paddedIndex = String(index).padStart(2, '0');
   .tag-chip {
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
-    background: rgba(118, 17, 166, 0.2);
-    border: 1px solid var(--accent-regular);
+    background: var(--accent-overlay);
+    border: var(--border-width-thin) solid var(--accent-regular);
     border-radius: 0.25rem;
-    color: var(--gray-300);
+    color: var(--gray-200);
   }
 
   .tag-count {
@@ -133,12 +135,13 @@ const paddedIndex = String(index).padStart(2, '0');
 
   .arrow {
     font-size: 1.5rem;
-    color: var(--neon-cyan);
-    transition: transform 0.2s ease;
+    color: var(--accent-regular);
+    transition: all 0.2s ease;
   }
 
   .project-row:hover .arrow {
     transform: translateX(4px);
+    color: var(--accent-dark);
   }
 
   /* Mobile responsive */
