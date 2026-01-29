@@ -2,23 +2,23 @@
 
 /* Global variables */
 :root {
-	/* Colors */
-	--gray-0: #090b11;
-	--gray-50: #141925;
-	--gray-100: #283044;
-	--gray-200: #3d4663;
-	--gray-300: #505d84;
-	--gray-400: #6474a2;
-	--gray-500: #8490b5;
-	--gray-600: #a3acc8;
-	--gray-700: #c3cadb;
-	--gray-800: #e3e6ee;
-	--gray-900: #f3f4f7;
+	/* Grayscale - Light Mode (warm neutral grays) */
+	--gray-0: #0e1116;           /* Almost black for text */
+	--gray-50: #1f2328;          /* Dark gray for headings */
+	--gray-100: #2f3339;         /* Secondary text */
+	--gray-200: #444b53;         /* Tertiary text */
+	--gray-300: #656d76;         /* Muted text */
+	--gray-400: #858e98;         /* Subtle text */
+	--gray-500: #a1a9b2;         /* Border dark */
+	--gray-600: #bcc3cc;         /* Border medium */
+	--gray-700: #d0d7de;         /* Border light */
+	--gray-800: #e6ebf1;         /* Border subtle */
+	--gray-900: #f6f8fa;         /* Background light */
 	--gray-999-basis: 0, 0%, 100%;
 	--gray-999_40: hsla(var(--gray-999-basis), 0.4);
-	--gray-999: #ffffff;
+	--gray-999: #ffffff;         /* Pure white background */
 
-	/* Cyberpunk neon accent colors */
+	/* Cyberpunk neon accent colors (used in dark mode) */
 	--neon-cyan: #00fff5;
 	--neon-magenta: #ff00de;
 	--neon-yellow: #fff200;
@@ -26,16 +26,49 @@
 	--neon-purple: #b400ff;
 	--neon-amber: #ff9500;
 
-	/* Status colors */
-	--status-live: var(--neon-green);
-	--status-archived: var(--neon-amber);
-	--status-in-dev: var(--neon-cyan);
+	/* Professional Status Colors - Light Mode (muted, solid) */
+	--status-live: #1a7f37;      /* Green 600 - success/live */
+	--status-archived: #9a6700;  /* Amber 700 - warning/archived */
+	--status-in-dev: #0969da;    /* Blue 600 - info/in-development */
 
-	/* Technical UI colors */
-	--grid-line: rgba(58, 58, 100, 0.3);
-	--circuit-trace: rgba(180, 0, 255, 0.08);
-	--border-subtle: rgba(255, 255, 255, 0.1);
-	--selection-highlight: rgba(0, 255, 245, 0.2);
+	/* Status LED control */
+	--status-live-bg: #1a7f37;
+	--status-live-glow: rgba(26, 127, 55, 0.2);
+	--status-archived-bg: #9a6700;
+	--status-archived-glow: rgba(154, 103, 0, 0.2);
+	--status-in-dev-bg: #0969da;
+	--status-in-dev-glow: rgba(9, 105, 218, 0.2);
+
+	/* Border System - Light Mode */
+	--border-strong: #d0d7de;    /* Clearly visible borders */
+	--border-medium: #e6ebf1;    /* Card borders */
+	--border-subtle: #f0f3f6;    /* Subtle dividers */
+	--border-accent: var(--accent-regular);
+
+	/* Border Width Tokens */
+	--border-width-thin: 1px;
+	--border-width-medium: 2px;
+	--border-width-thick: 3px;
+
+	/* Border Styles by Usage */
+	--border-card: var(--border-width-thin) solid var(--border-medium);
+	--border-card-hover: var(--border-width-medium) solid var(--border-accent);
+	--border-input: var(--border-width-thin) solid var(--border-strong);
+	--border-divider: var(--border-width-thin) solid var(--border-subtle);
+	--border-focus: var(--border-width-medium) solid var(--accent-regular);
+	--border-active: var(--border-width-medium) solid var(--accent-dark);
+
+	/* Background System - Light Mode */
+	--bg-base: #ffffff;
+	--bg-secondary: #f6f8fa;
+	--bg-tertiary: #eef2f6;
+	--bg-overlay: rgba(246, 248, 250, 0.8);
+	--bg-card: #ffffff;
+
+	/* Technical UI - Light Mode */
+	--grid-line: rgba(208, 215, 222, 0.5);
+	--circuit-trace: rgba(98, 57, 186, 0.06);
+	--selection-highlight: rgba(130, 80, 223, 0.15);
 
 	/* Monospace font for technical data */
 	--font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
@@ -45,25 +78,32 @@
 	--glow-md: 0 0 20px currentColor, 0 0 40px currentColor;
 	--glow-lg: 0 0 30px currentColor, 0 0 60px currentColor, 0 0 90px currentColor;
 
-	--accent-light: #c561f6;
-	--accent-regular: #7611a6;
-	--accent-dark: #1c0056;
-	--accent-overlay: hsla(280, 89%, 67%, 0.33);
-	--accent-subtle-overlay: var(--accent-overlay);
-	--accent-text-over: var(--gray-999);
+	/* Professional Accent Colors - Light Mode */
+	--accent-light: #8250df;     /* Purple 400 - highlights */
+	--accent-regular: #6639ba;   /* Purple 500 - primary accent */
+	--accent-dark: #512a97;      /* Purple 600 - dark accent */
+	--accent-overlay: rgba(98, 57, 186, 0.1);
+	--accent-subtle-overlay: rgba(98, 57, 186, 0.05);
+	--accent-text-over: #ffffff;
 
+	/* Link Colors */
 	--link-color: var(--accent-regular);
+	--link-hover: var(--accent-dark);
 
-	/* Gradients */
+	/* Interactive States - Light Mode */
+	--hover-overlay: rgba(98, 57, 186, 0.08);
+	--active-overlay: rgba(98, 57, 186, 0.12);
+
+	/* Gradient System - Light Mode (subtle, professional) */
 	--gradient-stop-1: var(--accent-light);
 	--gradient-stop-2: var(--accent-regular);
 	--gradient-stop-3: var(--accent-dark);
-	--gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 150%);
+	--gradient-subtle: linear-gradient(150deg, #ffffff 0%, #f6f8fa 100%);
 	--gradient-accent: linear-gradient(
 		150deg,
-		var(--gradient-stop-1),
-		var(--gradient-stop-2),
-		var(--gradient-stop-3)
+		var(--accent-light) 0%,
+		var(--accent-regular) 50%,
+		var(--accent-dark) 100%
 	);
 	--gradient-accent-orange: linear-gradient(
 		150deg,
@@ -71,15 +111,28 @@
 		var(--accent-regular),
 		var(--accent-dark)
 	);
-	--gradient-stroke: linear-gradient(180deg, var(--gray-900), var(--gray-700));
+	--gradient-stroke: linear-gradient(180deg, var(--gray-700), var(--gray-800));
+	--gradient-background: linear-gradient(180deg,
+		#ffffff 0%,
+		#f8f9fb 20%,
+		#f3f5f8 40%,
+		#eef2f6 60%,
+		#f3f5f8 80%,
+		#ffffff 100%);
 
-	/* Shadows */
-	--shadow-sm: 0px 6px 3px rgba(9, 11, 17, 0.01), 0px 4px 2px rgba(9, 11, 17, 0.01),
-		0px 2px 2px rgba(9, 11, 17, 0.02), 0px 0px 1px rgba(9, 11, 17, 0.03);
-	--shadow-md: 0px 28px 11px rgba(9, 11, 17, 0.01), 0px 16px 10px rgba(9, 11, 17, 0.03),
-		0px 7px 7px rgba(9, 11, 17, 0.05), 0px 2px 4px rgba(9, 11, 17, 0.06);
-	--shadow-lg: 0px 62px 25px rgba(9, 11, 17, 0.01), 0px 35px 21px rgba(9, 11, 17, 0.05),
-		0px 16px 16px rgba(9, 11, 17, 0.1), 0px 4px 9px rgba(9, 11, 17, 0.12);
+	/* Shadow System - Light Mode (deeper shadows) */
+	--shadow-sm: 0px 1px 2px rgba(14, 17, 22, 0.06),
+		0px 1px 3px rgba(14, 17, 22, 0.08);
+	--shadow-md: 0px 2px 4px rgba(14, 17, 22, 0.06),
+		0px 4px 8px rgba(14, 17, 22, 0.08),
+		0px 8px 16px rgba(14, 17, 22, 0.08);
+	--shadow-lg: 0px 4px 8px rgba(14, 17, 22, 0.06),
+		0px 8px 16px rgba(14, 17, 22, 0.08),
+		0px 16px 32px rgba(14, 17, 22, 0.12);
+
+	/* Colored shadows for accents */
+	--shadow-accent: 0px 4px 16px rgba(98, 57, 186, 0.15);
+	--shadow-accent-lg: 0px 8px 32px rgba(98, 57, 186, 0.2);
 
 	/* Text Sizes */
 	--text-sm: 0.875rem;
@@ -103,6 +156,7 @@
 }
 
 :root.theme-dark {
+	/* Grayscale - Dark Mode (inverted) */
 	--gray-0: #ffffff;
 	--gray-50: #f3f4f7;
 	--gray-100: #e3e6ee;
@@ -117,6 +171,7 @@
 	--gray-999-basis: 225, 31%, 5%;
 	--gray-999: #090b11;
 
+	/* Accent Colors - Dark Mode */
 	--accent-light: #1c0056;
 	--accent-regular: #7611a6;
 	--accent-dark: #c561f6;
@@ -124,8 +179,41 @@
 	--accent-subtle-overlay: hsla(281, 81%, 36%, 0.33);
 	--accent-text-over: var(--gray-0);
 
+	/* Link Colors - Dark Mode */
 	--link-color: var(--accent-dark);
+	--link-hover: var(--accent-light);
 
+	/* Status Colors - Dark Mode (neon) */
+	--status-live-bg: var(--neon-green);
+	--status-live-glow: var(--neon-green);
+	--status-archived-bg: var(--neon-amber);
+	--status-archived-glow: var(--neon-amber);
+	--status-in-dev-bg: var(--neon-cyan);
+	--status-in-dev-glow: var(--neon-cyan);
+
+	/* Border System - Dark Mode */
+	--border-strong: rgba(255, 255, 255, 0.15);
+	--border-medium: rgba(255, 255, 255, 0.1);
+	--border-subtle: rgba(255, 255, 255, 0.05);
+	--border-accent: var(--accent-dark);
+
+	/* Background System - Dark Mode */
+	--bg-base: #090b11;
+	--bg-secondary: #141925;
+	--bg-tertiary: #1f2638;
+	--bg-overlay: rgba(20, 25, 37, 0.8);
+	--bg-card: rgba(0, 0, 0, 0.3);
+
+	/* Interactive States - Dark Mode */
+	--hover-overlay: rgba(255, 255, 255, 0.05);
+	--active-overlay: rgba(255, 255, 255, 0.1);
+	--selection-highlight: rgba(0, 255, 245, 0.2);
+
+	/* Technical UI - Dark Mode */
+	--grid-line: rgba(58, 58, 100, 0.3);
+	--circuit-trace: rgba(180, 0, 255, 0.08);
+
+	/* Gradients - Dark Mode */
 	--gradient-stop-1: #4c11c6;
 	--gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 81%);
 	--gradient-accent-orange: linear-gradient(
@@ -136,6 +224,7 @@
 	);
 	--gradient-stroke: linear-gradient(180deg, var(--gray-600), var(--gray-800));
 
+	/* Shadows - Dark Mode (subtle) */
 	--shadow-sm: 0px 6px 3px rgba(255, 255, 255, 0.01), 0px 4px 2px rgba(255, 255, 255, 0.01),
 		0px 2px 2px rgba(255, 255, 255, 0.02), 0px 0px 1px rgba(255, 255, 255, 0.03);
 	--shadow-md: 0px 28px 11px rgba(255, 255, 255, 0.01), 0px 16px 10px rgba(255, 255, 255, 0.03),
@@ -151,7 +240,7 @@ body {
 }
 
 body {
-	background-color: var(--gray-999);
+	background-color: var(--bg-base);
 	color: var(--gray-200);
 	font-family: var(--font-body);
 	-webkit-font-smoothing: antialiased;
@@ -172,6 +261,11 @@ img {
 
 a {
 	color: var(--link-color);
+	transition: color var(--theme-transition);
+}
+
+a:hover {
+	color: var(--link-hover);
 }
 
 h1,
@@ -182,7 +276,7 @@ h5 {
 	line-height: 1.1;
 	font-family: var(--font-brand);
 	font-weight: 600;
-	color: var(--gray-100);
+	color: var(--gray-50);
 }
 
 h1 {
@@ -256,10 +350,10 @@ h5 {
 	gap: 12rem;
 }
 
-.cardBackground{
-	background-color: var(--gray-999_40);
-	background: var(--gray-999);
-	border: 1px solid var(--gray-800);
+.cardBackground {
+	background-color: var(--bg-card);
+	background: var(--bg-card);
+	border: var(--border-card);
 }
 @media (min-width: 50em) {
 	.lg\:gap-2 {
@@ -330,19 +424,19 @@ h5 {
 }
 
 .status-live {
-	background: var(--status-live);
-	box-shadow: 0 0 8px var(--status-live);
+	background: var(--status-live-bg);
+	box-shadow: 0 0 8px var(--status-live-glow);
 }
 
 .status-archived {
-	background: var(--status-archived);
-	box-shadow: 0 0 8px var(--status-archived);
+	background: var(--status-archived-bg);
+	box-shadow: 0 0 8px var(--status-archived-glow);
 	animation: pulse-glow 2s ease-in-out infinite;
 }
 
 .status-in-dev {
-	background: var(--status-in-dev);
-	box-shadow: 0 0 8px var(--status-in-dev);
+	background: var(--status-in-dev-bg);
+	box-shadow: 0 0 8px var(--status-in-dev-glow);
 	animation: blink-fast 0.8s step-end infinite;
 }
 
