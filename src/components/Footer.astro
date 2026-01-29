@@ -4,28 +4,23 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer>
-	<div class="flex-auto row mt-6 content-center justify-center">
-		<div>
-			<p>
-				Designed & Developed with <a href="https://astro.build/">Astro</a> 
-			</p>
-			<p>&copy; {currentYear} Joshua Jadulco</p>
-		</div>
-	</div>
+	<p>Designed & Developed with <a href="https://astro.build/">Astro</a> &copy; {currentYear} Joshua Jadulco</p>
 </footer>
 <style>
 	footer {
 		display: flex;
-		flex-direction: column;
+		justify-content: center;
 		align-items: center;
-		gap: 3rem;
 		margin-top: auto;
-		padding: 3rem 1rem 1.5rem;
+		padding: 1.5rem 1rem;
 		text-align: center;
 		color: var(--gray-400);
 		font-size: var(--text-sm);
-		border-top: var(--border-divider);
-		background: var(--bg-secondary);
+		background: transparent;
+	}
+
+	footer p {
+		margin: 0;
 	}
 
 	footer a {
@@ -38,27 +33,9 @@ const currentYear = new Date().getFullYear();
 		color: var(--accent-regular);
 	}
 
-	.group {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
 	@media (min-width: 50em) {
 		footer {
-			flex-direction: row;
-			justify-content: space-between;
-			padding: 2.5rem 5rem;
-		}
-
-		.group {
-			flex-direction: row;
-			gap: 1rem;
-			flex-wrap: wrap;
-		}
-
-		.socials {
-			justify-content: flex-end;
+			padding: 1.5rem 2rem;
 		}
 	}
 </style>
