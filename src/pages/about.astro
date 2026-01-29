@@ -21,67 +21,46 @@ import TechnicalDivider from "../components/TechnicalDivider.astro"
         <div class="content-card">
           <TechnicalDivider title="BACKGROUND_PROFILE" />
           <div class="card-body stack gap-4">
-            <p>
-              I am a results-driven Senior Laravel Developer with over 5 years of experience architecting and delivering
-              scalable web applications for enterprise clients. Throughout my career, I specialized in full-stack Laravel development
-              and built deep expertise in the entire Laravel ecosystem, including Eloquent ORM, Service Container,
-              Laravel Queues, Middleware pipelines, and advanced design patterns. I have a proven track record of
-              leading cross-functional teams, optimizing application performance, and implementing robust
-              CI/CD pipelines that reduced deployment time by 40% and significantly improved overall code quality.
-            </p>
-            <p>
-              In my previous roles, I architected and developed enterprise-grade Laravel applications utilizing advanced OOP design
-              patterns including Repository, Factory, Observer, and Strategy patterns. I leveraged Laravel's
-              Eloquent ORM with complex relationships, eager loading, and query optimization to handle enterprise-level data
-              models with millions of records. I implemented Service Container dependency injection, custom Service Providers, and
-              Middleware pipelines to create scalable application architectures. I also utilized Laravel Queues with
-              Redis and database drivers for high-volume background job processing, and configured Laravel Horizon for real-time
-              queue monitoring and management.
-            </p>
-            <p>
-              I have extensive hands-on experience with the complete Laravel ecosystem. I built custom admin dashboards using Laravel Nova,
-              implemented full-text search with Laravel Scout integrated with Algolia and Meilisearch, and developed OAuth authentication
-              systems using Laravel Socialite with multiple providers including Google, GitHub, and Microsoft. I secured API endpoints
-              using Laravel Sanctum for token-based authentication. Additionally, I optimized application performance through advanced query optimization,
-              Redis caching strategies, OPcache configuration, database indexing, and Laravel's caching layer with tags and atomic locks.
-              I designed and implemented comprehensive RESTful APIs using Laravel's API resources, versioning strategies,
-              rate limiting, and industry-standard architecture patterns.
-            </p>
-            <p>
-              I am a strong advocate for Test Driven Development (TDD) and Behavior Driven Development (BDD). In my projects,
-              I implemented comprehensive testing strategies using PHPUnit, Pest, and Laravel Dusk, achieving 90%+ code coverage across
-              multiple enterprise applications. I wrote extensive unit tests, feature tests, and browser tests utilizing mocking,
-              test doubles, and database transactions for isolated testing. I integrated automated testing into CI/CD pipelines with GitHub Actions,
-              which enabled continuous deployment workflows and caught regressions before they reached production. I consistently utilized Laravel's
-              testing helpers, factories, seeders, and HTTP testing to accelerate test development and maintain high quality standards.
-            </p>
-            <p>
-              I led multiple DevOps initiatives using Docker and Docker Compose to create consistent, containerized Laravel
-              environments with PHP-FPM, Nginx, Redis, and MySQL. I automated CI/CD pipelines for
-              testing, building, and deploying to staging and production environments, which streamlined our release process.
-              I managed Linux server infrastructure running Ubuntu and Debian, implementing deployment
-              automation, log rotation, SSL certificate management, and environment provisioning using Ansible
-              and Bash scripting. I also leveraged AWS services including EC2, S3, RDS, CloudFront, and
-              Elastic Load Balancing to build scalable cloud infrastructure with high availability and fault tolerance.
-            </p>
-            <p>
-              I have practiced Agile and Scrum methodologies throughout my career, serving as both a team lead and senior developer. I facilitated
-              sprint planning sessions, daily standups, sprint reviews, and retrospectives for teams of up to 8 developers. I created detailed user
-              stories with clear acceptance criteria and definition of done, managed sprint backlogs with velocity
-              tracking, and mentored junior developers in Laravel best practices, design patterns, and coding standards.
-              I collaborated closely with stakeholders, product managers, and UX designers to translate business
-              requirements into technical specifications and deliverables. I utilized Jira, Confluence, and
-              Azure DevOps for project tracking, documentation, and seamless team collaboration.
-            </p>
-            <p>
-              I have extensive experience with various enterprise SDLC methodologies, including Waterfall for
-              regulated industries and hybrid Agile-Waterfall approaches for complex projects. I performed requirements gathering sessions with clients,
-              created comprehensive technical specification documentation, designed system architectures, and built database schemas
-              for mission-critical enterprise applications. I conducted thorough code reviews, implemented coding standards across development teams,
-              and maintained detailed technical documentation for API endpoints, deployment procedures,
-              and system architecture. I also provided ongoing maintenance, security updates, and performance
-              optimization for production Laravel applications successfully serving thousands of concurrent users.
-            </p>
+            <div class="about-toggle-container">
+              <div id="concise-version" class="about-version">
+                <div class="elevator-pitch">
+                  <p class="pitch-intro">I'm a Full Stack Web Developer with over 5 years of experience developing scalable web applications.</p>
+                  <div class="pitch-highlights">
+                    <span class="highlight-tag">Laravel Specialist</span>
+                    <span class="highlight-tag">TypeScript Expert</span>
+                  </div>
+                  <p class="pitch-summary">I deliver enterprise-grade solutions that reduced deployment time by 40% and achieved 90%+ test coverage. From architecting RESTful APIs to collaborating with cross-functional teams using Agile methodologies, I bridge the gap between complex technical requirements and business outcomes.</p>
+                  <p class="pitch-closing">Seeking roles where I can meaningfully contribute my technical repertoire and deliver effective results for businesses.</p>
+                </div>
+              </div>
+              <div id="comprehensive-version" class="about-version hidden">
+                <p>
+                  I specialize in Laravel and Typescript as I mostly worked with these technologies throughout my career. I am a results-driven Senior Laravel Developer with over 5 years of experience architecting and delivering scalable web applications for enterprise clients. Throughout my career, I specialized in full-stack Laravel development and built deep expertise in the entire Laravel ecosystem, including Eloquent ORM, Service Container, Laravel Queues, Middleware pipelines, and advanced design patterns. I have a proven track record of collaborating with cross-functional teams, optimizing application performance, and implementing robust CI/CD pipelines that reduced deployment time by 40% and significantly improved overall code quality.
+                </p>
+                <p>
+                  In my previous roles, I architected and developed enterprise-grade Laravel applications utilizing advanced OOP design patterns including Repository, Factory, Observer, and Strategy patterns. I leveraged Laravel's Eloquent ORM with complex relationships, eager loading, and query optimization to handle enterprise-level data models with millions of records. I implemented Service Container dependency injection, custom Service Providers, and Middleware pipelines to create scalable application architectures. I also utilized Laravel Queues with Redis and database drivers for high-volume background job processing, and configured Laravel Horizon for real-time queue monitoring and management.
+                </p>
+                <p>
+                  I have extensive hands-on experience with the complete Laravel ecosystem. I built custom admin dashboards using Laravel Nova, implemented full-text search with Laravel Scout integrated with Algolia and Meilisearch, and developed OAuth authentication systems using Laravel Socialite with multiple providers including Google, GitHub, and Microsoft. I secured API endpoints using Laravel Sanctum for token-based authentication. Additionally, I optimized application performance through advanced query optimization, Redis caching strategies, OPcache configuration, database indexing, and Laravel's caching layer with tags and atomic locks. I designed and implemented comprehensive RESTful APIs using Laravel's API resources, versioning strategies, rate limiting, and industry-standard architecture patterns.
+                </p>
+                <p>
+                  I am a strong advocate for Test Driven Development (TDD) and Behavior Driven Development (BDD). In my projects, I implemented comprehensive testing strategies using PHPUnit, Pest, and Laravel Dusk, achieving 90%+ code coverage across multiple enterprise applications. I wrote extensive unit tests, feature tests, and browser tests utilizing mocking, test doubles, and database transactions for isolated testing. I integrated automated testing into CI/CD pipelines with GitHub Actions, which enabled continuous deployment workflows and caught regressions before they reached production. I consistently utilized Laravel's testing helpers, factories, seeders, and HTTP testing to accelerate test development and maintain high quality standards.
+                </p>
+                <p>
+                  I implemented multiple DevOps solutions using Docker and Docker Compose to create consistent, containerized Laravel environments with PHP-FPM, Nginx, Redis, and MySQL. I automated CI/CD pipelines for testing, building, and deploying to staging and production environments, which streamlined our release process. I managed Linux server infrastructure running Ubuntu and Debian, implementing deployment automation, log rotation, SSL certificate management, and environment provisioning using Ansible and Bash scripting. I also leveraged AWS services including EC2, S3, RDS, CloudFront, and Elastic Load Balancing to build scalable cloud infrastructure with high availability and fault tolerance.
+                </p>
+                <p>
+                  I have practiced Agile and Scrum methodologies throughout my career as a senior developer. I participated in sprint planning sessions, daily standups, sprint reviews, and retrospectives with teams of up to 8 developers. I created detailed user stories with clear acceptance criteria and definition of done, managed sprint backlogs with velocity tracking, and collaborated with junior developers on Laravel best practices, design patterns, and coding standards. I worked closely with stakeholders, product managers, and UX designers to translate business requirements into technical specifications and deliverables. I utilized Jira, Confluence, and Azure DevOps for project tracking, documentation, and seamless team collaboration.
+                </p>
+                <p>
+                  I have extensive experience with various enterprise SDLC methodologies, including Waterfall for regulated industries and hybrid Agile-Waterfall approaches for complex projects. I performed requirements gathering sessions with clients, created comprehensive technical specification documentation, designed system architectures, and built database schemas for mission-critical enterprise applications. I conducted thorough code reviews, implemented coding standards across development teams, and maintained detailed technical documentation for API endpoints, deployment procedures, and system architecture. I also provided ongoing maintenance, security updates, and performance optimization for production Laravel applications successfully serving thousands of concurrent users.
+                </p>
+              </div>
+              <button id="toggle-about" class="cyberpunk-toggle" type="button">
+                <span class="toggle-text">[ EXPAND_PROFILE ]</span>
+                <span class="toggle-glitch"></span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="content-card">
@@ -277,4 +256,233 @@ import TechnicalDivider from "../components/TechnicalDivider.astro"
       grid-template-columns: repeat(3, 1fr);
     }
   }
+
+  .about-toggle-container {
+    position: relative;
+  }
+
+  .about-version {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .about-version.hidden {
+    display: none;
+  }
+
+  .elevator-pitch {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .pitch-intro {
+    font-size: var(--text-xl);
+    line-height: 1.5;
+    color: var(--gray-100);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .pitch-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .highlight-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    background: var(--accent-subtle-overlay);
+    border: 1px solid var(--accent-regular);
+    border-radius: 0.25rem;
+    color: var(--accent-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .pitch-summary {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--gray-200);
+    margin: 0;
+  }
+
+  .pitch-closing {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--gray-300);
+    font-style: italic;
+    margin: 0;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--gray-800);
+  }
+
+  @media (min-width: 50em) {
+    .pitch-intro {
+      font-size: var(--text-2xl);
+    }
+
+    .pitch-summary,
+    .pitch-closing {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .cyberpunk-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gray-0);
+    background: transparent;
+    border: 2px solid var(--accent-regular);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .cyberpunk-toggle:hover {
+    background: var(--accent-regular);
+    border-color: var(--accent-light);
+    color: var(--gray-0);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .cyberpunk-toggle:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .toggle-text {
+    position: relative;
+    z-index: 1;
+  }
+
+  .toggle-glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-regular);
+    opacity: 0;
+    z-index: 0;
+  }
 </style>
+
+<script>
+  class CyberpunkTextAnimator {
+    constructor(element, targetText, onComplete) {
+      this.element = element;
+      this.targetText = targetText;
+      this.chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>[]{}|/=+-';
+      this.frame = 0;
+      this.animationId = null;
+      this.onComplete = onComplete;
+    }
+
+    animate() {
+      this.frame = 0;
+      const totalFrames = 30;
+      const textLength = this.targetText.length;
+
+      const step = () => {
+        this.frame++;
+        const progress = this.frame / totalFrames;
+        const revealedChars = Math.floor(progress * textLength);
+
+        let displayText = '';
+        for (let i = 0; i < textLength; i++) {
+          if (i < revealedChars) {
+            displayText += this.targetText[i];
+          } else if (this.targetText[i] === ' ') {
+            displayText += ' ';
+          } else {
+            displayText += this.chars[Math.floor(Math.random() * this.chars.length)];
+          }
+        }
+
+        this.element.textContent = displayText;
+
+        if (this.frame < totalFrames) {
+          this.animationId = requestAnimationFrame(step);
+        } else {
+          this.element.textContent = this.targetText;
+          if (this.onComplete) this.onComplete();
+        }
+      };
+
+      this.animationId = requestAnimationFrame(step);
+    }
+
+    stop() {
+      if (this.animationId) {
+        cancelAnimationFrame(this.animationId);
+      }
+    }
+  }
+
+  const toggleBtn = document.getElementById('toggle-about');
+  const conciseVersion = document.getElementById('concise-version');
+  const comprehensiveVersion = document.getElementById('comprehensive-version');
+  const toggleText = toggleBtn?.querySelector('.toggle-text');
+  let isExpanded = false;
+  let currentAnimator = null;
+
+  function animateTransition(fromEl, toEl, buttonText, isExpanding) {
+    const textElement = isExpanding ? toEl.querySelector('p') : toEl.querySelector('.pitch-intro');
+    
+    if (!textElement) {
+      fromEl.classList.add('hidden');
+      toEl.classList.remove('hidden');
+      if (toggleText) toggleText.textContent = buttonText;
+      return;
+    }
+
+    const targetText = textElement.textContent || '';
+    
+    fromEl.style.opacity = '0';
+    fromEl.style.transform = 'translateY(-10px)';
+    
+    setTimeout(() => {
+      fromEl.classList.add('hidden');
+      toEl.classList.remove('hidden');
+      toEl.style.opacity = '0';
+      toEl.style.transform = 'translateY(10px)';
+      
+      requestAnimationFrame(() => {
+        toEl.style.opacity = '1';
+        toEl.style.transform = 'translateY(0)';
+        
+        if (toggleText) toggleText.textContent = buttonText;
+      });
+    }, 200);
+  }
+
+  toggleBtn?.addEventListener('click', () => {
+    isExpanded = !isExpanded;
+    
+    if (isExpanded) {
+      if (conciseVersion && comprehensiveVersion) {
+        animateTransition(conciseVersion, comprehensiveVersion, '[ COLLAPSE_PROFILE ]', true);
+      }
+    } else {
+      if (conciseVersion && comprehensiveVersion) {
+        animateTransition(comprehensiveVersion, conciseVersion, '[ EXPAND_PROFILE ]', false);
+      }
+    }
+  });
+</script>
