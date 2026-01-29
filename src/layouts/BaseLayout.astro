@@ -169,6 +169,10 @@ const { title, description } = Astro.props;
 				});
 			}
 
+			function shouldInitThreeJS(): boolean {
+				return document.documentElement.classList.contains('theme-dark');
+			}
+
 			function init() {
 				if (!canvas || renderer) return;
 
@@ -307,7 +311,7 @@ const { title, description } = Astro.props;
 			}
 
 			function handleViewport() {
-				if (mql.matches) {
+				if (mql.matches && shouldInitThreeJS()) {
 					canvas.style.display = 'block';
 					if (!renderer) {
 						init();
@@ -329,10 +333,41 @@ const { title, description } = Astro.props;
 				camera.updateProjectionMatrix();
 			}
 
+			function handleThemeChange(): void {
+				const isDark = document.documentElement.classList.contains('theme-dark');
+				if (isDark && mql.matches && !renderer) {
+					// Switched to dark mode on desktop - initialize Three.js
+					init();
+				} else if (!isDark && renderer) {
+					// Switched to light mode - destroy Three.js
+					destroy();
+				}
+			}
+
+			// Watch for theme changes
+			const themeObserver = new MutationObserver((mutations) => {
+				for (const mutation of mutations) {
+					if (mutation.attributeName === 'class') {
+						handleThemeChange();
+						break;
+					}
+				}
+			});
+
+			themeObserver.observe(document.documentElement, {
+				attributes: true,
+				attributeFilter: ['class']
+			});
+
 			// Init
 			handleViewport();
 			mql.addEventListener('change', handleViewport);
 			window.addEventListener('resize', handleResize);
+
+			// Initial theme check
+			if (!shouldInitThreeJS() && renderer) {
+				destroy();
+			}
 		</script>
 
 		<style>
@@ -417,6 +452,49 @@ const { title, description } = Astro.props;
 			}
 
 			/* ═══════════════════════════════════════
+			   THEME VISIBILITY CONTROLS
+			   ═══════════════════════════════════════ */
+
+			/* Hide dark mode elements by default (light mode) */
+			.dark-mode-only {
+				display: none;
+			}
+
+			/* Show dark mode elements when theme-dark class present */
+			:global(.theme-dark) .dark-mode-only {
+				display: block;
+			}
+
+			/* Show light mode elements by default */
+			.light-mode-only {
+				display: block;
+			}
+
+			/* Hide light mode elements in dark mode */
+			:global(.theme-dark) .light-mode-only {
+				display: none;
+			}
+
+			/* ═══════════════════════════════════════
+			   LIGHT MODE BACKGROUND SYSTEM
+			   ═══════════════════════════════════════ */
+			.light-background {
+				position: fixed;
+				inset: 0;
+				z-index: -2;
+				background:
+					/* Subtle noise texture */
+					url('/assets/backgrounds/noise.png') top center/220px repeat,
+					/* Soft purple radial glow - top left */
+					radial-gradient(ellipse at 20% 15%, rgba(130, 80, 223, 0.04) 0%, transparent 50%),
+					/* Soft purple radial glow - bottom right */
+					radial-gradient(ellipse at 80% 70%, rgba(98, 57, 186, 0.03) 0%, transparent 50%),
+					/* Base gradient */
+					var(--gradient-background);
+				background-blend-mode: overlay, normal, normal, normal;
+			}
+
+			/* ═══════════════════════════════════════
 			   BACKGROUNDS CONTAINER
 			   ═══════════════════════════════════════ */
 			.backgrounds {
@@ -424,12 +502,13 @@ const { title, description } = Astro.props;
 				isolation: isolate;
 				position: relative;
 				z-index: 1;
-				/*
-				 * MOBILE: Cyberpunk + USGD static gradient
-				 * Deep dark base with neon radial glows,
-				 * geometric hard-edge linear cuts,
-				 * and the noise overlay for texture
-				 */
+
+				/* LIGHT MODE: Transparent (handled by .light-background) */
+				background: transparent;
+			}
+
+			/* DARK MODE MOBILE: Cyberpunk gradients */
+			:global(.theme-dark) .backgrounds {
 				background:
 					/* Noise grain */
 					url('/assets/backgrounds/noise.png') top center/220px repeat,
@@ -441,7 +520,7 @@ const { title, description } = Astro.props;
 					radial-gradient(ellipse at 10% 55%, rgba(255, 0, 222, 0.1) 0%, transparent 45%),
 					/* Neon glow: UV purple, bottom-right */
 					radial-gradient(ellipse at 80% 85%, rgba(180, 0, 255, 0.12) 0%, transparent 40%),
-					/* Sharp diagonal cut — USGD geometric influence */
+					/* Sharp diagonal cut */
 					linear-gradient(
 						135deg,
 						rgba(255, 45, 32, 0.06) 0%,
@@ -462,9 +541,10 @@ const { title, description } = Astro.props;
 				background-blend-mode: overlay, normal, normal, normal, normal, normal, normal;
 			}
 
-			/* Desktop/Tablet: transparent so Three.js canvas shows through */
+			/* DESKTOP (both themes): Transparent for Three.js or clean background */
 			@media (min-width: 50em) {
-				.backgrounds {
+				.backgrounds,
+				:global(.theme-dark) .backgrounds {
 					background:
 						url('/assets/backgrounds/noise.png') top center/220px repeat,
 						transparent;
