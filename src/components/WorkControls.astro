@@ -294,12 +294,16 @@
   const sortParam = urlParams.get('sort');
   const viewParam = urlParams.get('view');
 
-  if (filterParam) {
+  // Allowlists for valid parameter values
+  const validFilters = ['all', 'personal', 'work'];
+  const validSorts = ['date-desc', 'date-asc', 'title'];
+
+  if (filterParam && validFilters.includes(filterParam)) {
     const btn = document.querySelector(`[data-filter="${filterParam}"]`);
     btn?.dispatchEvent(new Event('click'));
   }
 
-  if (sortParam) {
+  if (sortParam && validSorts.includes(sortParam)) {
     const btn = document.querySelector(`[data-sort="${sortParam}"]`);
     btn?.dispatchEvent(new Event('click'));
   }
