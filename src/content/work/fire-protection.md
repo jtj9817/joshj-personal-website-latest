@@ -1,7 +1,7 @@
 ---
 title: Seneca College - Fire Protection Courses Web Application
 publishDate: 2025-08-01 00:00:00
-img: /assets/fire-protection-preview.jpg
+img: /assets/seneca-logo.jpg
 img_alt: Fire Protection course enrollment web application with online payment integration
 description: |
   A web application for Fire Protection Engineering Technology students to streamline course enrollment and online payment processing with an intuitive interface.

@@ -1,7 +1,7 @@
 ---
 title: BrandAmplifier
 publishDate: 2023-01-01 00:00:00
-img: /assets/brandamplifier-preview.jpg
+img: /assets/brand-amplifier.svg
 img_alt: BrandAmplifier marketing platform dashboard interface for franchise systems
 description: |
   A specialized digital marketing platform for franchise systems and multi-location businesses, serving as a centralized hub for managing social media, digital advertising, and lead generation across entire networks.

@@ -1,7 +1,7 @@
 ---
 title: TravelMate
 publishDate: 2025-06-15 00:00:00
-img: /assets/travelmate-preview.jpg
+img: /assets/travelmate.svg
 img_alt: TravelMate Android app showing destination selection and trip planning features
 description: |
   An open-source Android application providing comprehensive travel planning features including destination selection, bookings, trip organization, and real-time local information.

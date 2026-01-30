@@ -1,7 +1,7 @@
 ---
 title: Seneca College - School of Software Design and Data Science
 publishDate: 2025-09-15 00:00:00
-img: /assets/seneca-sdds-preview.jpg
+img: /assets/seneca-logo.jpg
 img_alt: Seneca College SDDS website homepage with program information and faculty resources
 description: |
   Website for Seneca College's School of Software Design and Data Science containing information for academic programs and faculty materials for compliance with guidelines and academia.

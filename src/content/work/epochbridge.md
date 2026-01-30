@@ -1,7 +1,7 @@
 ---
 title: EpochBridge
 publishDate: 2026-01-15 00:00:00
-img: /assets/epochbridge-preview.jpg
+img: /assets/epochbridge.svg
 img_alt: Calendar conversion interface showing multiple calendar systems with modern purple gradient design
 description: |
   A comprehensive calendar conversion platform supporting 19 calendar systems worldwide, built with Laravel 12 and the TALL stack, featuring AI-powered date advisories and secure authentication.

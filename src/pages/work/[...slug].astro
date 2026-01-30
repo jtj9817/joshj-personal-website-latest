@@ -44,7 +44,7 @@ const { Content } = await render(entry);
 			</header>
 			<main class="wrapper">
 				<div class="stack gap-10 content">
-					{entry.data.img && <img src={entry.data.img} alt={entry.data.img_alt || ''} />}
+					{entry.data.img && <div class="hero-image-container"><img src={entry.data.img} alt={entry.data.img_alt || ''} /></div>}
 					<div class="content">
 						<Content />
 					</div>
@@ -107,6 +107,32 @@ const { Content } = await render(entry);
 		background: var(--gradient-subtle);
 		border: 1px solid var(--gray-800);
 	}
+
+    .hero-image-container {
+        background: var(--gradient-subtle);
+        border: 1px solid var(--gray-800);
+        border-radius: 1.5rem;
+        padding: 3rem;
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 200px;
+    }
+
+    .hero-image-container img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: contain;
+        /* Reset global styles */
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        margin: 0;
+    }
 
 	.content :global(blockquote) {
 		font-size: var(--text-lg);

@@ -1,7 +1,7 @@
 ---
 title: Moonshine Coffee Management Sim
 publishDate: 2026-01-05 00:00:00
-img: /assets/moonshine-coffee-preview.jpg
+img: /assets/MoonShine-Coffee-ManagementSim.svg
 img_alt: Coffee shop dashboard showing inventory levels, supplier metrics, and demand analytics with warm brown color scheme
 description: |
   A strategic coffee shop supply chain simulation game featuring multi-location inventory management, supplier negotiations, and demand forecasting, built with Laravel 12, React 19, and PostgreSQL.

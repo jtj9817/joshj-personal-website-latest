@@ -1,7 +1,7 @@
 ---
 title: StructLogr
 publishDate: 2026-01-10 00:00:00
-img: /assets/structlogr-preview.jpg
+img: /assets/structlogr.svg
 img_alt: Dark-themed code editor interface displaying raw logs being transformed into structured JSON output
 description: |
   An AI-powered log parsing web application that transforms unstructured logs into clean JSON, built with Laravel 12, React 19, and Inertia.js 2.0, supporting multiple LLM providers.

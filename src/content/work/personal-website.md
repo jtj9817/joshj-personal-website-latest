@@ -1,7 +1,7 @@
 ---
 title: Personal Portfolio Website
 publishDate: 2025-12-15 00:00:00
-img: /assets/personal-website-preview.jpg
+img: /assets/personal-website-preview.svg
 img_alt: Personal portfolio website built with Astro framework featuring modern design and animations
 description: |
   This personal portfolio website showcasing projects and skills, built with Astro framework for optimal performance, featuring modern design, Three.js animations, and content collections.

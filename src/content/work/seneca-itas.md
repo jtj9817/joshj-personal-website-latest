@@ -1,7 +1,7 @@
 ---
 title: Seneca College - School of Information Technology Administration & Security
 publishDate: 2025-09-10 00:00:00
-img: /assets/seneca-itas-preview.jpg
+img: /assets/seneca-logo.jpg
 img_alt: Seneca College ITAS website featuring IT security programs and administration resources
 description: |
   Website for Seneca College's School of Information Technology Administration & Security with academic program information and faculty materials ensuring compliance with guidelines.

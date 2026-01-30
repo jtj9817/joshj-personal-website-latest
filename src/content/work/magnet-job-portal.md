@@ -1,7 +1,7 @@
 ---
 title: Magnet Job Portal
 publishDate: 2025-11-01 00:00:00
-img: /assets/magnet-preview.jpg
+img: /assets/magnet.ico
 img_alt: Magnet job portal interface with job listings, community features, and learning management system
 description: |
   A comprehensive job portal platform developed at WhoPlusYou enabling users to find employment opportunities, join professional communities, and access learning management systems for skill development.

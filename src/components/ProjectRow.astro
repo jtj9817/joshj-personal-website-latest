@@ -78,12 +78,17 @@ const paddedIndex = String(index).padStart(2, '0');
     border-radius: 0.25rem;
     overflow: hidden;
     border: var(--border-card);
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .row-thumbnail img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    padding: 0.25rem;
   }
 
   .row-title {
