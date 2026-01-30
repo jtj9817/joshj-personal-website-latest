@@ -388,338 +388,117 @@ import TechnicalDivider from "../components/TechnicalDivider.astro"
     z-index: 0;
   }
 
-  @keyframes textFlicker {
-    0%, 100% {
-      opacity: 1;
-      text-shadow: 0 0 10px var(--accent-light), 0 0 20px var(--accent-light), 0 0 30px var(--accent-light);
-    }
-    5% {
-      opacity: 0.8;
-      text-shadow: 0 0 5px var(--accent-regular), 0 0 10px var(--accent-regular);
-    }
-    10% {
-      opacity: 1;
-      text-shadow: 0 0 15px var(--accent-light), 0 0 25px var(--accent-light), 0 0 35px var(--accent-light), 0 0 45px #ff00ff;
-    }
-    15% {
-      opacity: 0.6;
-      text-shadow: none;
-    }
-    20% {
-      opacity: 1;
-      text-shadow: 0 0 20px var(--accent-light), 0 0 30px var(--accent-light), 0 0 40px #00ffff;
-    }
-    25% {
-      opacity: 0.9;
-      text-shadow: 0 0 10px var(--accent-regular);
-    }
-    30% {
-      opacity: 0.4;
-      text-shadow: none;
-    }
-    35% {
-      opacity: 1;
-      text-shadow: 0 0 25px var(--accent-light), 0 0 35px #ff00ff, 0 0 45px #00ffff;
-    }
-    40% {
-      opacity: 0.7;
-      text-shadow: 0 0 5px var(--accent-regular);
-    }
-    45% {
-      opacity: 0.3;
-      text-shadow: none;
-    }
-    50% {
-      opacity: 1;
-      text-shadow: 0 0 20px var(--accent-light), 0 0 30px var(--accent-light), 0 0 40px var(--accent-light), 0 0 50px #ff00ff, 0 0 60px #00ffff;
-    }
-    55% {
-      opacity: 0.8;
-      text-shadow: 0 0 10px var(--accent-regular);
-    }
-    60% {
-      opacity: 0.5;
-      text-shadow: none;
-    }
-    65% {
-      opacity: 1;
-      text-shadow: 0 0 30px var(--accent-light), 0 0 40px #ff00ff;
-    }
-    70% {
-      opacity: 0.9;
-      text-shadow: 0 0 15px var(--accent-light);
-    }
-    75% {
-      opacity: 0.4;
-      text-shadow: none;
-    }
-    80% {
-      opacity: 1;
-      text-shadow: 0 0 20px var(--accent-light), 0 0 30px var(--accent-light), 0 0 40px var(--accent-light), 0 0 50px #00ffff;
-    }
-    85% {
-      opacity: 0.8;
-      text-shadow: 0 0 10px var(--accent-regular);
-    }
-    90% {
-      opacity: 0.6;
-      text-shadow: 0 0 5px var(--accent-regular);
-    }
-    95% {
-      opacity: 1;
-      text-shadow: 0 0 25px var(--accent-light), 0 0 35px var(--accent-light), 0 0 45px #ff00ff;
-    }
+  /* Sequential paragraph reveal */
+  .comprehensive-version p {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
 
-  @keyframes borderGlow {
-    0%, 100% {
-      border-color: var(--accent-regular);
-      box-shadow: 0 0 10px var(--accent-regular), inset 0 0 10px var(--accent-subtle-overlay);
-    }
-    25% {
-      border-color: #ff00ff;
-      box-shadow: 0 0 20px rgba(255, 0, 255, 0.6), inset 0 0 15px rgba(255, 0, 255, 0.2);
-    }
-    50% {
-      border-color: #00ffff;
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.7), inset 0 0 20px rgba(0, 255, 255, 0.3);
-    }
-    75% {
-      border-color: var(--accent-light);
-      box-shadow: 0 0 15px var(--accent-light), inset 0 0 12px var(--accent-overlay);
-    }
-  }
-
-  @keyframes scanline {
-    0% {
-      transform: translateY(-100%);
-    }
-    100% {
-      transform: translateY(100%);
-    }
-  }
-
-  .cyberpunk-toggle.flickering .toggle-text {
-    animation: textFlicker 0.15s ease-in-out 20;
-    color: #fff;
-  }
-
-  .cyberpunk-toggle.flickering {
-    animation: borderGlow 0.3s ease-in-out 10;
-    background: rgba(0, 0, 0, 0.8);
-  }
-
-  .cyberpunk-toggle.flickering::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      transparent 0%,
-      rgba(0, 255, 255, 0.1) 50%,
-      transparent 100%
-    );
-    animation: scanline 0.1s linear 10;
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  :root.theme-dark .cyberpunk-toggle.flickering .toggle-text {
-    animation: textFlicker 0.12s ease-in-out 25;
-    color: #00ff85;
-  }
-
-  :root.theme-dark .cyberpunk-toggle.flickering {
-    animation: borderGlow 0.25s ease-in-out 12;
-    background: rgba(0, 0, 0, 0.9);
-    border-color: #00ff85;
-  }
-
-  .comprehensive-version.flickering p {
-    animation: paragraphFlicker 0.08s ease-in-out 30;
-  }
-
-  @keyframes paragraphFlicker {
-    0%, 100% {
-      opacity: 1;
-      text-shadow: 0 0 5px var(--accent-light), 0 0 10px var(--accent-light);
-    }
-    10% {
-      opacity: 0.7;
-      text-shadow: 0 0 3px var(--accent-regular);
-    }
-    20% {
-      opacity: 1;
-      text-shadow: 0 0 8px var(--accent-light), 0 0 15px #ff00ff;
-    }
-    30% {
-      opacity: 0.5;
-      text-shadow: none;
-    }
-    40% {
-      opacity: 1;
-      text-shadow: 0 0 10px var(--accent-light), 0 0 20px #00ffff;
-    }
-    50% {
-      opacity: 0.8;
-      text-shadow: 0 0 5px var(--accent-regular);
-    }
-    60% {
-      opacity: 0.4;
-      text-shadow: none;
-    }
-    70% {
-      opacity: 1;
-      text-shadow: 0 0 12px var(--accent-light), 0 0 18px #ff00ff, 0 0 25px #00ffff;
-    }
-    80% {
-      opacity: 0.9;
-      text-shadow: 0 0 6px var(--accent-light);
-    }
-    90% {
-      opacity: 0.6;
-      text-shadow: 0 0 3px var(--accent-regular);
-    }
-  }
-
-  :root.theme-dark .comprehensive-version.flickering p {
-    animation: paragraphFlicker 0.06s ease-in-out 35;
-    color: #e0e0e0;
-  }
-
-  :root.theme-dark .comprehensive-version.flickering p {
-    text-shadow: 0 0 8px rgba(0, 255, 133, 0.5);
+  .comprehensive-version p.revealed {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>
 
 <script>
-  class CyberpunkTextAnimator {
-    constructor(element, targetText, onComplete) {
-      this.element = element;
-      this.targetText = targetText;
-      this.chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>[]{}|/=+-';
-      this.frame = 0;
-      this.animationId = null;
-      this.onComplete = onComplete;
-    }
-
-    animate() {
-      this.frame = 0;
-      const totalFrames = 30;
-      const textLength = this.targetText.length;
-
-      const step = () => {
-        this.frame++;
-        const progress = this.frame / totalFrames;
-        const revealedChars = Math.floor(progress * textLength);
-
-        let displayText = '';
-        for (let i = 0; i < textLength; i++) {
-          if (i < revealedChars) {
-            displayText += this.targetText[i];
-          } else if (this.targetText[i] === ' ') {
-            displayText += ' ';
-          } else {
-            displayText += this.chars[Math.floor(Math.random() * this.chars.length)];
-          }
-        }
-
-        this.element.textContent = displayText;
-
-        if (this.frame < totalFrames) {
-          this.animationId = requestAnimationFrame(step);
-        } else {
-          this.element.textContent = this.targetText;
-          if (this.onComplete) this.onComplete();
-        }
-      };
-
-      this.animationId = requestAnimationFrame(step);
-    }
-
-    stop() {
-      if (this.animationId) {
-        cancelAnimationFrame(this.animationId);
-      }
-    }
-  }
-
   const toggleBtn = document.getElementById('toggle-about');
   const conciseVersion = document.getElementById('concise-version');
   const comprehensiveVersion = document.getElementById('comprehensive-version');
   const toggleText = toggleBtn?.querySelector('.toggle-text');
   let isExpanded = false;
-  let currentAnimator = null;
+  let revealTimeouts: ReturnType<typeof setTimeout>[] = [];
 
-  function animateTransition(fromEl, toEl, buttonText, isExpanding) {
-    const textElement = isExpanding ? toEl.querySelector('p') : toEl.querySelector('.pitch-intro');
-    
-    if (!textElement) {
-      fromEl.classList.add('hidden');
-      toEl.classList.remove('hidden');
-      if (toggleText) toggleText.textContent = buttonText;
-      return;
+  function clearRevealTimeouts() {
+    revealTimeouts.forEach(t => clearTimeout(t));
+    revealTimeouts = [];
+  }
+
+  function revealParagraphsSequentially(container: HTMLElement) {
+    const paragraphs = container.querySelectorAll('p');
+    clearRevealTimeouts();
+
+    // Reset all paragraphs to hidden
+    paragraphs.forEach(p => p.classList.remove('revealed'));
+
+    // Delays: ~1s apart for first 3s, then accelerating
+    let cumulative = 0;
+    const delays: number[] = [];
+
+    for (let i = 0; i < paragraphs.length; i++) {
+      if (i === 0) {
+        delays.push(200);
+        cumulative = 200;
+      } else if (cumulative < 3000) {
+        delays.push(1000);
+        cumulative += 1000;
+      } else {
+        const faster = Math.max(150, 600 - (i - 3) * 150);
+        delays.push(faster);
+        cumulative += faster;
+      }
     }
 
-    const targetText = textElement.textContent || '';
-    
-    fromEl.style.opacity = '0';
-    fromEl.style.transform = 'translateY(-10px)';
-    
-    setTimeout(() => {
-      fromEl.classList.add('hidden');
-      toEl.classList.remove('hidden');
-      
-      if (isExpanding && toEl.classList.contains('comprehensive-version')) {
-        toEl.classList.add('flickering');
-        setTimeout(() => {
-          toEl.classList.remove('flickering');
-        }, 2500);
-      }
-      
-      toEl.style.opacity = '0';
-      toEl.style.transform = 'translateY(10px)';
-      
-      requestAnimationFrame(() => {
-        toEl.style.opacity = '1';
-        toEl.style.transform = 'translateY(0)';
-        
-        if (toggleText) toggleText.textContent = buttonText;
-      });
-    }, 200);
+    let accumulated = 0;
+    paragraphs.forEach((p, i) => {
+      accumulated += delays[i];
+      const timeout = setTimeout(() => {
+        p.classList.add('revealed');
+      }, accumulated);
+      revealTimeouts.push(timeout);
+    });
+  }
+
+  function hideParagraphs(container: HTMLElement) {
+    const paragraphs = container.querySelectorAll('p');
+    paragraphs.forEach(p => p.classList.remove('revealed'));
   }
 
   toggleBtn?.addEventListener('click', () => {
     isExpanded = !isExpanded;
-    
-    if (toggleBtn) {
-      toggleBtn.classList.add('flickering');
-      
-      const originalText = toggleText?.textContent || '';
-      const targetText = isExpanded ? '[ COLLAPSE_PROFILE ]' : '[ EXPAND_PROFILE ]';
-      
-      if (currentAnimator) {
-        currentAnimator.stop();
-      }
-      
-      currentAnimator = new CyberpunkTextAnimator(toggleText, targetText, () => {
-        setTimeout(() => {
-          toggleBtn.classList.remove('flickering');
-        }, 500);
-      });
-      
-      currentAnimator.animate();
-    }
-    
+    clearRevealTimeouts();
+
     if (isExpanded) {
+      if (toggleText) toggleText.textContent = '[ COLLAPSE_PROFILE ]';
+
       if (conciseVersion && comprehensiveVersion) {
-        animateTransition(conciseVersion, comprehensiveVersion, '[ COLLAPSE_PROFILE ]', true);
+        conciseVersion.style.opacity = '0';
+        conciseVersion.style.transform = 'translateY(-10px)';
+
+        setTimeout(() => {
+          conciseVersion.classList.add('hidden');
+          comprehensiveVersion.classList.remove('hidden');
+
+          comprehensiveVersion.style.opacity = '0';
+          comprehensiveVersion.style.transform = 'translateY(10px)';
+
+          requestAnimationFrame(() => {
+            comprehensiveVersion.style.opacity = '1';
+            comprehensiveVersion.style.transform = 'translateY(0)';
+            revealParagraphsSequentially(comprehensiveVersion);
+          });
+        }, 200);
       }
     } else {
+      if (toggleText) toggleText.textContent = '[ EXPAND_PROFILE ]';
+
       if (conciseVersion && comprehensiveVersion) {
-        animateTransition(comprehensiveVersion, conciseVersion, '[ EXPAND_PROFILE ]', false);
+        hideParagraphs(comprehensiveVersion);
+        comprehensiveVersion.style.opacity = '0';
+        comprehensiveVersion.style.transform = 'translateY(-10px)';
+
+        setTimeout(() => {
+          comprehensiveVersion.classList.add('hidden');
+          conciseVersion.classList.remove('hidden');
+
+          conciseVersion.style.opacity = '0';
+          conciseVersion.style.transform = 'translateY(10px)';
+
+          requestAnimationFrame(() => {
+            conciseVersion.style.opacity = '1';
+            conciseVersion.style.transform = 'translateY(0)';
+          });
+        }, 200);
       }
     }
   });
