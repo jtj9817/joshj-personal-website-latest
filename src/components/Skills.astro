@@ -5,8 +5,7 @@ import Icon from './Icon.astro';
 <section class="box skills">
 	<div class="skill-item">
 		<h2>Full Stack Web Development</h2>
-		<p>Full Stack Web Development with Laravel, Vue, TailwindCSS, and MySQL. I have also used jQuery, JavaScript, Bootstrap, and Python for past projects
-			and work.
+		<p>Full Stack Web Development with Laravel, Vue, TailwindCSS, and MySQL. I have also used TypeScript and Java for building microservices, as well as jQuery, JavaScript, Bootstrap, and Python for past projects and work.
 		</p>
 	</div>
 	<div class="skill-divider divider-green">
@@ -20,7 +19,7 @@ import Icon from './Icon.astro';
 	</div>
 	<div class="skill-item">
 		<h2>QA Testing, API Testing, and UI/UX Testing</h2>
-		<p>Manual QA Testing using different browsers and platforms, unit tests using PHP Unit tests, API Testing using Postman, and UI/UX Testing using Puppeteer.</p>
+		<p>UI and E2E testing using Puppeteer, Playwright, and Jest. PHP testing in Laravel using PHP Unit and Pest. API Testing using Postman. Manual QA Testing across different browsers and platforms.</p>
 	</div>
 	<div class="skill-divider divider-yellow">
 		<div class="divider-line-yellow"></div>
@@ -68,6 +67,8 @@ import Icon from './Icon.astro';
 
 	.skills p {
 		color: var(--gray-300);
+		max-width: none;
+		width: 100%;
 	}
 
 	@media (min-width: 50em) {
@@ -77,15 +78,16 @@ import Icon from './Icon.astro';
 		}
 
 		.skills {
-			display: grid;
-			grid-template-columns: 1fr auto 1fr auto 1fr;
+			display: flex;
+			flex-direction: row;
 			gap: 0;
 			align-items: stretch;
 		}
 
 		.skill-item {
-			padding: 0 2.5rem;
+			padding: 2.5rem 1.5rem;
 			gap: 1.5rem;
+			flex: 1;
 		}
 
 		.skill-item:first-child {
@@ -98,10 +100,11 @@ import Icon from './Icon.astro';
 
 		.skill-divider {
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
 			align-items: center;
 			justify-content: center;
 			width: 4px;
+			height: 100%;
 			position: relative;
 			overflow: visible;
 		}
@@ -109,10 +112,10 @@ import Icon from './Icon.astro';
 		/* Green divider */
 		.divider-green .divider-line-green {
 			position: absolute;
-			width: 2px;
-			height: 100%;
+			width: 100%;
+			height: 2px;
 			background: linear-gradient(
-				180deg,
+				90deg,
 				transparent 0%,
 				#00ff41 10%,
 				#00cc33 30%,
@@ -130,15 +133,15 @@ import Icon from './Icon.astro';
 		.divider-green .divider-line-green::before {
 			content: '';
 			position: absolute;
-			width: 100%;
-			height: 30%;
+			width: 30%;
+			height: 100%;
 			background: linear-gradient(
-				180deg,
+				90deg,
 				transparent 0%,
 				rgba(255, 255, 255, 0.9) 50%,
 				transparent 100%
 			);
-			animation: scanDown 2s linear infinite;
+			animation: scanRight 2s linear infinite;
 		}
 
 		.glow-green {
@@ -179,10 +182,10 @@ import Icon from './Icon.astro';
 		/* Yellow divider */
 		.divider-yellow .divider-line-yellow {
 			position: absolute;
-			width: 2px;
-			height: 100%;
+			width: 100%;
+			height: 2px;
 			background: linear-gradient(
-				180deg,
+				90deg,
 				transparent 0%,
 				#ffff00 10%,
 				#ffcc00 30%,
@@ -200,15 +203,15 @@ import Icon from './Icon.astro';
 		.divider-yellow .divider-line-yellow::before {
 			content: '';
 			position: absolute;
-			width: 100%;
-			height: 30%;
+			width: 30%;
+			height: 100%;
 			background: linear-gradient(
-				180deg,
+				90deg,
 				transparent 0%,
 				rgba(255, 255, 255, 0.9) 50%,
 				transparent 100%
 			);
-			animation: scanUp 2.5s linear infinite;
+			animation: scanLeft 2.5s linear infinite;
 		}
 
 		.glow-yellow {
@@ -246,21 +249,21 @@ import Icon from './Icon.astro';
 			}
 		}
 
-		@keyframes scanDown {
+		@keyframes scanRight {
 			0% {
-				top: -30%;
+				left: -30%;
 			}
 			100% {
-				top: 100%;
+				left: 100%;
 			}
 		}
 
-		@keyframes scanUp {
+		@keyframes scanLeft {
 			0% {
-				top: 100%;
+				left: 100%;
 			}
 			100% {
-				top: -30%;
+				left: -30%;
 			}
 		}
 
@@ -277,7 +280,7 @@ import Icon from './Icon.astro';
 			width: 4px;
 			height: 4px;
 			border-radius: 50%;
-			animation: float 3s ease-in-out infinite;
+			animation: floatHorizontal 3s ease-in-out infinite;
 		}
 
 		.divider-green .divider-particles span {
@@ -291,34 +294,34 @@ import Icon from './Icon.astro';
 		}
 
 		.divider-particles span:nth-child(1) {
-			left: 50%;
-			top: 20%;
+			left: 20%;
+			top: 50%;
 			animation-delay: 0s;
 			animation-duration: 2.5s;
 		}
 
 		.divider-particles span:nth-child(2) {
-			left: 30%;
-			top: 50%;
+			left: 50%;
+			top: 30%;
 			animation-delay: 0.5s;
 			animation-duration: 3s;
 		}
 
 		.divider-particles span:nth-child(3) {
-			left: 70%;
-			top: 80%;
+			left: 80%;
+			top: 70%;
 			animation-delay: 1s;
 			animation-duration: 2.8s;
 		}
 
-		@keyframes float {
+		@keyframes floatHorizontal {
 			0%, 100% {
 				opacity: 0;
-				transform: translateY(0) scale(0.5);
+				transform: translateX(0) scale(0.5);
 			}
 			50% {
 				opacity: 1;
-				transform: translateY(-20px) scale(1);
+				transform: translateX(-20px) scale(1);
 			}
 		}
 
