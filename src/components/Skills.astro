@@ -3,7 +3,7 @@ import Icon from './Icon.astro';
 ---
 
 <section class="box skills">
-	<div class="skill-item">
+	<div class="skill-item skill-fullstack">
 		<h2>Full Stack Web Development</h2>
 		<p>Full Stack Web Development with Laravel, Vue, TailwindCSS, and MySQL. I have also used TypeScript and Java for building microservices, as well as jQuery, JavaScript, Bootstrap, and Python for past projects and work.
 		</p>
@@ -55,7 +55,11 @@ import Icon from './Icon.astro';
 		display: flex;
 		flex-direction: row;
 		align-items: flex-start;
-		gap: 1rem;
+		gap: 1.5rem;
+	}
+
+	.skill-fullstack h2 {
+		margin-right: 1rem;
 	}
 
 	.skill-divider {
@@ -71,15 +75,13 @@ import Icon from './Icon.astro';
 
 	.skills h2 {
 		font-size: var(--text-lg);
-		flex: 0 0 40%;
+		flex: 1 1 0;
 		min-width: 0;
 	}
 
 	.skills p {
 		color: var(--gray-300);
-		max-width: none;
-		width: 100%;
-		flex: 1;
+		flex: 1 1 0;
 		min-width: 0;
 	}
 
