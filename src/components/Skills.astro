@@ -53,22 +53,250 @@ import Icon from './Icon.astro';
 
 	.skill-item {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
+		align-items: flex-start;
 		gap: 1rem;
 	}
 
 	.skill-divider {
-		display: none;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 4px;
+		position: relative;
+		overflow: visible;
 	}
 
 	.skills h2 {
 		font-size: var(--text-lg);
+		flex: 0 0 40%;
+		min-width: 0;
 	}
 
 	.skills p {
 		color: var(--gray-300);
 		max-width: none;
 		width: 100%;
+		flex: 1;
+		min-width: 0;
+	}
+
+	/* Green divider */
+	.divider-green .divider-line-green {
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		background: linear-gradient(
+			90deg,
+			transparent 0%,
+			#00ff41 10%,
+			#00cc33 30%,
+			#00ff41 50%,
+			#00cc33 70%,
+			#00ff41 90%,
+			transparent 100%
+		);
+		box-shadow:
+			0 0 10px #00ff41,
+			0 0 20px #00ff41,
+			0 0 40px #00cc33;
+	}
+
+	.divider-green .divider-line-green::before {
+		content: '';
+		position: absolute;
+		width: 30%;
+		height: 100%;
+		background: linear-gradient(
+			90deg,
+			transparent 0%,
+			rgba(255, 255, 255, 0.9) 50%,
+			transparent 100%
+		);
+		animation: scanRight 2s linear infinite;
+	}
+
+	.glow-green {
+		width: 12px;
+		height: 12px;
+		background: #00ff41;
+		border: 2px solid #ccffcc;
+		box-shadow:
+			0 0 10px #00ff41,
+			0 0 20px #00ff41,
+			0 0 40px #00cc33,
+			inset 0 0 8px #ccffcc;
+		transform: rotate(45deg);
+		position: relative;
+		z-index: 2;
+		animation: pulseGreen 1.5s ease-in-out infinite;
+	}
+
+	@keyframes pulseGreen {
+		0%, 100% {
+			box-shadow:
+				0 0 10px #00ff41,
+				0 0 20px #00ff41,
+				0 0 40px #00cc33,
+				inset 0 0 8px #ccffcc;
+			transform: rotate(45deg) scale(1);
+		}
+		50% {
+			box-shadow:
+				0 0 20px #00ff41,
+				0 0 40px #00ff41,
+				0 0 60px #00cc33,
+				inset 0 0 12px #ccffcc;
+			transform: rotate(45deg) scale(1.2);
+		}
+	}
+
+	/* Yellow divider */
+	.divider-yellow .divider-line-yellow {
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		background: linear-gradient(
+			90deg,
+			transparent 0%,
+			#ffff00 10%,
+			#ffcc00 30%,
+			#ffff00 50%,
+			#ffcc00 70%,
+			#ffff00 90%,
+			transparent 100%
+		);
+		box-shadow:
+			0 0 10px #ffff00,
+			0 0 20px #ffff00,
+			0 0 40px #ffcc00;
+	}
+
+	.divider-yellow .divider-line-yellow::before {
+		content: '';
+		position: absolute;
+		width: 30%;
+		height: 100%;
+		background: linear-gradient(
+			90deg,
+			transparent 0%,
+			rgba(255, 255, 255, 0.9) 50%,
+			transparent 100%
+		);
+		animation: scanLeft 2.5s linear infinite;
+	}
+
+	.glow-yellow {
+		width: 12px;
+		height: 12px;
+		background: #ffff00;
+		border: 2px solid #ffffcc;
+		box-shadow:
+			0 0 10px #ffff00,
+			0 0 20px #ffff00,
+			0 0 40px #ffcc00,
+			inset 0 0 8px #ffffcc;
+		transform: rotate(45deg);
+		position: relative;
+		z-index: 2;
+		animation: pulseYellow 1.8s ease-in-out infinite;
+	}
+
+	@keyframes pulseYellow {
+		0%, 100% {
+			box-shadow:
+				0 0 10px #ffff00,
+				0 0 20px #ffff00,
+				0 0 40px #ffcc00,
+				inset 0 0 8px #ffffcc;
+			transform: rotate(45deg) scale(1);
+		}
+		50% {
+			box-shadow:
+				0 0 20px #ffff00,
+				0 0 40px #ffff00,
+				0 0 60px #ffcc00,
+				inset 0 0 12px #ffffcc;
+			transform: rotate(45deg) scale(1.2);
+		}
+	}
+
+	@keyframes scanRight {
+		0% {
+			left: -30%;
+		}
+		100% {
+			left: 100%;
+		}
+	}
+
+	@keyframes scanLeft {
+		0% {
+			left: 100%;
+		}
+		100% {
+			left: -30%;
+		}
+	}
+
+	/* Floating particles */
+	.divider-particles {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
+
+	.divider-particles span {
+		position: absolute;
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		animation: floatHorizontal 3s ease-in-out infinite;
+	}
+
+	.divider-green .divider-particles span {
+		background: #00ff41;
+		box-shadow: 0 0 6px #00ff41;
+	}
+
+	.divider-yellow .divider-particles span {
+		background: #ffff00;
+		box-shadow: 0 0 6px #ffff00;
+	}
+
+	.divider-particles span:nth-child(1) {
+		left: 20%;
+		top: 50%;
+		animation-delay: 0s;
+		animation-duration: 2.5s;
+	}
+
+	.divider-particles span:nth-child(2) {
+		left: 50%;
+		top: 30%;
+		animation-delay: 0.5s;
+		animation-duration: 3s;
+	}
+
+	.divider-particles span:nth-child(3) {
+		left: 80%;
+		top: 70%;
+		animation-delay: 1s;
+		animation-duration: 2.8s;
+	}
+
+	@keyframes floatHorizontal {
+		0%, 100% {
+			opacity: 0;
+			transform: translateX(0) scale(0.5);
+		}
+		50% {
+			opacity: 1;
+			transform: translateX(-20px) scale(1);
+		}
 	}
 
 	@media (min-width: 50em) {
@@ -77,252 +305,9 @@ import Icon from './Icon.astro';
 			padding: 3rem;
 		}
 
-		.skills {
-			display: flex;
-			flex-direction: row;
-			gap: 0;
-			align-items: stretch;
-		}
-
 		.skill-item {
-			padding: 2.5rem 1.5rem;
-			gap: 1.5rem;
-			flex: 1;
-		}
-
-		.skill-item:first-child {
-			padding-left: 0;
-		}
-
-		.skill-item:last-child {
-			padding-right: 0;
-		}
-
-		.skill-divider {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: center;
-			width: 4px;
-			height: 100%;
-			position: relative;
-			overflow: visible;
-		}
-
-		/* Green divider */
-		.divider-green .divider-line-green {
-			position: absolute;
-			width: 100%;
-			height: 2px;
-			background: linear-gradient(
-				90deg,
-				transparent 0%,
-				#00ff41 10%,
-				#00cc33 30%,
-				#00ff41 50%,
-				#00cc33 70%,
-				#00ff41 90%,
-				transparent 100%
-			);
-			box-shadow: 
-				0 0 10px #00ff41,
-				0 0 20px #00ff41,
-				0 0 40px #00cc33;
-		}
-
-		.divider-green .divider-line-green::before {
-			content: '';
-			position: absolute;
-			width: 30%;
-			height: 100%;
-			background: linear-gradient(
-				90deg,
-				transparent 0%,
-				rgba(255, 255, 255, 0.9) 50%,
-				transparent 100%
-			);
-			animation: scanRight 2s linear infinite;
-		}
-
-		.glow-green {
-			width: 12px;
-			height: 12px;
-			background: #00ff41;
-			border: 2px solid #ccffcc;
-			box-shadow: 
-				0 0 10px #00ff41,
-				0 0 20px #00ff41,
-				0 0 40px #00cc33,
-				inset 0 0 8px #ccffcc;
-			transform: rotate(45deg);
-			position: relative;
-			z-index: 2;
-			animation: pulseGreen 1.5s ease-in-out infinite;
-		}
-
-		@keyframes pulseGreen {
-			0%, 100% {
-				box-shadow: 
-					0 0 10px #00ff41,
-					0 0 20px #00ff41,
-					0 0 40px #00cc33,
-					inset 0 0 8px #ccffcc;
-				transform: rotate(45deg) scale(1);
-			}
-			50% {
-				box-shadow: 
-					0 0 20px #00ff41,
-					0 0 40px #00ff41,
-					0 0 60px #00cc33,
-					inset 0 0 12px #ccffcc;
-				transform: rotate(45deg) scale(1.2);
-			}
-		}
-
-		/* Yellow divider */
-		.divider-yellow .divider-line-yellow {
-			position: absolute;
-			width: 100%;
-			height: 2px;
-			background: linear-gradient(
-				90deg,
-				transparent 0%,
-				#ffff00 10%,
-				#ffcc00 30%,
-				#ffff00 50%,
-				#ffcc00 70%,
-				#ffff00 90%,
-				transparent 100%
-			);
-			box-shadow: 
-				0 0 10px #ffff00,
-				0 0 20px #ffff00,
-				0 0 40px #ffcc00;
-		}
-
-		.divider-yellow .divider-line-yellow::before {
-			content: '';
-			position: absolute;
-			width: 30%;
-			height: 100%;
-			background: linear-gradient(
-				90deg,
-				transparent 0%,
-				rgba(255, 255, 255, 0.9) 50%,
-				transparent 100%
-			);
-			animation: scanLeft 2.5s linear infinite;
-		}
-
-		.glow-yellow {
-			width: 12px;
-			height: 12px;
-			background: #ffff00;
-			border: 2px solid #ffffcc;
-			box-shadow: 
-				0 0 10px #ffff00,
-				0 0 20px #ffff00,
-				0 0 40px #ffcc00,
-				inset 0 0 8px #ffffcc;
-			transform: rotate(45deg);
-			position: relative;
-			z-index: 2;
-			animation: pulseYellow 1.8s ease-in-out infinite;
-		}
-
-		@keyframes pulseYellow {
-			0%, 100% {
-				box-shadow: 
-					0 0 10px #ffff00,
-					0 0 20px #ffff00,
-					0 0 40px #ffcc00,
-					inset 0 0 8px #ffffcc;
-				transform: rotate(45deg) scale(1);
-			}
-			50% {
-				box-shadow: 
-					0 0 20px #ffff00,
-					0 0 40px #ffff00,
-					0 0 60px #ffcc00,
-					inset 0 0 12px #ffffcc;
-				transform: rotate(45deg) scale(1.2);
-			}
-		}
-
-		@keyframes scanRight {
-			0% {
-				left: -30%;
-			}
-			100% {
-				left: 100%;
-			}
-		}
-
-		@keyframes scanLeft {
-			0% {
-				left: 100%;
-			}
-			100% {
-				left: -30%;
-			}
-		}
-
-		/* Floating particles */
-		.divider-particles {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			pointer-events: none;
-		}
-
-		.divider-particles span {
-			position: absolute;
-			width: 4px;
-			height: 4px;
-			border-radius: 50%;
-			animation: floatHorizontal 3s ease-in-out infinite;
-		}
-
-		.divider-green .divider-particles span {
-			background: #00ff41;
-			box-shadow: 0 0 6px #00ff41;
-		}
-
-		.divider-yellow .divider-particles span {
-			background: #ffff00;
-			box-shadow: 0 0 6px #ffff00;
-		}
-
-		.divider-particles span:nth-child(1) {
-			left: 20%;
-			top: 50%;
-			animation-delay: 0s;
-			animation-duration: 2.5s;
-		}
-
-		.divider-particles span:nth-child(2) {
-			left: 50%;
-			top: 30%;
-			animation-delay: 0.5s;
-			animation-duration: 3s;
-		}
-
-		.divider-particles span:nth-child(3) {
-			left: 80%;
-			top: 70%;
-			animation-delay: 1s;
-			animation-duration: 2.8s;
-		}
-
-		@keyframes floatHorizontal {
-			0%, 100% {
-				opacity: 0;
-				transform: translateX(0) scale(0.5);
-			}
-			50% {
-				opacity: 1;
-				transform: translateX(-20px) scale(1);
-			}
+			padding: 1.5rem 0;
+			gap: 2rem;
 		}
 
 		.skills h2 {
