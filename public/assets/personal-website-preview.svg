@@ -1,0 +1,51 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="bg-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#090b11;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#1a1d26;stop-opacity:1" />
+        </linearGradient>
+        <filter id="glow">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2a2f3a" stroke-width="1"/>
+        </pattern>
+    </defs>
+
+    <!-- Background -->
+    <rect width="1200" height="630" fill="url(#bg-grad)"/>
+    <rect width="1200" height="630" fill="url(#grid)" opacity="0.3"/>
+
+    <!-- Voxel/Cyberpunk Elements -->
+    <!-- Cyan Cubes -->
+    <rect x="100" y="100" width="60" height="60" fill="#0ff" opacity="0.6" filter="url(#glow)"/>
+    <rect x="160" y="130" width="60" height="60" fill="#0ff" opacity="0.4" filter="url(#glow)"/>
+    <rect x="100" y="160" width="60" height="60" fill="#0ff" opacity="0.8" filter="url(#glow)"/>
+    
+    <!-- Magenta Cubes -->
+    <rect x="1040" y="470" width="60" height="60" fill="#f0f" opacity="0.6" filter="url(#glow)"/>
+    <rect x="980" y="500" width="60" height="60" fill="#f0f" opacity="0.4" filter="url(#glow)"/>
+    <rect x="1040" y="530" width="60" height="60" fill="#f0f" opacity="0.8" filter="url(#glow)"/>
+
+    <!-- Yellow Accent Lines -->
+    <rect x="0" y="600" width="1200" height="5" fill="#ff0" filter="url(#glow)"/>
+    <rect x="0" y="25" width="1200" height="5" fill="#ff0" filter="url(#glow)"/>
+
+    <!-- Random Glitch Rects -->
+    <rect x="300" y="200" width="100" height="10" fill="#0ff" opacity="0.2"/>
+    <rect x="800" y="400" width="120" height="8" fill="#f0f" opacity="0.2"/>
+
+    <!-- Text -->
+    <text x="600" y="315" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#fff" text-anchor="middle" dominant-baseline="middle" filter="url(#glow)">JOSH JADULCO</text>
+    <text x="600" y="380" font-family="Courier New, monospace" font-size="30" fill="#a0a0a0" text-anchor="middle" dominant-baseline="middle" letter-spacing="5">FULL STACK DEVELOPER</text>
+
+    <!-- Overlay Scanlines -->
+    <pattern id="scanlines" width="10" height="10" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="5" x2="10" y2="5" stroke="#000" stroke-width="1" opacity="0.3"/>
+    </pattern>
+    <rect width="1200" height="630" fill="url(#scanlines)" pointer-events="none"/>
+</svg>
