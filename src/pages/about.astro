@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 
 import Hero from "../components/Hero.astro"
 import TechnicalDivider from "../components/TechnicalDivider.astro"
+import { Content as ComprehensiveContent } from "../../comprehensive-profile.md"
 ---
 
 <BaseLayout
@@ -34,27 +35,9 @@ import TechnicalDivider from "../components/TechnicalDivider.astro"
                 </div>
               </div>
               <div id="comprehensive-version" class="about-version comprehensive-version hidden">
-                <p>
-                  I specialize in Laravel and Typescript as I mostly worked with these technologies throughout my career. I am a results-driven Senior Laravel Developer with over 5 years of experience architecting and delivering scalable web applications for enterprise clients. Throughout my career, I specialized in full-stack Laravel development and built deep expertise in the entire Laravel ecosystem, including Eloquent ORM, Service Container, Laravel Queues, Middleware pipelines, and advanced design patterns. I have a proven track record of collaborating with cross-functional teams, optimizing application performance, and implementing robust CI/CD pipelines that reduced deployment time by 40% and significantly improved overall code quality.
-                </p>
-                <p>
-                  In my previous roles, I architected and developed enterprise-grade Laravel applications utilizing advanced OOP design patterns including Repository, Factory, Observer, and Strategy patterns. I leveraged Laravel's Eloquent ORM with complex relationships, eager loading, and query optimization to handle enterprise-level data models with millions of records. I implemented Service Container dependency injection, custom Service Providers, and Middleware pipelines to create scalable application architectures. I also utilized Laravel Queues with Redis and database drivers for high-volume background job processing, and configured Laravel Horizon for real-time queue monitoring and management.
-                </p>
-                <p>
-                  I have extensive hands-on experience with the complete Laravel ecosystem. I built custom admin dashboards using Laravel Nova, implemented full-text search with Laravel Scout integrated with Algolia and Meilisearch, and developed OAuth authentication systems using Laravel Socialite with multiple providers including Google, GitHub, and Microsoft. I secured API endpoints using Laravel Sanctum for token-based authentication. Additionally, I optimized application performance through advanced query optimization, Redis caching strategies, OPcache configuration, database indexing, and Laravel's caching layer with tags and atomic locks. I designed and implemented comprehensive RESTful APIs using Laravel's API resources, versioning strategies, rate limiting, and industry-standard architecture patterns.
-                </p>
-                <p>
-                  I am a strong advocate for Test Driven Development (TDD) and Behavior Driven Development (BDD). In my projects, I implemented comprehensive testing strategies using PHPUnit, Pest, and Laravel Dusk, achieving 90%+ code coverage across multiple enterprise applications. I wrote extensive unit tests, feature tests, and browser tests utilizing mocking, test doubles, and database transactions for isolated testing. I integrated automated testing into CI/CD pipelines with GitHub Actions, which enabled continuous deployment workflows and caught regressions before they reached production. I consistently utilized Laravel's testing helpers, factories, seeders, and HTTP testing to accelerate test development and maintain high quality standards.
-                </p>
-                <p>
-                  I implemented multiple DevOps solutions using Docker and Docker Compose to create consistent, containerized Laravel environments with PHP-FPM, Nginx, Redis, and MySQL. I automated CI/CD pipelines for testing, building, and deploying to staging and production environments, which streamlined our release process. I managed Linux server infrastructure running Ubuntu and Debian, implementing deployment automation, log rotation, SSL certificate management, and environment provisioning using Ansible and Bash scripting. I also leveraged AWS services including EC2, S3, RDS, CloudFront, and Elastic Load Balancing to build scalable cloud infrastructure with high availability and fault tolerance.
-                </p>
-                <p>
-                  I have practiced Agile and Scrum methodologies throughout my career as a senior developer. I participated in sprint planning sessions, daily standups, sprint reviews, and retrospectives with teams of up to 8 developers. I created detailed user stories with clear acceptance criteria and definition of done, managed sprint backlogs with velocity tracking, and collaborated with junior developers on Laravel best practices, design patterns, and coding standards. I worked closely with stakeholders, product managers, and UX designers to translate business requirements into technical specifications and deliverables. I utilized Jira, Confluence, and Azure DevOps for project tracking, documentation, and seamless team collaboration.
-                </p>
-                <p>
-                  I have extensive experience with various enterprise SDLC methodologies, including Waterfall for regulated industries and hybrid Agile-Waterfall approaches for complex projects. I performed requirements gathering sessions with clients, created comprehensive technical specification documentation, designed system architectures, and built database schemas for mission-critical enterprise applications. I conducted thorough code reviews, implemented coding standards across development teams, and maintained detailed technical documentation for API endpoints, deployment procedures, and system architecture. I also provided ongoing maintenance, security updates, and performance optimization for production Laravel applications successfully serving thousands of concurrent users.
-                </p>
+                <div class="comprehensive-content">
+                  <ComprehensiveContent />
+                </div>
               </div>
               <button id="toggle-about" class="cyberpunk-toggle" type="button">
                 <span class="toggle-text">[ EXPAND_PROFILE ]</span>
@@ -386,6 +369,57 @@ import TechnicalDivider from "../components/TechnicalDivider.astro"
     background: var(--accent-regular);
     opacity: 0;
     z-index: 0;
+  }
+
+  /* Comprehensive content from markdown */
+  .comprehensive-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .comprehensive-content :global(h2) {
+    font-size: var(--text-2xl);
+    color: var(--gray-100);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .comprehensive-content :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .comprehensive-content :global(h3) {
+    font-size: var(--text-xl);
+    color: var(--gray-200);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  .comprehensive-content :global(p) {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .comprehensive-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .comprehensive-content :global(strong) {
+    color: var(--gray-100);
+    font-weight: 600;
+  }
+
+  .comprehensive-content :global(ul) {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .comprehensive-content :global(li) {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
   }
 
   /* Sequential paragraph reveal */
